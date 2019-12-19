@@ -1,11 +1,11 @@
 <?php
-$servername = "localhost"; // your host name.
+$servername = "unixondev.com"; // your host name.
 
-$username = "root"; // database user name.
+$username = "vipfouuo_vip-ims"; // database user name.
 
-$password = "root";  //database password.
+$password = "Unixon2018!";  //database password.
 
-$dbname = "adaptinventorydb_1_0_3"; // database name.
+$dbname = "vipfouuo_vip-ims"; // database name.
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
