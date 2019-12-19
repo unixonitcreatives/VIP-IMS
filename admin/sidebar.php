@@ -182,13 +182,15 @@
 								<li><a href="company-info.php"><?php echo $lang['CompanyInfo'];?></a></li>                                                                
                                <li> <a href="signout.php"><?php echo $lang['SignOut'];?></a></li>                               								
 							</ul>
-						</li>																				
+						</li>																		
+						<!--	
 						<li class="compact-hide">
 							<a href="../Documentation/index.html" target="new" class="waves-effect  waves-light">
 								<span class="s-icon"><i class="fa fa-circle-o text-primary"></i></span>
 								<span class="s-text"><?php echo $lang['Documentation'];?></span>
 							</a>
 						</li>
+						-->
                          <?php } ?>  
                        
                         <?php if(!empty($_SESSION['user_type_id']) && $_SESSION['user_type_id']=='3') { ?>                         
