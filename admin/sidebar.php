@@ -115,37 +115,40 @@
                                 <li><a href="paid-invoices.php"><?php echo $lang['PaidInvoices'];?></a></li>
                                 <li><a href="unpaid-invoices.php"><?php echo $lang['UnpadInvoices'];?></a></li>                               						
 							</ul>
-						</li>                        
+						</li>    
+						<!--                    
                         <li class="with-sub">
 							<a href="#" class="waves-effect  waves-light">
                             	<span class="s-caret"><i class="fa fa-angle-down"></i></span>
 								<span class="s-icon"><i class="ti-receipt"></i></span>
-								<span class="s-text"><?php echo $lang['Expenses'];?></span>
+								<span class="s-text"><?php //echo $lang['Expenses'];?></span>
 							</a>
                             <ul>
-                            	<li><a href="add-expense-type.php"><?php echo $lang['AddExpenses'];?></a></li>
-                                <li><a href="expense-types.php"><?php echo $lang['ManageExpensesType'];?></a></li>	
-								<li><a href="add-expense.php"><?php echo $lang['AddExpensesInvoice'];?></a></li>
-                                <li><a href="expense-invoices.php"><?php echo $lang['ManageExpensesInvoice'];?></a></li>	
-                                <li><a href="paid-expense-invoices.php"><?php echo $lang['PaidExpensesInvoice'];?></a></li>
-                                <li><a href="unpaid-expense-invoices.php"><?php echo $lang['UnpaidExpensesInvoice'];?></a></li>						
+                            	<li><a href="add-expense-type.php"><?php //echo $lang['AddExpenses'];?></a></li>
+                                <li><a href="expense-types.php"><?php //echo $lang['ManageExpensesType'];?></a></li>	
+								<li><a href="add-expense.php"><?php //echo $lang['AddExpensesInvoice'];?></a></li>
+                                <li><a href="expense-invoices.php"><?php //echo $lang['ManageExpensesInvoice'];?></a></li>	
+                                <li><a href="paid-expense-invoices.php"><?php //echo $lang['PaidExpensesInvoice'];?></a></li>
+                                <li><a href="unpaid-expense-invoices.php"><?php //echo $lang['UnpaidExpensesInvoice'];?></a></li>						
 							</ul>
-						</li>                        
+						</li>
+						-->                
                    
-						 
+						 <!--
                         <li class="with-sub">
 							<a href="#" class="waves-effect  waves-light">
                             	<span class="s-caret"><i class="fa fa-angle-down"></i></span>
 								<span class="s-icon"><i class="ti-money"></i></span>
-								<span class="s-text"><?php echo $lang['Loan'];?></span>
+								<span class="s-text"><?php //echo $lang['Loan'];?></span>
 							</a>
                             <ul>
-								<li><a href="add-loaner.php"><?php echo $lang['AddLoaner'];?></a></li>
-                                <li><a href="loaners.php"><?php echo $lang['ManageLoaners'];?></a></li>
-                                <li><a href="add-loan.php"><?php echo $lang['AddLoan'];?></a></li>
-                                <li><a href="loans.php"><?php echo $lang['ManageLoan'];?></a></li>							
+								<li><a href="add-loaner.php"><?php //echo $lang['AddLoaner'];?></a></li>
+                                <li><a href="loaners.php"><?php //echo $lang['ManageLoaners'];?></a></li>
+                                <li><a href="add-loan.php"><?php //echo $lang['AddLoan'];?></a></li>
+                                <li><a href="loans.php"><?php //echo $lang['ManageLoan'];?></a></li>							
 							</ul>
 						</li>
+						-->
                         <li class="with-sub">
 							<a href="#" class="waves-effect  waves-light">
                             	<span class="s-caret"><i class="fa fa-angle-down"></i></span>
@@ -166,7 +169,7 @@
                             <ul>
                             	<li><a href="profit_and_loss_ledger.php"><?php echo $lang['SalesProfit/LossLedger'];?></a></li>
 								<li><a href="sales_ledger.php"><?php echo $lang['SalesLedger'];?></a></li>
-                                <li><a href="expense_ledger.php"><?php echo $lang['ExpensesLedger'];?></a></li>							
+                                <!-- <li><a href="expense_ledger.php"><?php //echo $lang['ExpensesLedger'];?></a></li> -->						
 							</ul>
 						</li>                      
                         <li class="with-sub">
