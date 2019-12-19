@@ -111,6 +111,7 @@ include("language.php");
                                     <div class="col-sm-6">
 										<select id="setting_currency" name="setting_currency" value="" class="form-control" data-plugin="select2">
                                         <option value=""><?php echo $lang['Select'];?> <?php echo $lang['Currency'];?></option>
+                                        <option <?php if(isset($setting_currency) && ($setting_currency=='₱')) echo "selected";?> value="₱">₱</option>
                                         <option <?php if(isset($setting_currency) && ($setting_currency=='$')) echo "selected";?> value="$">$</option>
                                         <option <?php if(isset($setting_currency) && ($setting_currency=='£')) echo "selected";?> value="£">£</option>
                                         <option <?php if(isset($setting_currency) && ($setting_currency=='€')) echo "selected";?> value="€">€</option>
