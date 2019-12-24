@@ -1,160 +1,260 @@
-<?php require_once('connection/connection.php'); ?>
+<?php include "session.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-		<!-- Meta tags -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<meta name="description" content="">
-		<meta name="author" content="">
+<?php include "includes/header.php"; ?>
 
-		<!-- Title -->
-		<title><?php if(isset($setting_name1)){ echo $setting_name1;}?></title>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
 
-		<!-- adaptinventory CSS -->
-		<link rel="stylesheet" href="adaptinventory/bootstrap4/css/bootstrap.min.css">
-		<link rel="stylesheet" href="adaptinventory/themify-icons/themify-icons.css">
-		<link rel="stylesheet" href="adaptinventory/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="adaptinventory/nprogress/nprogress.css">
-        <link rel="stylesheet" href="adaptinventory/toastr/toastr.min.css">
+  <?php include "includes/navbar.php"; ?>
+  <?php include "includes/sidebar.php"; ?>
 
-		<!-- Neptune CSS -->
-		<link rel="stylesheet" href="admin/css/core.css">
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-		<!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-	</head>
-	<body style="background-color:#fff;">		
-		<div class="container-fluid">
-			<div class="sign-form">
-				<div class="row">
-					<div class="col-md-4 offset-md-4 px-3">
-						<div class="box b-a-0">
-                        <div id="error"></div>
-							<div class="p-2 text-xs-center">
-								<img src="admin/img/logo/<?php if(isset($setting_logo1)){ echo $setting_logo1;}?>" alt="<?php if(isset($setting_name1)){ echo $setting_name1;}?>" title="<?php if(isset($setting_name1)){ echo $setting_name1;}?>" >
-                                <!--<h5><?php if(isset($setting_name1)){ echo $setting_name1;}?></h5>-->
-							</div>
-							<form class="form-material mb-1" id="basicForm">
-								<div class="form-group">
-									<input type="text" class="form-control" id="username" name="username" autocomplete="off" placeholder="User Name">
-								</div>
-								<div class="form-group">
-									<input type="password" class="form-control" id="password" name="password" autocomplete="off" placeholder="Password">
-								</div>
-								<div class="px-2 form-group mb-0">
-									<button type="submit" class="btn btn-purple btn-block text-uppercase" name="btn-submit" id="btn-submit">Sign in</button>
-								</div>
-							</form>					
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-            
-		
-		<!-- adaptinventory JS -->
-		<script type="text/javascript" src="adaptinventory/jquery/jquery-1.12.3.min.js"></script>
-		<script type="text/javascript" src="adaptinventory/tether/js/tether.min.js"></script>
-		<script type="text/javascript" src="adaptinventory/bootstrap4/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="adaptinventory/toastr/toastr.min.js"></script>
-         <script type="text/javascript" src="adaptinventory/nprogress/nprogress.js"></script>
-        <script src="admin/js/jquery.validate.min.js"></script>
-        <script>
-jQuery(document).ready(function(){
-    
-  
-  // Basic Form
-  jQuery("#basicForm").validate({
-   /* highlight: function(element) {
-      jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-    },
-    success: function(element) {
-      jQuery(element).closest('.form-group').removeClass('has-error');
-    },*/
-	
-	
-	rules:
-   {
-		username: {
-		  required: true,
-		minlength: 4
-		},
-		 password: {
-		required: true,
-		minlength: 6,
-		maxlength: 15
-		 }
-   },
-	submitHandler: submitForm
-  });
-  
-  
-   function submitForm()
-    {
-        var data = $("#basicForm").serialize();
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <h3 class="card-title">Online Store Visitors</h3>
+                  <a href="javascript:void(0);">View Report</a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="d-flex">
+                  <p class="d-flex flex-column">
+                    <span class="text-bold text-lg">820</span>
+                    <span>Visitors Over Time</span>
+                  </p>
+                  <p class="ml-auto d-flex flex-column text-right">
+                    <span class="text-success">
+                      <i class="fas fa-arrow-up"></i> 12.5%
+                    </span>
+                    <span class="text-muted">Since last week</span>
+                  </p>
+                </div>
+                <!-- /.d-flex -->
 
-        $.ajax({
-        
-            type : 'POST',
-            url  : 'admin/login.php',
-            data : data,
-		    dataType : 'json',
-		    
-		    beforeSend: function()
-            {
-                NProgress.start();
-                $("#error").fadeOut();
-                $("#btn-submit").html(' <img src="admin/img/loader1.gif" /> &nbsp; sending ...');
-            },
-            success :  function (data)
-            {					
-		        //alert(data.status1);
-                if(data.status==='error'){
+                <div class="position-relative mb-4">
+                  <canvas id="visitors-chart" height="200"></canvas>
+                </div>
 
-                    $("#error").fadeIn(1000, function(){
-                        $("#error").html('<div class="alert alert-danger"> &nbsp; Sorry wrong credentials!</div>');
+                <div class="d-flex flex-row justify-content-end">
+                  <span class="mr-2">
+                    <i class="fas fa-square text-primary"></i> This Week
+                  </span>
 
-                        $("#btn-submit").html(' &nbsp; Try Again');
-						$("#basicForm").trigger('reset');
-                    });
-                }
-                else if(data.status==='login')
-                {
-                    toastr.options = {
-					positionClass: 'toast-top-right'
-					};
-					toastr.success('Success!');
-					NProgress.done();
-                    
-				    $("#btn-submit").html('<img src="admin/img/loader1.gif" /> &nbsp; Signing in ...');
-				    setTimeout('$(".sign-form").fadeOut(500, function(){ window.location = "admin/index.php" }); ',2000);
-         			//window.location = 'admin/index.php';	
-				
-       
-                  }
-               
-            }
-        });
-        return false;
-    }
-  
-  
-    
-});
+                  <span>
+                    <i class="fas fa-square text-gray"></i> Last Week
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+
+            <div class="card">
+              <div class="card-header border-0">
+                <h3 class="card-title">Recent Added Customer</h3>
+                <div class="card-tools">
+                  <a href="customer-add.php" class="btn btn-tool btn-sm">
+                    <i class="fas fa-plus"></i>
+                  </a>
+                  <a href="customer-manage.php" class="btn btn-tool btn-sm">
+                    <i class="fas fa-bars"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <table class="table table-striped table-valign-middle">
+                  <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>ID</th>
+                    <th>Ref ID</th>
+                    <th>Name</th>
+                  </tr>
+                  </thead>
+                  <?php
+                        // Include config file
+                        require_once 'config.php';
+
+                        // Attempt select query execution
+                        $query = "SELECT * FROM customers ORDER BY custID desc";
+                        if($result = mysqli_query($link, $query)){
+                          if(mysqli_num_rows($result) > 0){
+                            $ctr = 0;
+                            while($row = mysqli_fetch_array($result)){
+                              $ctr++;
+                              echo "<tr>";
+                              echo "<td>" . $ctr . "</td>";
+                              echo "<td>" . $row['custID'] . "</td>";
+                              echo "<td>" . $row['refID'] . "</td>";
+                              echo "<td>" . $row['name'] . "</td>";
+
+                              echo "<td>";
+                              echo "<a href='user-update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
+                              echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
+                              echo "</td>";
+                              echo "</tr>";
+                            }
+                            // Free result set
+                            mysqli_free_result($result);
+                          } else{
+                            echo "<p class='lead'><em>No records were found.</em></p>";
+                          }
+                        } else{
+                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                        }
+
+                        // Close connection
+                        mysqli_close($link);
+                        ?>
+                      </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col-md-6 -->
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <h3 class="card-title">Sales</h3>
+                  <a href="javascript:void(0);">View Report</a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="d-flex">
+                  <p class="d-flex flex-column">
+                    <span class="text-bold text-lg">$18,230.00</span>
+                    <span>Sales Over Time</span>
+                  </p>
+                  <p class="ml-auto d-flex flex-column text-right">
+                    <span class="text-success">
+                      <i class="fas fa-arrow-up"></i> 33.1%
+                    </span>
+                    <span class="text-muted">Since last month</span>
+                  </p>
+                </div>
+                <!-- /.d-flex -->
+
+                <div class="position-relative mb-4">
+                  <canvas id="sales-chart" height="200"></canvas>
+                </div>
+
+                <div class="d-flex flex-row justify-content-end">
+                  <span class="mr-2">
+                    <i class="fas fa-square text-primary"></i> This year
+                  </span>
+
+                  <span>
+                    <i class="fas fa-square text-gray"></i> Last year
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+
+            <div class="card">
+              <div class="card-header border-0">
+                <h3 class="card-title">Online Store Overview</h3>
+                <div class="card-tools">
+                  <a href="#" class="btn btn-sm btn-tool">
+                    <i class="fas fa-download"></i>
+                  </a>
+                  <a href="#" class="btn btn-sm btn-tool">
+                    <i class="fas fa-bars"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
+                  <p class="text-success text-xl">
+                    <i class="ion ion-ios-refresh-empty"></i>
+                  </p>
+                  <p class="d-flex flex-column text-right">
+                    <span class="font-weight-bold">
+                      <i class="ion ion-android-arrow-up text-success"></i> 12%
+                    </span>
+                    <span class="text-muted">CONVERSION RATE</span>
+                  </p>
+                </div>
+                <!-- /.d-flex -->
+                <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
+                  <p class="text-warning text-xl">
+                    <i class="ion ion-ios-cart-outline"></i>
+                  </p>
+                  <p class="d-flex flex-column text-right">
+                    <span class="font-weight-bold">
+                      <i class="ion ion-android-arrow-up text-warning"></i> 0.8%
+                    </span>
+                    <span class="text-muted">SALES RATE</span>
+                  </p>
+                </div>
+                <!-- /.d-flex -->
+                <div class="d-flex justify-content-between align-items-center mb-0">
+                  <p class="text-danger text-xl">
+                    <i class="ion ion-ios-people-outline"></i>
+                  </p>
+                  <p class="d-flex flex-column text-right">
+                    <span class="font-weight-bold">
+                      <i class="ion ion-android-arrow-down text-danger"></i> 1%
+                    </span>
+                    <span class="text-muted">REGISTRATION RATE</span>
+                  </p>
+                </div>
+                <!-- /.d-flex -->
+              </div>
+            </div>
+          </div>
+          <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 
 
+  <?php include "includes/footer.php"; ?>
+</div>
+<!-- ./wrapper -->
 
-</script> 
- 
-        
-        
-	</body>
+<!-- REQUIRED SCRIPTS -->
 
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE -->
+<script src="dist/js/adminlte.js"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<script src="dist/js/demo.js"></script>
+<script src="dist/js/pages/dashboard3.js"></script>
+</body>
 </html>
