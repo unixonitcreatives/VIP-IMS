@@ -50,12 +50,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     
                                     
                                     if($result){
-                                    echo "<script>alert('new staff added succesfully');</script>";
+                                    //echo "<script>alert('new staff added succesfully');</script>";
+    
+
                                     }else{
                                       //If execution failed
                                       $alertMessage = "<div class='alert alert-danger' role='alert'>
                                       Error adding data.
-                                      </div>";}
+                                      </div>";
+                                    }
                                       mysqli_close($link);
                                  }
                              } else{

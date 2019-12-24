@@ -111,6 +111,30 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cube"></i>
+              <p>
+                Packages
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              
+              <li class="nav-item">
+                <a href="package-add.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Packages</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="package-manage.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Packages</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-warehouse"></i>
               <p>
                 Warehouse
