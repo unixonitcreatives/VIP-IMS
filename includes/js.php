@@ -28,6 +28,8 @@
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Bootstrap Switch -->
 <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- Modified Code -->
+<script src="dist/js/productmodel.js"></script>
 
 
 
@@ -96,7 +98,7 @@ $(document).ready(function () {
     $('#timepicker').datetimepicker({
       format: 'LT'
     })
-    
+
     //Bootstrap Duallistbox
     $('.duallistbox').bootstrapDualListbox()
 

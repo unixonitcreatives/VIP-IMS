@@ -1,5 +1,6 @@
-<?php include "session.php"; 
+<?php include "session.php";
 
+    $account="";
     $_SESSION["username"] = $account;?>
 
 <?php
@@ -43,15 +44,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $custnewID = $IDtype.$custID; //Prepare custom ID
 
                                     $query = "
-                                    INSERT INTO users (custID, username, password, usertype, created_by) 
+                                    INSERT INTO users (custID, username, password, usertype, created_by)
                                     VALUES ('$custnewID', '$username', '$password', '$usertype', '$account')"; //Prepare insert query
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
-                                    
-                                    
+
+
                                     if($result){
                                     //echo "<script>alert('new staff added succesfully');</script>";
-    
+
 
                                     }else{
                                       //If execution failed
@@ -125,34 +126,40 @@ function test_input($data) {
                 <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                       <div class="form-group">
                         <label>Package Name</label>
-                        <input type="text" class="form-control" placeholder="Package Name" name="name" oninput="upperCase(this)" maxlength="20"required>
+                        <input type="text" class="form-control" placeholder="Package Name" name="name" oninput="upperCase(this)" maxlength="20"required><br>
+                        <button type="button" class="btn btn-success" onclick="modelAddRow()" id="modelAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus">Add Row</i></button>
                       </div>
 
-                      <table id="example" class="table table-bordered table-hover" role="grid" aria-describedby="example2_info">
+                      <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="productModelTable">
                       <thead>
-                        <tr>  
+                        <tr>
                           <th>Product Model</th>
                           <th>Quantity</th>
-                          <th>Action</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                        <?php
+                        $arrayNumber = 0;
+                        for($x =1; $x < 3; $x++){ ?> <!-- == loop start == -->
+                        <tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">
                           <td>
-                            <select class="form-control select2" style="width: 100%;" name="product" required>
+                            <div class="from-group">
+                            <select class="form-control select2" style="width: 100%;" name="product-model[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)">
+                            <option value="">~~PRODUCT MODEL~~</option>
                               <?php
                               // Include config file
                               require_once "config.php";
                               // Attempt select query executions
                               $query = "";
-                              $query = "SELECT * FROM `product-model` ORDER BY custID asc";
+                              $query = "SELECT * FROM `product-model` ";
                               // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
                               if($result = mysqli_query($link, $query)){
                               if(mysqli_num_rows($result) > 0){
 
                               while($row = mysqli_fetch_array($result)){
 
-                              echo "<option value='".$row['custID']."'>" . $row['description'] .  "</option>";
+                              echo "<option value='".$row['custID']."' id='changeProduct".$row['custID']."'>" . $row['description'] .  "</option>";
                               }
 
                                // Free result set
@@ -164,30 +171,21 @@ function test_input($data) {
                                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                               }
 
-
                               ?>
                               </select>
                           </td>
+                        </div>
                           <td>
-                            <input type="text" class="form-control" placeholder="Quantity" name="qty" oninput="upperCase(this)" required>
+                            <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?$php echo $x; ?>" required>
                           </td>
                           <td>
-                            <button type="button" class="btn btn-success"><i class="nav-icon fas fa-plus"></i> Add Row</button>
+                            <button class="btn btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
                           </td>
-                        </tr>>
+                        </tr>
+
+                        <?php $arrayNumber++; } ?> <!-- == loop end == -->
                       </tbody>
                     </table>
-
-
-
-
-
-
-
-
-
-
-
 
               </div>
 
