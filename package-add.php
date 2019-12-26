@@ -125,7 +125,7 @@ function test_input($data) {
                 <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                       <div class="form-group">
                         <label>Package Name</label>
-                        <input type="text" class="form-control" placeholder="Package Name" name="name" oninput="upperCase(this)" maxlength="20" required>
+                        <input type="text" class="form-control" placeholder="Package Name" name="name" oninput="upperCase(this)" maxlength="20"required>
                       </div>
 
                       <table id="example" class="table table-bordered table-hover" role="grid" aria-describedby="example2_info">
@@ -133,40 +133,48 @@ function test_input($data) {
                         <tr>  
                           <th>Product Model</th>
                           <th>Quantity</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <?php
-                        // Include config file
-                        require_once 'config.php';
+                        <tr>
+                          <td>
+                            <select class="form-control select2" style="width: 100%;" name="product" required>
+                              <?php
+                              // Include config file
+                              require_once "config.php";
+                              // Attempt select query executions
+                              $query = "";
+                              $query = "SELECT * FROM `product-model` ORDER BY custID asc";
+                              // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
+                              if($result = mysqli_query($link, $query)){
+                              if(mysqli_num_rows($result) > 0){
 
-                        // Attempt select query execution
-                        $query = "SELECT * FROM `product-model`";
-                        if($result = mysqli_query($link, $query)){
-                          if(mysqli_num_rows($result) > 0){
-                            $ctr = 0;
-                            while($row = mysqli_fetch_array($result)){
-                              $ctr++;
-                              echo "<tr>";
-                              echo "<td> <input type='text' class='form-control' placeholder='Quantity' name='qty' oninput='upperCase(this)' value='" . $row['description'] . "' readonly> </td>";
+                              while($row = mysqli_fetch_array($result)){
 
-                              echo "<td> <input type='text' class='form-control' placeholder='Quantity' name='qty' oninput='upperCase(this)'> </td>";
-                              echo "</tr>";
+                              echo "<option value='".$row['custID']."'>" . $row['description'] .  "</option>";
+                              }
+
+                               // Free result set
+                              mysqli_free_result($result);
+                              } else{
+                              echo "<p class='lead'><em>No records were found.</em></p>";
+                              }
+                              } else{
+                                echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                              }
 
 
-                            }
-                            // Free result set
-                            mysqli_free_result($result);
-                          } else{
-                            echo "<p class='lead'><em>No records were found.</em></p>";
-                          }
-                        } else{
-                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                        }
-
-                        // Close connection
-                        mysqli_close($link);
-                        ?>
+                              ?>
+                              </select>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" placeholder="Quantity" name="qty" oninput="upperCase(this)" required>
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success"><i class="nav-icon fas fa-plus"></i> Add Row</button>
+                          </td>
+                        </tr>>
                       </tbody>
                     </table>
 
