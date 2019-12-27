@@ -1,84 +1,83 @@
-<?php include "session.php";
+<?php 
+//Connection
+require_once "config.php";
+// Define variables and initialize with empty values
+$pname=$account=$alertMessage="";
+?>
 
-    $account="";
-    $_SESSION["username"] = $account;?>
+<?php include "session.php";
+    //loggedin username
+    $account = $_SESSION["username"];
+?>
 
 <?php
-// Define variables and initialize with empty values
-$name=$password=$usertype=$alertMessage="";
-require_once "config.php";
 
-//If the form is submitted or not.
+
 //If the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    //Assigning posted values to variables.
-    $name = test_input($_POST['name']);
-    $password = test_input($_POST['password']);
-    $usertype = test_input($_POST['usertype']);
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+  $packname = validation($_POST['package_name']);
+  $packprice = validation($_POST['package_price']);
+
+  //if empty required fields
+  if(empty($packname) || empty($packprice)){
+
+    $alertMessage = "<div class='alert alert-danger' role='alert'>
+        Please input required fields.
+        </div>";
+
+  }else {
 
 
-    // Check input errors before inserting in database
-    if(empty($alertMessage)){
-        //Check if the username is already in the database
-        $sql_check = "SELECT username FROM users WHERE username ='$username'";
-        if($result = mysqli_query($link, $sql_check)){ //Execute query
-                                 if(mysqli_num_rows($result) > 0){
-                                    //If the username already exists
-                                    //Try another username pop up
-                                    echo "<script>alert('staff username already exist');</script>";
-                                    mysqli_free_result($result);
-                                 } else{
-                                    //If the username doesnt exist in the database
-                                    //Proceed adding to database
-
-                                    //Prepare Date for custom ID
-                                    $IDtype = "STAFF";
-                                    $m = date('m');
-                                    $y = date('y');
-                                    $d = date('d');
-
-                                    $qry = mysqli_query($link,"SELECT MAX(id) FROM `users`"); // Get the latest ID
-                                    $resulta = mysqli_fetch_array($qry);
-                                    $newID = $resulta['MAX(id)'] + 1; //Get the latest ID then Add 1
-                                    $custID = str_pad($newID, 4, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
-                                    $custnewID = $IDtype.$custID; //Prepare custom ID
-
-                                    $query = "
-                                    INSERT INTO users (custID, username, password, usertype, created_by)
-                                    VALUES ('$custnewID', '$username', '$password', '$usertype', '$account')"; //Prepare insert query
-
-                                    $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
+  //INSERT query to packages table
+  $packageQuery = "INSERT INTO packages (package_name, package_price, created_by) VALUES ('$packname', '$packprice', '$account')";
+  $packageResult = mysqli_query($link, $packageQuery) or die(mysqli_error($link));
 
 
-                                    if($result){
-                                    //echo "<script>alert('new staff added succesfully');</script>";
+  if ($packageResult === TRUE) {
+    $j = 0;
 
+    //Counts the elements in array
+    $count = count($_POST['product-model']);
 
-                                    }else{
-                                      //If execution failed
-                                      $alertMessage = "<div class='alert alert-danger' role='alert'>
-                                      Error adding data.
-                                      </div>";
-                                    }
-                                      mysqli_close($link);
-                                 }
-                             } else{
-                                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                             }
+    // Use insert_id property to get the id of previous table (packages table)
+    $packages_id = $link->insert_id;
 
-                             mysqli_close($link);
+    for ($j = 0; $j < $count; $j++) {
 
-        }
+      $listquery = "INSERT INTO package_list (packId, pack_list_model, pack_list_qty) VALUES (
+        '".$packages_id."',
+        '".$_POST['product-model'][$j]."',
+        '".$_POST['modelQty'][$j]."')";
+
+        $listresult = mysqli_multi_query($link, $listquery) or die(mysqli_error($link));
+
       }
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+      if($listresult === TRUE){
+        $alertMessage = "<div class='alert alert-success' role='alert'>
+        Package Created.
+        </div>";
 
-?>
+      }else{
+        $alertMessage = "<div class='alert alert-danger' role='alert'>
+        Error Creating Package.
+        </div>";}
+        //INSERT query to so_transactions table end
+
+      }
+    }
+
+  } // ./validation
+
+    function validation($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+    }
+    // Close connection
+    //mysqli_close($link);
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -109,6 +108,7 @@ function test_input($data) {
     </div>
     <!-- /.content-header -->
 
+     <?php echo $alertMessage; ?>
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
@@ -125,8 +125,10 @@ function test_input($data) {
               <div class="card-body">
                 <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                       <div class="form-group">
-                        <label>Package Name</label>
-                        <input type="text" class="form-control" placeholder="Package Name" name="name" oninput="upperCase(this)" maxlength="20"required><br>
+                        <label>Package Name<span style="color: Red;">*</span></label>
+                        <input type="text" class="form-control" placeholder="Package Name" name="package_name" oninput="upperCase(this)" maxlength="20" required><br>
+                        <label>Package Price<span style="color: Red;">*</span></label>
+                        <input type="number" class="form-control" placeholder="Php 0.00" name="package_price"  required><br>
                         <button type="button" class="btn btn-success" onclick="modelAddRow()" id="modelAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus">Add Row</i></button>
                       </div>
 
@@ -211,6 +213,7 @@ function test_input($data) {
 <!-- ./wrapper -->
 <!-- REQUIRED SCRIPTS -->
  <?php include "includes/js.php"; ?>
+
 
 </body>
 </html>

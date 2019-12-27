@@ -1,6 +1,5 @@
 <!-- Select2 -->
 <script src="plugins/select2/js/select2.full.min.js"></script>
-
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -14,7 +13,6 @@
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
 <script src="plugins/toastr/toastr.min.js"></script>
-
 <!-- Bootstrap4 Duallistbox -->
 <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 <!-- InputMask -->
@@ -30,6 +28,7 @@
 <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- Modified Code -->
 <script src="dist/js/productmodel.js"></script>
+
 
 
 
@@ -169,3 +168,4 @@ $(document).ready(function () {
 
 });
 </script>
+
