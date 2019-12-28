@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
   $packprice = validation($_POST['package_price']);
 
   //if empty required fields
-  if(empty($packname) || empty($packprice)){
+  if(empty($packname)){
 
     $alertMessage = "<div class='alert alert-danger' role='alert'>
         Please input required fields.
@@ -27,9 +27,22 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
   }else {
 
+  //Prepare Date for custom ID
+  $IDtype = "PM";
+  $m = date('m');
+  $y = date('y');
+  $d = date('d');
+
+  $qry = mysqli_query($link,"SELECT MAX(id) FROM `product-model`"); // Get the latest ID
+  $resulta = mysqli_fetch_array($qry);
+  $newID = $resulta['MAX(id)'] + 1; //Get the latest ID then Add 1
+  $custID = str_pad($newID, 5, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
+  $custnewID = $IDtype.$custID; //Prepare custom ID
 
   //INSERT query to packages table
-  $packageQuery = "INSERT INTO packages (package_name, package_price, created_by) VALUES ('$packname', '$packprice', '$account')";
+  $packageQuery = "
+  INSERT INTO `product-model` (custID, description, sku, type, status, created_by) 
+  VALUES ('$custnewID', '$packname', 'PKG', 'package', 'Active','$account')";
   $packageResult = mysqli_query($link, $packageQuery) or die(mysqli_error($link));
 
 
@@ -108,7 +121,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     </div>
     <!-- /.content-header -->
 
-     <?php echo $alertMessage; ?>
+    
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
@@ -123,6 +136,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
               </div>
 
               <div class="card-body">
+                <?php echo $alertMessage; ?>
                 <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                       <div class="form-group">
                         <label>Package Name<span style="color: Red;">*</span></label>
@@ -152,7 +166,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                               require_once "config.php";
                               // Attempt select query executions
                               $query = "";
-                              $query = "SELECT * FROM `product-model` ";
+                              $query = "SELECT * FROM `product-model` WHERE type = 'retail' ";
                               // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
                               if($result = mysqli_query($link, $query)){
                               if(mysqli_num_rows($result) > 0){
