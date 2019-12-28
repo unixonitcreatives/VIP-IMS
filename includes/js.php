@@ -28,6 +28,7 @@
 <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- Modified Code -->
 <script src="dist/js/productmodel.js"></script>
+<script src="dist/js/invoice.js"></script>
 
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>

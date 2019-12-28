@@ -1,16 +1,16 @@
-function modelAddRow() {
-	$("#modelAddRowBtn").button("loading");
+function invAddRow() {
+	$("#invAddRowBtn").button("loading");
 
 
-	var tableLength = $("#productModelTable tbody tr").length;
+	var tableLength = $("#invTable tbody tr").length;
 
 	var tableRow;
 	var arrayNumber;
 	var count;
 
 	if(tableLength > 0) {
-		tableRow = $("#productModelTable tbody tr:last").attr('id');
-		arrayNumber = $("#productModelTable tbody tr:last").attr('class');
+		tableRow = $("#invTable tbody tr:last").attr('id');
+		arrayNumber = $("#invTable tbody tr:last").attr('class');
 		count = tableRow.substring(3);
 		count = Number(count) + 1;
 		arrayNumber = Number(arrayNumber) + 1;
@@ -21,18 +21,18 @@ function modelAddRow() {
 	}
 
 	$.ajax({
-		url: "../VIP-IMS/fetches/fetchProductModel.php",
+		url: "../VIP-IMS/fetches/fetchInvProduct.php",
 		type: 'post',
 		dataType: 'json',
 		success:function(response) {
-			$("#modelAddRowBtn").button("reset");
+			$("#invAddRowBtn").button("reset");
 
 			var tr = '<tr id="row'+count+'" class="'+arrayNumber+'">'+
 				'<td>'+
 					'<div class="form-group">'+
 
-					'<select class="form-control" name="product-model[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" >'+
-						'<option value="">~~PRODUCT MODEL~~</option>';
+					'<select class="form-control select2" style="width: 100%;" name="product-model[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" >'+
+						'<option value="">~~Select Product~~</option>';
 						//console.log(response);
 						$.each(response, function(index, value) {
 							tr += '<option value="'+value[0]+'">'+value[1]+'</option>';
@@ -51,9 +51,9 @@ function modelAddRow() {
 				'</td>'+
 			'</tr>';
 			if(tableLength > 0) {
-				$("#productModelTable tbody tr:last").after(tr);
+				$("#invTable tbody tr:last").after(tr);
 			} else {
-				$("#productModelTable tbody").append(tr);
+				$("#invTable tbody").append(tr);
 			}
 
 		} // /success
