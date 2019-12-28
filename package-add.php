@@ -1,4 +1,4 @@
-<?php 
+<?php
 //Connection
 require_once "config.php";
 // Define variables and initialize with empty values
@@ -16,7 +16,6 @@ $pname=$account=$alertMessage="";
 //If the form is submitted
 if($_SERVER['REQUEST_METHOD'] == "POST"){
   $packname = validation($_POST['package_name']);
-  $packprice = validation($_POST['package_price']);
 
   //if empty required fields
   if(empty($packname)){
@@ -41,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
   //INSERT query to packages table
   $packageQuery = "
-  INSERT INTO `product-model` (custID, description, sku, type, status, created_by) 
+  INSERT INTO `product-model` (custID, description, sku, type, status, created_by)
   VALUES ('$custnewID', '$packname', 'PKG', 'package', 'Active','$account')";
   $packageResult = mysqli_query($link, $packageQuery) or die(mysqli_error($link));
 
@@ -53,12 +52,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $count = count($_POST['product-model']);
 
     // Use insert_id property to get the id of previous table (packages table)
-    $packages_id = $link->insert_id;
+    //$packages_id = $link->insert_id;
 
     for ($j = 0; $j < $count; $j++) {
 
       $listquery = "INSERT INTO package_list (packId, pack_list_model, pack_list_qty) VALUES (
-        '".$packages_id."',
+        '".$custnewID."',
         '".$_POST['product-model'][$j]."',
         '".$_POST['modelQty'][$j]."')";
 
@@ -121,7 +120,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     </div>
     <!-- /.content-header -->
 
-    
+
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
@@ -141,7 +140,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                       <div class="form-group">
                         <label>Package Name<span style="color: Red;">*</span></label>
                         <input type="text" class="form-control" placeholder="Package Name" name="package_name" oninput="upperCase(this)" maxlength="20" required><br>
-                        
+
                       </div>
 
                       <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="productModelTable">

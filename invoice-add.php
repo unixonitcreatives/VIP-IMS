@@ -136,7 +136,7 @@ function test_input($data) {
                             require_once "config.php";
                             // Attempt select query executions
                             $query = "";
-                            $query = "SELECT * FROM customers ORDER BY custID asc";
+                            $query = "SELECT * FROM customers ORDER BY custID desc";
                             // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
                             if($result = mysqli_query($link, $query)){
                               if(mysqli_num_rows($result) > 0){
@@ -205,14 +205,14 @@ function test_input($data) {
         </div>
       </div>
 
-      <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="productModelTable">
+      <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="invTable">
         <thead>
           <tr>
             <th width="50%">Product Model</th>
             <th width="30%">Quantity</th>
             <!-- <th>Unit Price</th>
             <th>Total Price</th> -->
-            <th width="20%"><button type="button" class="btn btn-success" onclick="modelAddRow()" id="modelAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus"> Add Row</i></button></th>
+            <th width="20%"><button type="button" class="btn btn-success" onclick="invAddRow()" id="invAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus"> Add Row</i></button></th>
           </tr>
         </thead>
         <tbody>
@@ -223,20 +223,20 @@ function test_input($data) {
               <td>
                 <div class="from-group">
                   <select class="form-control select2" style="width: 100%;" name="product-model[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)">
-                    <option value="">Select Product</option>
+                    <option value="">~~Select Product~~</option>
                     <?php
                     // Include config file
                     require_once "config.php";
                     // Attempt select query executions
                     $query = "";
-                    $query = "SELECT * FROM `stocks` WHERE warehouse = 'WH0001' ";
+                    $query = "SELECT custID, description FROM product_model";
                     // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
                     if($result = mysqli_query($link, $query)){
                       if(mysqli_num_rows($result) > 0){
 
                         while($row = mysqli_fetch_array($result)){
 
-                          echo "<option value='".$row['custID']."' id='changeProduct".$row['custID']."'>" . $row['product'] .  "</option>";
+                          echo "<option value='".$row['custID']."' id='changeProduct".$row['custID']."'>" . $row['description'] .  "</option>";
                         }
 
                         // Free result set
@@ -288,8 +288,6 @@ function test_input($data) {
         <span class="sr-only">Toggle Dropdown</span>
         <div class="dropdown-menu" role="menu" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-1px, -3px, 0px);">
           <a class="dropdown-item" href="#">Fully Paid</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Installment</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Unpaid</a>
         </div>

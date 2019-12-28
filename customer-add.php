@@ -1,6 +1,8 @@
-<?php include "session.php"; 
+<?php include "session.php";
 
-    $_SESSION["username"] = $account;?>
+    $_SESSION["username"] = $account;
+
+?>
 
 <?php
 // Define variables and initialize with empty values
@@ -43,12 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $custnewID = $IDtype.$custID; //Prepare custom ID
 
                                     $query = "
-                                    INSERT INTO customers (custID, name, refID, address, created_by) 
+                                    INSERT INTO customers (custID, name, refID, address, created_by)
                                     VALUES ('$custnewID', '$name', '$refID', '$address', '$account')"; //Prepare insert query
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
-                                    
-                                    
+
+
                                     if($result){
                                     echo "<script>
                                             // show when page load
