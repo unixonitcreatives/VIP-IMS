@@ -56,10 +56,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     
                                     
                                     if($result){
-                                    echo "<script>
-                                            // show when page load
-                                            toastr.info('Hey - it works!');
-                                    </script>";
+                                    $info = $_SESSION['username']." added new warehouse";
+                                    $info2 = "Details: ".$name;
+                                    $alertlogsuccess = $name.": has been added succesfully!";
+                                    include "logs.php";
 
                                     }else{
                                       //If execution failed

@@ -55,8 +55,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     
                                     
                                     if($result){
-                                    echo "<script>alert('Successfuly added new stocks')</script>";
-                                    header("location:stock-manage.php");
+                                    $info = $_SESSION['username']." added new stock";
+                                    $info2 = "Details: ".$product.", ".$qty."pcs";
+                                    $alertlogsuccess = $product.", ".$qty."pcs: has been added succesfully!";
+                                    include "logs.php";
 
                                     }else{
                                     echo "<script>alert('Failed adding new stocks')</script>";

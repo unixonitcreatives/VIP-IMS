@@ -49,10 +49,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     
                                     
                                     if($result){
-                                    echo "<script>
-                                            // show when page load
-                                            toastr.info('Hey - it works!');
-                                    </script>";
+                                    $info = $_SESSION['username']." added new product-model";
+                                    $info2 = "Details: ".$description.", ".$sku;
+                                    $alertlogsuccess = $description.", ".$sku.": has been added succesfully!";
+                                    include "logs.php";
 
                                     }else{
                                       //If execution failed

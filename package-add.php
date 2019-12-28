@@ -53,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $count = count($_POST['product-model']);
 
     // Use insert_id property to get the id of previous table (packages table)
-    $packages_id = $link->insert_id;
+    $packages_id = $link->insert_custID;
 
     for ($j = 0; $j < $count; $j++) {
 
@@ -67,6 +67,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
       }
 
       if($listresult === TRUE){
+        //logs
+        $info = $_SESSION['username']." added new package";
+        $info2 = "Details: ".$packname;
+        $alertlogsuccess = $packname.": has been added succesfully!";
+        include "logs.php";
+
+
         $alertMessage = "<div class='alert alert-success' role='alert'>
         Package Created.
         </div>";

@@ -47,11 +47,11 @@
                       <thead>
                         <tr>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Stock No.</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Product Model</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse ID</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Quantity</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">PM No.</th>
+
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">SKU</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Description</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Time Created</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -61,7 +61,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM stocks ORDER BY warehouse asc, product asc";
+                        $query = "SELECT * FROM `product-model` WHERE type='package' ORDER BY custID asc";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
@@ -70,10 +70,9 @@
                               echo "<tr>";
                               echo "<td>" . $ctr . "</td>";
                               echo "<td>" . $row['custID'] . "</td>";
-                              echo "<td>" . $row['product'] . "</td>";
-                              echo "<td>" . $row['warehouse'] . "</td>";
-                              echo "<td>" . number_format($row['quantity']) . "</td>";
-                              echo "<td>" . $row['status'] . "</td>";
+                              echo "<td>" . $row['sku'] . "</td>";
+                              echo "<td>" . $row['description'] . "</td>";
+                              echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";
                               echo "<a href='user-update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
                               echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
