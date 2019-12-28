@@ -51,7 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     
                                     if($result){
                                     //echo "<script>alert('new staff added succesfully');</script>";
-    
+                                    $info = "ADMIN"." added new staff";
+                                    $info2 = "Staff Details:".$username.", ".$usertype;
+                                    include "logs.php";
 
                                     }else{
                                       //If execution failed

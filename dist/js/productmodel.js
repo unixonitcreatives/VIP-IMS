@@ -32,7 +32,7 @@ function modelAddRow() {
 					'<div class="form-group">'+
 
 					'<select class="form-control" name="product-model[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" >'+
-						'<option value="">~~PRODUCT MODEL~~</option>';
+						'<option value="">Select Product</option>';
 						//console.log(response);
 						$.each(response, function(index, value) {
 							tr += '<option value="'+value[0]+'">'+value[1]+'</option>';
@@ -43,7 +43,7 @@ function modelAddRow() {
 				'</td>'+
 
 				'<td>'+
-					'<input type="number" name="modelQty[]" id="modQty'+count+'" autocomplete="off" class="form-control" placeholder="Quantity"/>'+
+					'<input type="text" name="modelQty[]" id="modQty'+count+'" autocomplete="off" class="form-control" placeholder="Quantity"/>'+
 				'</td>'+
 
 				'<td>'+

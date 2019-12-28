@@ -127,17 +127,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                       <div class="form-group">
                         <label>Package Name<span style="color: Red;">*</span></label>
                         <input type="text" class="form-control" placeholder="Package Name" name="package_name" oninput="upperCase(this)" maxlength="20" required><br>
-                        <label>Package Price<span style="color: Red;">*</span></label>
-                        <input type="number" class="form-control" placeholder="Php 0.00" name="package_price"  required><br>
-                        <button type="button" class="btn btn-success" onclick="modelAddRow()" id="modelAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus">Add Row</i></button>
+                        
                       </div>
 
                       <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="productModelTable">
                       <thead>
                         <tr>
-                          <th>Product Model</th>
-                          <th>Quantity</th>
-                          <th></th>
+                          <th width="50%">Product Model</th>
+                          <th width="30%">Quantity</th>
+                          <th width="20%"><button type="button" class="btn btn-success" onclick="modelAddRow()" id="modelAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus">Add Row</i></button></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -148,7 +146,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                           <td>
                             <div class="from-group">
                             <select class="form-control select2" style="width: 100%;" name="product-model[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)">
-                            <option value="">~~PRODUCT MODEL~~</option>
+                            <option value="">Select Product</option>
                               <?php
                               // Include config file
                               require_once "config.php";
