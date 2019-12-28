@@ -11,8 +11,7 @@ $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  in
                                     
                                     
 if($result){
-   echo "<script>alert('new staff added succesfully');</script>";
-   
+   echo "<script>alert('".$alertlogsuccess."');</script>";
 }else{
    //If execution failed
    echo "<script>alert('An Error has Occured. ERROR CODE: 222');</script>";

@@ -51,8 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     
                                     if($result){
                                     //echo "<script>alert('new staff added succesfully');</script>";
-                                    $info = "ADMIN"." added new staff";
-                                    $info2 = "Staff Details:".$username.", ".$usertype;
+                                    $info = $_SESSION['username']." added new staff";
+                                    $info2 = "Details: ".$username.", ".$usertype;
+                                    $alertlogsuccess = $username.", ".$usertype.": has been added succesfully!";
                                     include "logs.php";
 
                                     }else{
