@@ -1,4 +1,4 @@
-  <?php include "session.php";
+<?php include "session.php";
 
       $account="";
       $_SESSION["username"] = $account;?>
@@ -80,147 +80,139 @@
 
   ?>
 
-  <!DOCTYPE html>
-  <html lang="en">
-  <?php include "includes/header.php"; ?>
+<!DOCTYPE html>
+<html lang="en">
+<?php include "includes/header.php"; ?>
 
-  <body class="hold-transition sidebar-mini">
-  <div class="wrapper">
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
 
-    <?php include "includes/navbar.php"; ?>
-    <?php include "includes/sidebar.php"; ?>
+  <?php include "includes/navbar.php"; ?>
+  <?php include "includes/sidebar.php"; ?>
 
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <div class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0 text-dark">VIP Inventory Management System</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                <li class="breadcrumb-item active">Add Package</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-      </div>
-      <!-- /.content-header -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">VIP Inventory Management System</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item active">Add Package</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-      <!-- Main content -->
-      <div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="card">
-                <div class="card-header">
-                  <div class="d-flex justify-content-between">
-                    <h3 class="card-title">Add Invoice</h3>
-                    <a href="staff-manage.php">View all invoices</a>
-                  </div>
+     <?php echo $alertMessage; ?>
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="d-flex justify-content-between">
+                  <h3 class="card-title">Add Invoice</h3>
+                  <a href="invoice-manage.php">View all invoice</a>
                 </div>
+              </div>
 
-                <div class="card-body">
-                  <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                        <div class="row">
-                        <div class="form-group">
-                        <label>Customer</label><a href="customer-add.php"> + new customer</a>
-                        <select class="form-control select2" oninput="upperCase(this)"  name="customer_name" required>
-                                <?php
-                                // Include config file
-                                require_once "config.php";
-                                // Attempt select query executions
-                                $query = "";
-                                $query = "SELECT * FROM customers ORDER BY custID asc";
-                                // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
-                                if($result = mysqli_query($link, $query)){
-                                if(mysqli_num_rows($result) > 0){
-                                while($row = mysqli_fetch_array($result)){
+              <div class="card-body">
+                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                      <div class="row">
+                        <div class="col-sm-6">
+                              <div class="form-group">
+                              <label>Customer</label><a href="customer-add.php"> + new customer</a>
+                              <select class="form-control select2" oninput="upperCase(this)"  name="customer_name" required>
+                                      <?php
+                                      // Include config file
+                                      require_once "config.php";
+                                      // Attempt select query executions
+                                      $query = "";
+                                      $query = "SELECT * FROM customers ORDER BY custID asc";
+                                      // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
+                                      if($result = mysqli_query($link, $query)){
+                                      if(mysqli_num_rows($result) > 0){
+                                      while($row = mysqli_fetch_array($result)){
 
-                                echo "<option value='".$row['custID']."'>" . $row['name'] .  "</option>";
-                                }
+                                      echo "<option value='".$row['custID']."'>" . $row['name'] .  "</option>";
+                                      }
 
-                                 // Free result set
-                                mysqli_free_result($result);
-                                } else{
-                                echo "<p class='lead'><em>No records were found.</em></p>";
-                                }
-                                } else{
-                                  echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                                }
-
-
-                                ?>
-                        </select>
-                        
-                      </div>
-
-                        <!-- <div class="form-group">
-                        <label>Warehouse</label><a href="warehouse-add.php"> + new warehouse</a>
-
-                        <select class="form-control select2" style="width: 100%;" oninput="upperCase(this)"  data-placeholder="Warehouse" name="warehouse" required>
-                                <?php
-                                // Include config file
-                                require_once "config.php";
-                                // Attempt select query executions
-                                $query = "";
-                                $query = "SELECT * FROM warehouse ORDER BY custID asc";
-                                // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
-                                if($result = mysqli_query($link, $query)){
-                                if(mysqli_num_rows($result) > 0){
-
-                                while($row = mysqli_fetch_array($result)){
-
-                                echo "<option value='".$row['custID']."'>" . $row['name'] .  "</option>";
-                                }
-
-                                 // Free result set
-                                mysqli_free_result($result);
-                                } else{
-                                echo "<p class='lead'><em>No records were found.</em></p>";
-                                }
-                                } else{
-                                  echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                                }
+                                       // Free result set
+                                      mysqli_free_result($result);
+                                      } else{
+                                      echo "<p class='lead'><em>No records were found.</em></p>";
+                                      }
+                                      } else{
+                                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                                      }
 
 
-                                ?>
-                        </select>
-                        <br> 
-                        
-                      </div> -->
+                                      ?>
+                              </select>
+                            </div>
+
+                    <div class="form-group">
+                  <label>Date masks:</label>
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
-                  
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>Invoice Date</label>
-                        <input type="date" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>Due Date</label>
-                        <input type="date" class="form-control">
-                      </div>
-                    </div>
+                    <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                   </div>
-                  <br>
-                         <button type="button" class="btn btn-success" onclick="modelAddRow()" id="modelAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus"> Add Row</i></button>
-                        
+                  <!-- /.input group -->
                 </div>
+                            <!-- <div class="form-group">
+                            <label>Warehouse</label><a href="warehouse-add.php"> + new warehouse</a>
+
+                            <select class="form-control select2" style="width: 100%;" oninput="upperCase(this)"  data-placeholder="Warehouse" name="warehouse" required>
+                                    <?php /*
+                                    // Include config file
+                                    require_once "config.php";
+                                    // Attempt select query executions
+                                    $query = "";
+                                    $query = "SELECT * FROM warehouse ORDER BY custID asc";
+                                    // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
+                                    if($result = mysqli_query($link, $query)){
+                                    if(mysqli_num_rows($result) > 0){
+
+                                    while($row = mysqli_fetch_array($result)){
+
+                                    echo "<option value='".$row['custID']."'>" . $row['name'] .  "</option>";
+                                    }
+
+                                     // Free result set
+                                    mysqli_free_result($result);
+                                    } else{
+                                    echo "<p class='lead'><em>No records were found.</em></p>";
+                                    }
+                                    } else{
+                                      echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                                    }
 
 
-                        <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="productModelTable">
+                                    */ ?>
+                            </select>
+                          </div>-->
+
+                        </div>
+                      </div>
+
+                      <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="productModelTable">
                         <thead>
                           <tr>
-                            <th>Product Model</th>
-                            <th>Quantity</th>
-                            <th>Unit Price</th>
-                            <th>Total Price</th>
-                            <th></th>
+                            <th width="50%">Product Model</th>
+                            <th width="30%">Quantity</th>
+                            <!-- <th>Unit Price</th>
+                            <th>Total Price</th> -->
+                            <th width="20%"><button type="button" class="btn btn-success" onclick="modelAddRow()" id="modelAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus"> Add Row</i></button></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -231,7 +223,7 @@
                             <td>
                               <div class="from-group">
                               <select class="form-control select2" style="width: 100%;" name="product-model[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)">
-                              <option value="">~~PRODUCT MODEL~~</option>
+                              <option value="">Select Product</option>
                                 <?php
                                 // Include config file
                                 require_once "config.php";
@@ -259,44 +251,38 @@
                                 ?>
                                 </select>
                             </td>
-                          </div>
+                          
                             <td>
-                              <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?$php echo $x; ?>" required>
+                              <input type="text" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?$php echo $x; ?>" required>
+                            </td>
+                            <!-- <td>
+                              <input type="text" class="form-control" placeholder="Price" name="modelQty[]" id="moddQty<?$php //echo $x; ?>" required>
                             </td>
                             <td>
-                              <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?$php echo $x; ?>" required>
+                              <input type="text" class="form-control" placeholder="Total Amount" name="modelQty[]" id="moddQty<?$php //echo $x; ?>" required>
                             </td>
-                            <td>
-                              <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?$php echo $x; ?>" required>
-                            </td>
+                          -->
                             <td>
                               <button class="btn btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
                             </td>
                           </tr>
                           <?php $arrayNumber++; } ?> <!-- == loop end == -->
                         </tbody>
-                        <tfoot>
-                          <tr style="text-align: right;">
-                            <td colspan="3"><label for="subTotal">Sub-Total:</label></td>
-                            <td style="text-align: center; size: 8em;">0.00</td>
-                          </tr>
-
-                          <tr style="text-align: right;">
-                            <td colspan="3"><label for="discount">Discount/s:</label></td>
-                            <td style="text-align: center;">0.00</td>
-                          </tr>
-
-                          <tr style="text-align: right;">
-                            <td colspan="3"><label for="grandTotal">Grand Total:</label></td>
-                            <td style="text-align: center;">0.00</td>
-                          </tr>
-                        </tfoot>
+                        
                       </table>
 
-                </div>
+                          <div class="form-group">
+                            <label>Remarks</label><br>
+                            <textarea class="form-control" width="100%" rows="5" style="resize: none;" placeholder="" name="note"></textarea>
+                            <!--<input type="text" class="form-control">-->
+                            <br>
 
-                <div class="card-footer">
-                  <div class="btn-group">
+                          </div>
+
+              </div>
+
+              <div class="card-footer">
+                    <div class="btn-group">
                     <button type="button" class="btn btn-success">Action/s</button>
                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                       <span class="sr-only">Toggle Dropdown</span>
@@ -310,27 +296,27 @@
                     </button>
                   </div>
                   <button type="button" class="btn btn-secondary">Clear</button>
-                </div>
-                  </form>
-                </div>
+                </form>
               </div>
             </div>
-
           </div>
-          <!-- /.row -->
+
         </div>
-        <!-- /.container-fluid -->
+        <!-- /.row -->
       </div>
-      <!-- /.content -->
+      <!-- /.container-fluid -->
     </div>
-    <!-- /.content-wrapper -->
-
-
-    <?php include "includes/footer.php"; ?>
+    <!-- /.content -->
   </div>
-  <!-- ./wrapper -->
-  <!-- REQUIRED SCRIPTS -->
-   <?php include "includes/js.php"; ?>
+  <!-- /.content-wrapper -->
 
-  </body>
-  </html>
+
+  <?php include "includes/footer.php"; ?>
+</div>
+<!-- ./wrapper -->
+<!-- REQUIRED SCRIPTS -->
+ <?php include "includes/js.php"; ?>
+
+
+</body>
+</html>

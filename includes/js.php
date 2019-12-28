@@ -29,6 +29,9 @@
 <!-- Modified Code -->
 <script src="dist/js/productmodel.js"></script>
 
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+
 
 
 
