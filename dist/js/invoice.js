@@ -31,7 +31,7 @@ function invAddRow() {
 				'<td>'+
 					'<div class="form-group">'+
 
-					'<select class="form-control select2" style="width: 100%;" name="product-model[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" >'+
+					'<select class="form-control select2" style="width: 100%;" name="invProduct[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" >'+
 						'<option value="">~~Select Product~~</option>';
 						//console.log(response);
 						$.each(response, function(index, value) {
@@ -43,7 +43,7 @@ function invAddRow() {
 				'</td>'+
 
 				'<td>'+
-					'<input type="number" name="modelQty[]" id="modQty'+count+'" autocomplete="off" class="form-control" placeholder="Quantity"/>'+
+					'<input type="number" name="invQty[]" id="modQty'+count+'" autocomplete="off" class="form-control" placeholder="Quantity"/>'+
 				'</td>'+
 
 				'<td>'+

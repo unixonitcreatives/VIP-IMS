@@ -37,8 +37,8 @@
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Manage Product Model</h3>
-                  <a href="product-add.php">+ Add new invoice</a>
+                  <h3 class="card-title">Manage Paid Invoice</h3>
+                  <a href="invoice-add.php"> + add new invoice</a>
                 </div>
               </div>
 
@@ -62,7 +62,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM outboundtb";
+                        $query = "SELECT * FROM outboundtb WHERE ob_status = 'Fully Paid' ";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;

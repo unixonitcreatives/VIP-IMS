@@ -61,7 +61,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM stocks ORDER BY warehouse asc, product asc";
+                        $query = "SELECT * FROM stocks ";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
@@ -99,7 +99,7 @@
               </div>
 
               <div class="card-footer">
-  
+
               </div>
             </div>
           </div>

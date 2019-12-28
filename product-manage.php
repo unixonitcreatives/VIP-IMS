@@ -61,7 +61,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM `product-model` ORDER BY custID asc";
+                        $query = "SELECT * FROM `product_model` ORDER BY custID asc";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
@@ -98,7 +98,7 @@
               </div>
 
               <div class="card-footer">
-  
+
               </div>
             </div>
           </div>

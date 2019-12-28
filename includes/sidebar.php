@@ -57,14 +57,14 @@
               </li>
 
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="invoice-paid.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Paid Invoice</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="invoice-unpaid.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Unpaid Invoice</p>
                 </a>
@@ -117,7 +117,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              
+
               <li class="nav-item">
                 <a href="package-add.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -141,7 +141,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              
+
               <li class="nav-item">
                 <a href="warehouse-add.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

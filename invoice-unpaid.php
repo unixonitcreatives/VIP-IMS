@@ -37,8 +37,8 @@
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Manage Product Model</h3>
-                  <a href="product-add.php">+ Add new invoice</a>
+                  <h3 class="card-title">Manage Unpaid Invoice</h3>
+                  <a href="invoice-add.php"> + add new invoice</a>
                 </div>
               </div>
 
@@ -62,7 +62,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM outboundtb";
+                        $query = "SELECT * FROM outboundtb WHERE ob_status = 'Unpaid' ";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
@@ -77,7 +77,8 @@
                               echo "<td>" . $row['ob_created_by'] . "</td>";
                               echo "<td>" . $row['ob_remarks'] . "</td>";
                               echo "<td>";
-                              echo " &nbsp; <a class='btn btn-danger' href='user-delete.php?outbound_ID=". $row['outbound_ID'] ."' title='Delete Record' data-toggle='tooltip'><span class='far  fa-trash-alt'></span></a>";
+                              echo "<a class='btn btn-primary' href='invoice-update.php?ob_tx_id=". $row['ob_tx_id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
+                              echo " &nbsp; <a class='btn btn-danger' href='user-delete.php?ob_tx_id=". $row['ob_tx_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='far fa-trash-alt'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }

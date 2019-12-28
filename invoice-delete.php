@@ -7,6 +7,9 @@ include "session.php";
 $account="";
 $_SESSION["username"] = $account;
 
+$get_update_id = $_GET['outbound_ID'];
+
+
 
 if(isset($_POST['fullypaid'])){
   $invCustName  = valData($_POST['invCustName']);
