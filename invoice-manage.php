@@ -62,7 +62,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM outboundtb";
+                        $query = "SELECT * FROM outboundtb ORDER BY ob_date DESC";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;

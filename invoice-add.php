@@ -1,17 +1,17 @@
 <?php
 require_once 'config.php';
-$alertMessage=$invRemarks="";
+$alertMessage=$invRemarks=$account="";
 
-include "session.php";
-
-$account="";
-$_SESSION["username"] = $account;
+include('session.php');
 
 
 if(isset($_POST['fullypaid'])){
   $invCustName  = valData($_POST['invCustName']);
   $invDate      = valData($_POST['invDate']);
   $invRemarks   = valData($_POST['invRemarks']);
+
+  $account = $_SESSION['username'];
+
 
   if(empty($invCustName) || empty($invDate)){
     $alertMessage = "<div class='alert alert-danger' role='alert'>
@@ -31,9 +31,9 @@ if(isset($_POST['fullypaid'])){
     $custID = str_pad($newID, 5, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
     $obtxid = $IDtype.$custID; //Prepare custom ID
 
+
     //insert query to outboundTB table
-    $obQuery = "
-    INSERT INTO outboundtb (ob_tx_id, ob_custName, ob_date, ob_remarks, ob_status, ob_created_by)
+    $obQuery = "INSERT INTO outboundtb (ob_tx_id, ob_custName, ob_date, ob_remarks, ob_status, ob_created_by)
     VALUES ('$obtxid','$invCustName', '$invDate', '$invRemarks', 'Fully Paid', '$account')";
     $obResult = mysqli_query($link, $obQuery) or die(mysqli_error($link));
 
@@ -69,7 +69,6 @@ if(isset($_POST['fullypaid'])){
               while($row = mysqli_fetch_array($result)){
 
               }
-
               // Free result set
               mysqli_free_result($result);
             } else{

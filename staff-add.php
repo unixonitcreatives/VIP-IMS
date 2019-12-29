@@ -1,6 +1,8 @@
-<?php include "session.php"; 
-
-    $_SESSION["username"] = $account;?>
+<?php
+include('session.php');
+$account = $_SESSION['username'];
+$type = $_SESSION['usertype'];
+?>
 
 <?php
 // Define variables and initialize with empty values
@@ -13,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //Assigning posted values to variables.
     $username = test_input($_POST['username']);
     $password = test_input($_POST['password']);
+    $hash = password_hash($password, PASSWORD_DEFAULT);
     $usertype = test_input($_POST['usertype']);
 
 
@@ -43,18 +46,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $custnewID = $IDtype.$custID; //Prepare custom ID
 
                                     $query = "
-                                    INSERT INTO users (custID, username, password, usertype, created_by) 
-                                    VALUES ('$custnewID', '$username', '$password', '$usertype', '$account')"; //Prepare insert query
+                                    INSERT INTO users (custID, username, password, usertype, created_by)
+                                    VALUES ('$custnewID', '$username', '$hash', '$usertype', '$account')"; //Prepare insert query
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
-                                    
-                                    
+
+
                                     if($result){
                                     //echo "<script>alert('new staff added succesfully');</script>";
                                     $info = $_SESSION['username']." added new staff";
                                     $info2 = "Details: ".$username.", ".$usertype;
                                     $alertlogsuccess = $username.", ".$usertype.": has been added succesfully!";
-                                    include "logs.php";
+                                    include('logs.php');
 
                                     }else{
                                       //If execution failed
@@ -62,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                       Error adding data.
                                       </div>";
                                     }
-                                      mysqli_close($link);
+                                      //mysqli_close($link);
                                  }
                              } else{
                                  echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
@@ -132,7 +135,7 @@ function test_input($data) {
                       </div>
 
                       <div class="form-group">
-                        <label>Password</label> 
+                        <label>Password</label>
                         <input type="Password" class="form-control" placeholder="Password" name="password" oninput="upperCase(this)" maxlength="20" required>
                       </div>
 
