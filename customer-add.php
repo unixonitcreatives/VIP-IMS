@@ -1,8 +1,4 @@
-<?php include "session.php";
-
-    $_SESSION["username"] = $account;
-
-?>
+<?php include "session.php";?>
 
 <?php
 // Define variables and initialize with empty values
@@ -43,6 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $newID = $resulta['MAX(id)'] + 1; //Get the latest ID then Add 1
                                     $custID = str_pad($newID, 8, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
                                     $custnewID = $IDtype.$custID; //Prepare custom ID
+
+                                    $account = $_SESSION["username"];//session name
 
                                     $query = "
                                     INSERT INTO customers (custID, name, refID, address, created_by)

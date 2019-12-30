@@ -21,7 +21,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manage Product Model</li>
+              <li class="breadcrumb-item active">Manage Invoices</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,7 +37,7 @@
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Manage Product Model</h3>
+                  <h3 class="card-title">Manage Invoices</h3>
                   <a href="product-add.php">+ Add new invoice</a>
                 </div>
               </div>
@@ -77,7 +77,8 @@
                               echo "<td>" . $row['ob_created_by'] . "</td>";
                               echo "<td>" . $row['ob_remarks'] . "</td>";
                               echo "<td>";
-                              echo " &nbsp; <a class='btn btn-danger' href='user-delete.php?outbound_ID=". $row['outbound_ID'] ."' title='Delete Record' data-toggle='tooltip'><span class='far  fa-trash-alt'></span></a>";
+                              echo " &nbsp; <a href='invoice-view.php?ob_tx_id=". $row['ob_tx_id'] ."' title='View Invoice' data-toggle='tooltip'><span class='fas  fa fa-eye'></span></a>";
+                              echo " &nbsp; <a href='user-delete.php?outbound_ID=". $row['outbound_ID'] ."' title='Delete Record' data-toggle='tooltip'><span class='far  fa-trash-alt'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }

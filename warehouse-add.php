@@ -1,6 +1,6 @@
-<?php include "session.php"; 
+<?php include "session.php"; ?>
 
-    $_SESSION["username"] = $account;?>
+
 
 <?php
 // Define variables and initialize with empty values
@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //Assigning posted values to variables.
     $name = test_input($_POST['name']);
     $address = test_input($_POST['address']);
-    
+
     if(empty($name)){
       $alertMessage = "Please enter a warehouse name.";
     }
@@ -48,13 +48,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $custID = str_pad($newID, 4, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
                                     $custnewID = $IDtype.$custID; //Prepare custom ID
 
+                                    $account = $_SESSION["username"];//session name
+
                                     $query = "
-                                    INSERT INTO warehouse (custID, name, address, created_by) 
+                                    INSERT INTO warehouse (custID, name, address, created_by)
                                     VALUES ('$custnewID', '$name', '$address', '$account')"; //Prepare insert query
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
-                                    
-                                    
+
+
                                     if($result){
                                     $info = $_SESSION['username']." added new warehouse";
                                     $info2 = "Details: ".$name;
@@ -142,7 +144,7 @@ function test_input($data) {
               </div>
 
               <div class="card-footer">
-                
+
                 <button type="submit" class="btn btn-primary" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" >Save</button>
                 <?php echo $alertMessage ?>
                 </form>

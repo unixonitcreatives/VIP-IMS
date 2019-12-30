@@ -1,6 +1,4 @@
-<?php include "session.php"; 
-
-    $_SESSION["username"] = $account;?>
+<?php include "session.php";?>
 
 <?php
 // Define variables and initialize with empty values
@@ -47,13 +45,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $custID = str_pad($newID, 8, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
                                     $custnewID = $IDtype.$custID; //Prepare custom ID
 
+                                    $account = $_SESSION["username"];//session name
+
                                     $query = "
-                                    INSERT INTO `stocks` (custID, product, warehouse, quantity, status, created_by) 
+                                    INSERT INTO `stocks` (custID, product, warehouse, quantity, status, created_by)
                                     VALUES ('$custnewID', '$product', '$warehouse', '$qty', 'In Stock','$account')"; //Prepare insert query
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
-                                    
-                                    
+
+
                                     if($result){
                                     $info = $_SESSION['username']." added new stock";
                                     $info2 = "Details: ".$product.", ".$qty."pcs";
@@ -80,8 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
 
-                             
-      
+
+
   }
 
 function test_input($data) {
@@ -169,7 +169,7 @@ function test_input($data) {
                       </select>
                     </div>
 
-                          
+
                       <div class="form-group">
                       <label>Warehouse</label>
                       <select class="form-control select2" style="width: 100%;" oninput="upperCase(this)"  data-placeholder="Warehouse" name="warehouse" required>

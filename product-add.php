@@ -1,13 +1,12 @@
-<?php include "session.php"; 
-
-    $_SESSION["username"] = $account;?>
-
 <?php
+include "session.php";
+require_once "config.php";
 // Define variables and initialize with empty values
 $username=$password=$usertype=$alertMessage="";
-require_once "config.php";
 
-//If the form is submitted or not.
+$account = $_SESSION["username"];?>
+
+<?php
 //If the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //Assigning posted values to variables.
@@ -42,12 +41,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $custnewID = $IDtype.$custID; //Prepare custom ID
 
                                     $query = "
-                                    INSERT INTO `product-model` (custID, description, sku, type, status, created_by) 
+                                    INSERT INTO `product-model` (custID, description, sku, type, status, created_by)
                                     VALUES ('$custnewID', '$description', '$sku', 'retail', 'Active','$account')"; //Prepare insert query
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
-                                    
-                                    
+
+
                                     if($result){
                                     $info = $_SESSION['username']." added new product-model";
                                     $info2 = "Details: ".$description.", ".$sku;
