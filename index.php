@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include "includes/header.php"; ?>
+<?php require_once 'config.php'; ?>
 
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -96,29 +97,24 @@
                   </thead>
                   <?php
                         // Include config file
-                        require_once 'config.php';
+                        //require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM customers ORDER BY custID desc";
-                        if($result = mysqli_query($link, $query)){
-                          if(mysqli_num_rows($result) > 0){
-                            $ctr = 0;
-                            while($row = mysqli_fetch_array($result)){
-                              $ctr++;
+                        $cust_qry = "SELECT * FROM customers ORDER BY custID desc";
+                        if($cust_result = mysqli_query($link, $cust_qry)){
+                          if(mysqli_num_rows($cust_result) > 0){
+                            $cust_ctr = 0;
+                            while($cust_row = mysqli_fetch_array($cust_result)){
+                              $cust_ctr++;
                               echo "<tr>";
-                              echo "<td>" . $ctr . "</td>";
-                              echo "<td>" . $row['custID'] . "</td>";
-                              echo "<td>" . $row['refID'] . "</td>";
-                              echo "<td>" . $row['name'] . "</td>";
-
-                              echo "<td>";
-                              echo "<a href='user-update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-                              echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
-                              echo "</td>";
+                              echo "<td>" . $cust_ctr . "</td>";
+                              echo "<td>" . $cust_row['custID'] . "</td>";
+                              echo "<td>" . $cust_row['refID'] . "</td>";
+                              echo "<td>" . $cust_row['name'] . "</td>";
                               echo "</tr>";
                             }
                             // Free result set
-                            mysqli_free_result($result);
+                            mysqli_free_result($cust_result);
                           } else{
                             echo "<p class='lead'><em>No records were found.</em></p>";
                           }
@@ -178,53 +174,57 @@
 
             <div class="card">
               <div class="card-header border-0">
-                <h3 class="card-title">Online Store Overview</h3>
+                <h3 class="card-title">Packages</h3>
                 <div class="card-tools">
-                  <a href="#" class="btn btn-sm btn-tool">
-                    <i class="fas fa-download"></i>
+                  <a href="customer-add.php" class="btn btn-tool btn-sm">
+                    <i class="fas fa-plus"></i>
                   </a>
-                  <a href="#" class="btn btn-sm btn-tool">
+                  <a href="customer-manage.php" class="btn btn-tool btn-sm">
                     <i class="fas fa-bars"></i>
                   </a>
                 </div>
               </div>
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                  <p class="text-success text-xl">
-                    <i class="ion ion-ios-refresh-empty"></i>
-                  </p>
-                  <p class="d-flex flex-column text-right">
-                    <span class="font-weight-bold">
-                      <i class="ion ion-android-arrow-up text-success"></i> 12%
-                    </span>
-                    <span class="text-muted">CONVERSION RATE</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
-                <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                  <p class="text-warning text-xl">
-                    <i class="ion ion-ios-cart-outline"></i>
-                  </p>
-                  <p class="d-flex flex-column text-right">
-                    <span class="font-weight-bold">
-                      <i class="ion ion-android-arrow-up text-warning"></i> 0.8%
-                    </span>
-                    <span class="text-muted">SALES RATE</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
-                <div class="d-flex justify-content-between align-items-center mb-0">
-                  <p class="text-danger text-xl">
-                    <i class="ion ion-ios-people-outline"></i>
-                  </p>
-                  <p class="d-flex flex-column text-right">
-                    <span class="font-weight-bold">
-                      <i class="ion ion-android-arrow-down text-danger"></i> 1%
-                    </span>
-                    <span class="text-muted">REGISTRATION RATE</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
+              <div class="card-body p-0">
+                <table class="table table-striped table-valign-middle">
+                  <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Package name</th>   
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <?php //ETO BRO
+                        // Include config file
+                        //require_once 'config.php';
+
+                        // Attempt select query execution
+                        $pkg_qry = "SELECT * FROM packages ORDER BY packId DESC";
+                        if($pkg_result = mysqli_query($link, $pkg_qry)){
+                          if(mysqli_num_rows($pkg_result) > 0){
+                            $pkg_ctr = 0;
+                            while($pkg_row = mysqli_fetch_array($pkg_result)){
+                              $pkg_ctr++;
+                              echo "<tr>";
+                              echo "<td>" . $pkg_ctr . "</td>";
+                              echo "<td>" . $pkg_row['package_name'] . "</td>";
+                              echo "</tr>";
+                            }
+                            // Free result set
+                            mysqli_free_result($pkg_result);
+                          } else{
+                            echo "<p class='lead'><em>No records were found.</em></p>";
+                          }
+                        } else{
+                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                        }
+
+                        // Close connection
+                        mysqli_close($link);
+                        ?>
+
+
+                      </tbody>
+                </table>
               </div>
             </div>
           </div>
