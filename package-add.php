@@ -1,4 +1,4 @@
-<?php 
+<?php
 //Connection
 require_once "config.php";
 // Define variables and initialize with empty values
@@ -41,7 +41,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
   //INSERT query to packages table
   $packageQuery = "
-  INSERT INTO `product-model` (custID, description, sku, type, status, created_by) 
+  INSERT INTO `product-model` (custID, description, sku, type, status, created_by)
   VALUES ('$custnewID', '$packname', 'PKG', 'package', 'Active','$account')";
   $packageResult = mysqli_query($link, $packageQuery) or die(mysqli_error($link));
 
@@ -128,7 +128,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     </div>
     <!-- /.content-header -->
 
-    
+
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
@@ -148,7 +148,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                       <div class="form-group">
                         <label>Package Name<span style="color: Red;">*</span></label>
                         <input type="text" class="form-control" placeholder="Package Name" name="package_name" oninput="upperCase(this)" maxlength="20" required><br>
-                        
+
                       </div>
 
                       <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="productModelTable">
@@ -173,7 +173,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                               require_once "config.php";
                               // Attempt select query executions
                               $query = "";
-                              $query = "SELECT * FROM `product-model` WHERE type = 'retail' ";
+                              $query = "SELECT * FROM `product_model` WHERE type = 'retail' ";
                               // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
                               if($result = mysqli_query($link, $query)){
                               if(mysqli_num_rows($result) > 0){
