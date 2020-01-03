@@ -62,11 +62,16 @@ if(isset($_POST['fullypaid'])){
 
         if($listresult === TRUE){
 
-          $query = "SELECT Quantity FROM stocks";
-          // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
+          //select outbound data table
+          $query = "SELECT select obdatatb.ob_tx_id AS Transaction_ID, obdatatb.obdata_products AS Products,
+          obdatatb.obdata_qty-stocks.quantity AS Total_QTY, stocks.product AS Stock_PRoducts
+          from obdatatb INNER JOIN stocks ON obdatatb.obdata_products = stocks.product ";
           if($result = mysqli_query($link, $query)){
             if(mysqli_num_rows($result) > 0){
               while($row = mysqli_fetch_array($result)){
+
+                $obdataProducts = $row['Products'];
+                $obdataQty  = $row['Total_QTY'];
 
               }
               // Free result set
@@ -77,6 +82,29 @@ if(isset($_POST['fullypaid'])){
           } else{
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
           }
+
+
+          //Select stocks table
+          $dataQuery = "SELECT product, quantity FROM stocks WHERE product = '$obdataProducts' ";
+          if($result = mysqli_query($link, $query)){
+            if(mysqli_num_rows($result) > 0){
+              while($row = mysqli_fetch_array($result)){
+
+                $stockProducts = $row['product'];
+                $stockQty  = $row['quantity'];
+
+              }
+              // Free result set
+              mysqli_free_result($result);
+            } else{
+              echo "<p class='lead'><em>No records were found.</em></p>";
+            }
+          } else{
+            echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+          }
+
+
+
 
           $alertMessage = "<div class='alert alert-success' role='alert'>
           Outbound Products Successfully Created.
