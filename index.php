@@ -100,7 +100,7 @@
                         //require_once 'config.php';
 
                         // Attempt select query execution
-                        $cust_qry = "SELECT * FROM customers ORDER BY custID desc";
+                        $cust_qry = "SELECT * FROM customers ORDER BY custID DESC LIMIT 5";
                         if($cust_result = mysqli_query($link, $cust_qry)){
                           if(mysqli_num_rows($cust_result) > 0){
                             $cust_ctr = 0;
@@ -123,7 +123,7 @@
                         }
 
                         // Close connection
-                        mysqli_close($link);
+                        //mysqli_close($link);
                         ?>
                       </tbody>
                 </table>
@@ -135,39 +135,58 @@
           <div class="col-lg-6">
             <div class="card">
               <div class="card-header border-0">
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Sales</h3>
-                  <a href="javascript:void(0);">View Report</a>
+                <h3 class="card-title">Unpaid</h3>
+                <div class="card-tools">
+                  <a href="customer-add.php" class="btn btn-tool btn-sm">
+                    <i class="fas fa-plus"></i>
+                  </a>
+                  <a href="customer-manage.php" class="btn btn-tool btn-sm">
+                    <i class="fas fa-bars"></i>
+                  </a>
                 </div>
               </div>
-              <div class="card-body">
-                <div class="d-flex">
-                  <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">$18,230.00</span>
-                    <span>Sales Over Time</span>
-                  </p>
-                  <p class="ml-auto d-flex flex-column text-right">
-                    <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> 33.1%
-                    </span>
-                    <span class="text-muted">Since last month</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
+              <div class="card-body p-0">
+                <table class="table table-striped table-valign-middle">
+                  <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                  </tr>
+                  </thead>
+                  <?php
+                        // Include config file
+                        //require_once 'config.php';
 
-                <div class="position-relative mb-4">
-                  <canvas id="sales-chart" height="200"></canvas>
-                </div>
+                        // Attempt select query execution
+                        $cust_qry = "SELECT * FROM outboundtb WHERE ob_status ='Unpaid' ORDER BY ob_tx_id DESC LIMIT 5";
+                        if($cust_result = mysqli_query($link, $cust_qry)){
+                          if(mysqli_num_rows($cust_result) > 0){
+                            $cust_ctr = 0;
+                            while($cust_row = mysqli_fetch_array($cust_result)){
+                              $cust_ctr++;
+                              echo "<tr>";
+                              echo "<td>" . $cust_ctr . "</td>";
+                              echo "<td><span class='text-danger'>" . $cust_row['ob_tx_id'] . "</span></td>";
+                              echo "<td>" . $cust_row['ob_custName'] . "</td>";
+                              echo "<td>" . $cust_row['ob_date'] . "</td>";
+                              echo "</tr>";
+                            }
+                            // Free result set
+                            mysqli_free_result($cust_result);
+                          } else{
+                            echo "<p class='lead'><em>No records were found.</em></p>";
+                          }
+                        } else{
+                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                        }
 
-                <div class="d-flex flex-row justify-content-end">
-                  <span class="mr-2">
-                    <i class="fas fa-square text-primary"></i> This year
-                  </span>
-
-                  <span>
-                    <i class="fas fa-square text-gray"></i> Last year
-                  </span>
-                </div>
+                        // Close connection
+                        //mysqli_close($link);
+                        ?>
+                      </tbody>
+                </table>
               </div>
             </div>
             <!-- /.card -->
@@ -176,10 +195,10 @@
               <div class="card-header border-0">
                 <h3 class="card-title">Packages</h3>
                 <div class="card-tools">
-                  <a href="customer-add.php" class="btn btn-tool btn-sm">
+                  <a href="package-add.php" class="btn btn-tool btn-sm">
                     <i class="fas fa-plus"></i>
                   </a>
-                  <a href="customer-manage.php" class="btn btn-tool btn-sm">
+                  <a href="package-manage.php" class="btn btn-tool btn-sm">
                     <i class="fas fa-bars"></i>
                   </a>
                 </div>
@@ -198,7 +217,7 @@
                         //require_once 'config.php';
 
                         // Attempt select query execution
-                        $pkg_qry = "SELECT * FROM packages ORDER BY packId DESC";
+                        $pkg_qry = "SELECT * FROM packages ORDER BY packId DESC LIMIT 5";
                         if($pkg_result = mysqli_query($link, $pkg_qry)){
                           if(mysqli_num_rows($pkg_result) > 0){
                             $pkg_ctr = 0;
