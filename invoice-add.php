@@ -63,15 +63,27 @@ if(isset($_POST['fullypaid'])){
         if($listresult === TRUE){
 
           //select outbound data table
-          $query = "SELECT obdatatb.ob_tx_id AS Transaction_ID, obdatatb.obdata_products AS Products,
-          stocks.quantity-obdatatb.obdata_qty AS Total_QTY, stocks.product AS Stock_Products
-          from obdatatb INNER JOIN stocks ON obdatatb.obdata_products = stocks.product";
+          /*
+          $query = "SELECT 
+          obdatatb.ob_tx_id AS Transaction_ID, 
+          obdatatb.obdata_products AS Products,
+          stocks.quantity-obdatatb.obdata_qty AS Total_QTY, 
+          stocks.product AS Stock_Products
+          
+          from obdatatb 
+          INNER JOIN stocks ON obdatatb.obdata_products = stocks.product"; */
+
+          $query = "SELECT obdata_products, obdata_qty FROM obdatatb WHERE ob_tx_id = '".$obtxid."'";
+
           if($result = mysqli_query($link, $query)){
             if(mysqli_num_rows($result) > 0){
               while($row = mysqli_fetch_array($result)){
-
-                $obdataProducts = $row['Products'];
-                $obdataQty  = $row['Total_QTY'];
+                $order_product_model = $order_qty = "";
+                
+                $order_product_model = $row['obdata_products'];
+                $order_qty  = $row['obdata_qty'];
+                //include('pm-checker.php');
+                include('stock-update.php');
 
               }
               // Free result set
@@ -82,7 +94,7 @@ if(isset($_POST['fullypaid'])){
           } else{
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
           }
-
+          /*
           //================================================================================
           $x = 0;
           $countProd = count($obdataProducts);
@@ -91,7 +103,7 @@ if(isset($_POST['fullypaid'])){
             $queryResult = mysqli_multi_query($link, $updateQuery) or die(mysqli_error($link));
           }
           //===================================================================================
-
+          */
 
           $alertMessage = "<div class='alert alert-success' role='alert'>
           Outbound Products Successfully Created.
