@@ -86,7 +86,7 @@ if(isset($_POST['fullypaid'])){
           //================================================================================
           $x = 0;
           $countProd = count($obdataProducts);
-          for ($x = 0; $x <= $countProd ; $x++) { 
+          for ($x = 0; $x <= $countProd ; $x++) {
             $updateQuery = "UPDATE stocks SET quantity = '$obdataQty[$x]' WHERE product = '$obdataProducts' ";
             $queryResult = mysqli_multi_query($link, $updateQuery) or die(mysqli_error($link));
           }
