@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($alertMessage)){
         //Check if the username is already in the database
-        $sql_check = "SELECT sku FROM `product-model` WHERE sku ='$sku'";
+        $sql_check = "SELECT sku FROM `product_model` WHERE sku ='$sku'";
         if($result = mysqli_query($link, $sql_check)){ //Execute query
                                  if(mysqli_num_rows($result) > 0){
                                     //If the username already exists
@@ -34,21 +34,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $y = date('y');
                                     $d = date('d');
 
-                                    $qry = mysqli_query($link,"SELECT MAX(id) FROM `product-model`"); // Get the latest ID
+                                    $qry = mysqli_query($link,"SELECT MAX(id) FROM `product_model`"); // Get the latest ID
                                     $resulta = mysqli_fetch_array($qry);
                                     $newID = $resulta['MAX(id)'] + 1; //Get the latest ID then Add 1
                                     $custID = str_pad($newID, 5, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
                                     $custnewID = $IDtype.$custID; //Prepare custom ID
 
                                     $query = "
-                                    INSERT INTO `product-model` (custID, description, sku, type, status, created_by)
+                                    INSERT INTO `product_model` (custID, description, sku, type, status, created_by)
                                     VALUES ('$custnewID', '$description', '$sku', 'retail', 'Active','$account')"; //Prepare insert query
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
 
                                     if($result){
-                                    $info = $_SESSION['username']." added new product-model";
+                                    $info = $_SESSION['username']." added new product_model";
                                     $info2 = "Details: ".$description.", ".$sku;
                                     $alertlogsuccess = $description.", ".$sku.": has been added succesfully!";
                                     include "logs.php";

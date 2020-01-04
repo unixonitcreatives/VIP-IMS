@@ -145,7 +145,7 @@ function test_input($data) {
                               require_once "config.php";
                               // Attempt select query executions
                               $query = "";
-                              $query = "SELECT * FROM `product-model` ORDER BY custID asc";
+                              $query = "SELECT * FROM `product_model` ORDER BY custID asc";
                               // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
                               if($result = mysqli_query($link, $query)){
                               if(mysqli_num_rows($result) > 0){
