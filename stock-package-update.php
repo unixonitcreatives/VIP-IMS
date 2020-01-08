@@ -15,7 +15,7 @@
 
 	              }
 	              // Free result set
-	              mysqli_free_result($result);
+	              //mysqli_free_result($result);
 	            } else{
 	              echo "<p class='lead'><em>No records were found.</em></p>";
 	            }
@@ -35,6 +35,6 @@
 	   echo "<script>alert('An Error has Occured. ERROR CODE: 223');</script>";
 	}
 
-	mysqli_close($link);
+	//mysqli_close($link);
 
 	?>

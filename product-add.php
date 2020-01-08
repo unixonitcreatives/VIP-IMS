@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                       $alertMessage = "<div class='alert alert-danger' role='alert'>
                                       Error adding data.
                                       </div>";}
-                                      mysqli_close($link);
+                                      //mysqli_close($link);
                                  }
                              } else{
                                  echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);

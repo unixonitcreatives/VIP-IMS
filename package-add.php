@@ -105,16 +105,13 @@
 
                 }
                 // Free result set
-                mysqli_free_result($result);
+                //mysqli_free_result($result);
               } else{
                 //echo "<p class='lead'><em>No records were found.</em></p>";
               }
             } else{
               echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
             }
-
-
-
 
 
 
