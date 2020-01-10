@@ -9,7 +9,7 @@ $res = mysqli_query($link,$query);
 if($res){
   echo "<script>
   alert('succesfully deleted');
-  window.location.href='invoice-manage.php';
+  window.location.href='invoice-paid.php';
   </script>";
   exit;
 }

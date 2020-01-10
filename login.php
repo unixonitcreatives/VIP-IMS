@@ -4,13 +4,19 @@ require_once('config.php');
 
 // Define variables and initialize with empty values
 $username = $password = "";
-$alertError = $alertMessage = $username_err = $password_err = $hashed_password = "";
+$alertError = $alertMessage = $username_err = $password_err = $hashed_password = $alertMessage = "";
+
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+
 
   $username = test_input($_POST['username']);
   $password = test_input($_POST['password']);
 
-  // Validate username and password
-  $alertMessage = "";
+  if(empty($username) || empty($password)){
+    $alertMessage = "Please enter username and password";
+  }
 
   if (empty($username)){
     $alertMessage = "Please enter username.";
@@ -19,12 +25,6 @@ $alertError = $alertMessage = $username_err = $password_err = $hashed_password =
     $alertMessage = "Please enter password.";
   }
 
-  if(empty($username) || empty($password)){
-    $alertMessage = "Please enter username and password";
-  }
-
-
-if($_SERVER["REQUEST_METHOD"] == "POST"){
   //Query
   $querySelect ="SELECT * FROM users WHERE username='$username' ";
   $queryResult = mysqli_query($link, $querySelect) or die(mysqli_error($link));
@@ -53,29 +53,49 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                           $info2 = "Details: ".$username.", ".$usertype." IP:".getRealIpAddr();
 
                           $query="
-                          INSERT INTO logs (info, info2) 
+                          INSERT INTO logs (info, info2)
                           VALUES ('$info', '$info2')"; //Prepare insert query
                           $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
+                          if($result){
+                            echo "<script>
+                            alert('succesfull login');
+                            window.location.href='index.php';
+                            </script>";
+                            exit;
+                          } else{
+                            echo "<script>
+                            alert('error login');
+                            window.location.href='login.php';
+                            </script>";
+                            exit;
+                          }
 
-                          echo "<script>
-                          alert('succesfull login');
-                          window.location.href='index.php';
-                          </script>";
-                          exit;
 
-                          } 
+                          }
 
                 }// ./password validation
                 else {
                   echo "<script>alert('Invalid username & password combination')</script>";
                 }
     }// ./num_rows
-  }// ./query result 
+  }// ./query result
 
 
   // Close connection
   mysqli_close($link);
 }// ./POST
+
+
+function getRealIpAddr() {
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {   //check ip from share internet
+      $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {   //to check ip is pass from proxy
+      $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+      $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+  }
 
 function test_input($data) {
   $data = trim($data);
@@ -116,7 +136,7 @@ function test_input($data) {
     <div class="card">
       <div class="card-body login-card-body">
         <p class="login-box-msg">Sign in to start your session</p>
-        <p class="text-danger"><?php echo $$alertMessage; ?></p>
+        <p class="text-danger"><?php echo $alertMessage; ?></p>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <div class="input-group mb-3">

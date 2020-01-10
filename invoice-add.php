@@ -69,10 +69,10 @@ if(isset($_POST['fullypaid'])){
             if(mysqli_num_rows($result) > 0){
               while($row = mysqli_fetch_array($result)){
                 $order_product_model = $order_qty = "";
-                
+
                 $order_product_model = $row['obdata_products'];
                 $order_qty  = $row['obdata_qty'];
-                
+
                 include('pm-checker.php');
 
               }
@@ -84,7 +84,7 @@ if(isset($_POST['fullypaid'])){
           } else{
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
           }
-          
+
 
           $alertMessage = "<div class='alert alert-success' role='alert'>
           Outbound Products Successfully Created.

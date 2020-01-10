@@ -62,7 +62,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM outboundtb WHERE ob_status = 'Unpaid' ";
+                        $query = "SELECT * FROM outboundtb WHERE ob_status = 'Unpaid'";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
@@ -78,7 +78,7 @@
                               echo "<td>" . $row['ob_remarks'] . "</td>";
                               echo "<td>";
                               echo "<a class='btn btn-primary' href='invoice-update.php?ob_tx_id=". $row['ob_tx_id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
-                              echo " &nbsp; <a class='btn btn-danger' href='user-delete.php?ob_tx_id=". $row['ob_tx_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='far fa-trash-alt'></span></a>";
+                              echo " &nbsp; <a class='btn btn-danger' href='invoice-unpaid-delete.php?ob_tx_id=". $row['ob_tx_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='far fa-trash-alt'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }

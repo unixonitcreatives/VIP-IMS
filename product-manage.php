@@ -75,6 +75,7 @@
                               echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";
                               //echo "<a href='user-update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa fa-pen'></span></a>";
+                              echo " &nbsp; <a href='product-update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
                               echo " &nbsp; <a href='product-delete.php?id=". $row['custID'] ."' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-trash'></span></a>";
                               //echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='View Record' data-toggle='tooltip'><span class='fas fa fa-eye'></span></a>";
                               echo "</td>";
@@ -120,7 +121,7 @@
 
  <?php include "includes/js.php"; ?>
 
- 
+
 
 </body>
 </html>

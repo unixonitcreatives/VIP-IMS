@@ -4,12 +4,12 @@
 <?php
 
 $query="
-INSERT INTO logs (info, info2) 
+INSERT INTO logs (info, info2)
 VALUES ('$info', '$info2')"; //Prepare insert query
 
 $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
-                                    
-                                    
+
+
 if($result){
    echo "<script>alert('".$alertlogsuccess."');</script>";
 }else{
