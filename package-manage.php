@@ -38,7 +38,7 @@
               <div class="card-header">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Manage Stocks</h3>
-                  <a href="stock-add.php">add new stocks</a>
+                  <a href="package-add.php">add new package</a>
                 </div>
               </div>
 
@@ -73,8 +73,8 @@
                               echo "<td>" . $row['description'] . "</td>";
                               echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";
-                              echo "<a href='user-update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-                              echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
+                              echo "<a href='user-update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa fa-pen'></span></a>";
+                              echo " &nbsp; <a href='package-delete.php?id=". $row['custID'] ."' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-trash'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }
@@ -117,6 +117,12 @@
 <!-- ./wrapper -->
 
  <?php include "includes/js.php"; ?>
+
+  <script language="JavaScript" type="text/javascript">
+function checkDelete(){
+    return confirm('Are you sure you want to permanently delete this product?');
+}
+</script>
 
 </body>
 </html>

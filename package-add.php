@@ -180,7 +180,7 @@
                 <div class="card-header">
                   <div class="d-flex justify-content-between">
                     <h3 class="card-title">Add Package</h3>
-                    <a href="staff-manage.php">View all packages</a>
+                    <a href="package-manage.php">View all packages</a>
                   </div>
                 </div>
 
