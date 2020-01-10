@@ -61,7 +61,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM `product_model` ORDER BY custID asc";
+                        $query = "SELECT * FROM `product_model` WHERE type = 'retail' ORDER BY custID asc";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
@@ -74,9 +74,9 @@
                               echo "<td>" . $row['description'] . "</td>";
                               echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";
-                              echo "<a href='user-update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa fa-pen'></span></a>";
-                              echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='fas fa fa-trash'></span></a>";
-                              echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='fas fa fa-eye'></span></a>";
+                              //echo "<a href='user-update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa fa-pen'></span></a>";
+                              echo " &nbsp; <a href='product-delete.php?id=". $row['custID'] ."' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-trash'></span></a>";
+                              //echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='View Record' data-toggle='tooltip'><span class='fas fa fa-eye'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }
@@ -119,6 +119,12 @@
 <!-- ./wrapper -->
 
  <?php include "includes/js.php"; ?>
+
+ <script language="JavaScript" type="text/javascript">
+function checkDelete(){
+    return confirm('Are you sure you want to permanently delete this product?');
+}
+</script>
 
 </body>
 </html>
