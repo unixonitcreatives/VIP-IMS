@@ -6,6 +6,9 @@ require_once('config.php');
 $username = $password = "";
 $alertError = $alertMessage = $username_err = $password_err = $hashed_password = "";
 
+  $username = test_input($_POST['username']);
+  $password = test_input($_POST['password']);
+
   // Validate username and password
   $alertMessage = "";
 
@@ -20,8 +23,10 @@ $alertError = $alertMessage = $username_err = $password_err = $hashed_password =
     $alertMessage = "Please enter username and password";
   }
 
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
   //Query
-  $querySelect ="SELECT * FROM users WHERE username='$username'";
+  $querySelect ="SELECT * FROM users WHERE username='$username' ";
   $queryResult = mysqli_query($link, $querySelect) or die(mysqli_error($link));
 
   if($queryResult){
@@ -42,29 +47,29 @@ $alertError = $alertMessage = $username_err = $password_err = $hashed_password =
                           $_SESSION["username"] = $username;
                           $_SESSION["usertype"] = "Admin";
 
+
+                          //logs
                           $info = $_SESSION['username']." Logged In";
-                          $info2 = "Details: ".$username.", ".$usertype;
+                          $info2 = "Details: ".$username.", ".$usertype." IP:".getRealIpAddr();
+
                           $query="
                           INSERT INTO logs (info, info2) 
                           VALUES ('$info', '$info2')"; //Prepare insert query
-
                           $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
-                          
+
                           echo "<script>
                           alert('succesfull login');
                           window.location.href='index.php';
                           </script>";
                           exit;
-                          }
+
+                          } 
 
                 }// ./password validation
                 else {
                   echo "<script>alert('Invalid username & password combination')</script>";
                 }
     }// ./num_rows
-    else {
-       echo "<script>alert('Invalid username & password combination')</script>";
-    }
   }// ./query result 
 
 
