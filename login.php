@@ -6,22 +6,40 @@ require_once('config.php');
 $username = $password = "";
 $alertError = $alertMessage = $username_err = $password_err = $hashed_password = "";
 
-// Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+function getRealIpAddr()
+{
+    if (!empty($_SERVER['HTTP_CLIENT_IP']))   //check ip from share internet
+    {
+      $ip=$_SERVER['HTTP_CLIENT_IP'];
+    }
+    elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))   //to check ip is pass from proxy
+    {
+      $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
+    else
+    {
+      $ip=$_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+}
 
-  $username = test_input($_POST['username']);
-  $password = test_input($_POST['password']);
+//echo 'User Real IP - '.getUserIpAddr();
 
   // Validate username and password
-  if(empty($username) && empty($password)){
-    $alertMessage = "Please enter username and password";
-  }
+  $alertMessage = "";
+
   if (empty($username)){
-    $alertError = "Please enter username.";
+    $alertMessage = "Please enter username.";
   }
   if(empty($password)){
-    $alertError = "Please enter password.";
+    $alertMessage = "Please enter password.";
   }
+
+  if(empty($username) || empty($password)){
+    $alertMessage = "Please enter username and password";
+  }
+
+
 
   //Query
   $querySelect ="SELECT * FROM users WHERE username='$username' ";
@@ -30,50 +48,70 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   if($queryResult){
 
     if(mysqli_num_rows($queryResult) > 0){
-      while($row = mysqli_fetch_assoc($queryResult)){
-        $username = $row['username'];
-        $hash     = $row['password'];
-        $usertype = $row['usertype'];
-      }
+                while($row = mysqli_fetch_assoc($queryResult)){
+                  $username = $row['username'];
+                  $hash     = $row['password'];
+                  $usertype = $row['usertype'];
+                }
 
-      if(password_verify($password, $hash)){
-        //Direct pages with different user levels
-        if ($usertype == "Admin") {
-          session_start();
-          // Store data in session variables
-          $_SESSION["loggedin"] = true;
-          $_SESSION["username"] = $username;
-          $_SESSION["usertype"] = "Admin";
-          header('location: index.php');
-          exit;
-        }
-        else
-        if ($usertype == "Manager") {
-          session_start();
-          // Store data in session variables
-          $_SESSION["loggedin"] = true;
-          $_SESSION["username"] = $username;
-          $_SESSION["usertype"] = "Manager";
-          header('location: index.php');
-          exit;
+                if(password_verify($password, $hash)){
+                  //Direct pages with different user levels
+                        if ($usertype == "Admin") {
+                          session_start();
+                          // Store data in session variables
+                          $_SESSION["loggedin"] = true;
+                          $_SESSION["username"] = $username;
+                          $_SESSION["usertype"] = "Admin";
 
-        }
-        else
-        if ($usertype == 'Accounting') {
-          $_SESSION["loggedin"] = true;
-          $_SESSION["username"] = $username;
-          $_SESSION["usertype"] = "Accounting";
-          header('location: index.php');
+                          $info = $_SESSION['username']." Logged In";
+                          $info2 = "Details: ".$username.", ".$usertype." IP:".getRealIpAddr();
+                          $query="
+                          INSERT INTO logs (info, info2) 
+                          VALUES ('$info', '$info2')"; //Prepare insert query
+                          $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
-        }
-        else
-        {
-          // Display an error message
-          $alertError = "Invalid username & password combination";
-        }
-      }// ./password validation
+                          echo "<script>
+                          alert('succesfull login');
+                          window.location.href='index.php';
+                          </script>";
+                          exit;
+
+                        } elseif ($usertype == "Manager") {
+                          
+                          session_start();
+                          // Store data in session variables
+                          $_SESSION["loggedin"] = true;
+                          $_SESSION["username"] = $username;
+                          $_SESSION["usertype"] = "Manager";
+
+                          $info = $_SESSION['username']." Logged In";
+                          $info2 = "Details: ".$username.", ".$usertype." IP:".getUserIpAddr();
+                          $query="
+                          INSERT INTO logs (info, info2) 
+                          VALUES ('$info', '$info2')"; //Prepare insert query
+                          $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
+
+                          echo "<script>
+                          alert('succesfull login');
+                          window.location.href='index.php';
+                          </script>";
+                          exit;
+
+                        } else {
+                          // Display an error message
+                          echo "<script>alert('Invalid username & password combination');</script>";
+                        }
+
+                }// ./password validation
+                else {
+                  echo "<script>alert('Invalid username & password combination')</script>";
+                }
     }// ./num_rows
-  }// ./query result
+    else {
+       echo "<script>alert('Invalid username & password combination')</script>";
+    }
+  }// ./query result 
+
 
   // Close connection
   mysqli_close($link);
@@ -118,11 +156,11 @@ function test_input($data) {
     <div class="card">
       <div class="card-body login-card-body">
         <p class="login-box-msg">Sign in to start your session</p>
-        <p class="text-danger"><?php echo $alertError ?></p>
+        <p class="text-danger"><?php echo $$alertMessage; ?></p>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Username" name="username" oninput="upperCase(this)">
+            <input type="text" class="form-control" placeholder="Username" name="username" oninput="upperCase(this)" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -130,7 +168,7 @@ function test_input($data) {
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Password" name="password">
+            <input type="password" class="form-control" placeholder="Password" name="password" required>
 
             <div class="input-group-append">
               <div class="input-group-text">

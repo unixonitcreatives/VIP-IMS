@@ -52,7 +52,7 @@
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse ID</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Quantity</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
-                          <th>Action</th>
+                          
                         </tr>
                       </thead>
                       <tbody>
@@ -74,10 +74,7 @@
                               echo "<td>" . $row['warehouse'] . "</td>";
                               echo "<td>" . number_format($row['quantity']) . "</td>";
                               echo "<td>" . $row['status'] . "</td>";
-                              echo "<td>";
-                              echo "<a href='user-update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-                              echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
-                              echo "</td>";
+
                               echo "</tr>";
                             }
                             // Free result set

@@ -120,11 +120,7 @@
 
  <?php include "includes/js.php"; ?>
 
- <script language="JavaScript" type="text/javascript">
-function checkDelete(){
-    return confirm('Are you sure you want to permanently delete this product?');
-}
-</script>
+ 
 
 </body>
 </html>
