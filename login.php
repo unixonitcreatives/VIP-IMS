@@ -6,25 +6,6 @@ require_once('config.php');
 $username = $password = "";
 $alertError = $alertMessage = $username_err = $password_err = $hashed_password = "";
 
-function getRealIpAddr()
-{
-    if (!empty($_SERVER['HTTP_CLIENT_IP']))   //check ip from share internet
-    {
-      $ip=$_SERVER['HTTP_CLIENT_IP'];
-    }
-    elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))   //to check ip is pass from proxy
-    {
-      $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
-    }
-    else
-    {
-      $ip=$_SERVER['REMOTE_ADDR'];
-    }
-    return $ip;
-}
-
-//echo 'User Real IP - '.getUserIpAddr();
-
   // Validate username and password
   $alertMessage = "";
 
@@ -39,10 +20,8 @@ function getRealIpAddr()
     $alertMessage = "Please enter username and password";
   }
 
-
-
   //Query
-  $querySelect ="SELECT * FROM users WHERE username='$username' ";
+  $querySelect ="SELECT * FROM users WHERE username='$username'";
   $queryResult = mysqli_query($link, $querySelect) or die(mysqli_error($link));
 
   if($queryResult){
@@ -64,43 +43,19 @@ function getRealIpAddr()
                           $_SESSION["usertype"] = "Admin";
 
                           $info = $_SESSION['username']." Logged In";
-                          $info2 = "Details: ".$username.", ".$usertype." IP:".getRealIpAddr();
+                          $info2 = "Details: ".$username.", ".$usertype;
                           $query="
                           INSERT INTO logs (info, info2) 
                           VALUES ('$info', '$info2')"; //Prepare insert query
+
                           $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
-
-                          echo "<script>
-                          alert('succesfull login');
-                          window.location.href='index.php';
-                          </script>";
-                          exit;
-
-                        } elseif ($usertype == "Manager") {
                           
-                          session_start();
-                          // Store data in session variables
-                          $_SESSION["loggedin"] = true;
-                          $_SESSION["username"] = $username;
-                          $_SESSION["usertype"] = "Manager";
-
-                          $info = $_SESSION['username']." Logged In";
-                          $info2 = "Details: ".$username.", ".$usertype." IP:".getUserIpAddr();
-                          $query="
-                          INSERT INTO logs (info, info2) 
-                          VALUES ('$info', '$info2')"; //Prepare insert query
-                          $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
-
                           echo "<script>
                           alert('succesfull login');
                           window.location.href='index.php';
                           </script>";
                           exit;
-
-                        } else {
-                          // Display an error message
-                          echo "<script>alert('Invalid username & password combination');</script>";
-                        }
+                          }
 
                 }// ./password validation
                 else {

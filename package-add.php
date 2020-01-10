@@ -85,11 +85,9 @@
         if($listresult === TRUE){
           //logs
           $info = $_SESSION['username']." added new package";
-          $info2 = "Details: ".$packname;
+          $info2 = "Details: ".$packname.", ".$custnewID;
           $alertlogsuccess = $packname.": has been added succesfully!";
           include "logs.php";
-
-          
 
            $query = "SELECT pack_list_model, pack_list_qty FROM package_list WHERE packId = '".$newPackID."' ";
           if($result = mysqli_query($link, $query)){
@@ -113,12 +111,6 @@
               echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
             }
 
-
-
-
-          $alertMessage = "<div class='alert alert-success' role='alert'>
-          Package Created.
-          </div>";
 
         }else{
           $alertMessage = "<div class='alert alert-danger' role='alert'>

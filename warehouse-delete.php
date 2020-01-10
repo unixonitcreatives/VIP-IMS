@@ -5,10 +5,11 @@ $id = $_GET['id'];
 $query = "DELETE FROM `warehouse` WHERE custID='$id'";
 $result = mysqli_query($link, $query) or die(mysqli_error($link));
 if ($result){
-    echo "<script>
-	alert('succesfully deleted.');
-	window.location.href='warehouse-manage.php';
-	</script>";
+     //echo "<script>alert('new staff added succesfully');</script>";
+                                    $info = $_SESSION['username']." deleted warehouse";
+                                    $info2 = "Details: ".$id;
+                                    $alertlogsuccess = $id.": has been deleted succesfully!";
+                                    include('logs.php');
 }else {
     echo "Error deleteing record: " . mysqli_error($link) ." please contact support.";
 }
