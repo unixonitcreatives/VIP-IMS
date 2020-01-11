@@ -72,7 +72,7 @@
                               echo "<td>" . $row['custID'] . "</td>";
                               echo "<td>" . $row['product'] . "</td>";
                               echo "<td>" . $row['warehouse'] . "</td>";
-                              echo "<td>" . number_format($row['quantity']) . "</td>";
+                              echo "<td>" . $row['quantity'] . "</td>";
                               echo "<td>" . $row['status'] . "</td>";
 
                               echo "</tr>";

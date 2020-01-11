@@ -19,7 +19,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
 
     }
     // Free result set
-    mysqli_free_result($Getresult);
+    //mysqli_free_result($Getresult);
   }
 } else{
   echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
