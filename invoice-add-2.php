@@ -7,7 +7,7 @@ include('session.php');
 
 if(isset($_POST['fullypaid'])){
   //Step 1: Prepare Variables
-  echo "<script>aler('Step 1: Fully Paid Button is clicked');</script>";
+
   $invCustName  = valData($_POST['invCustName']);
   $invDate      = valData($_POST['invDate']);
   $invRemarks   = valData($_POST['invRemarks']);
@@ -54,35 +54,69 @@ if(isset($_POST['fullypaid'])){
               if(mysqli_num_rows($result) > 0){ //Step: 7 Success
                     while($row = mysqli_fetch_array($result)){ //Step: 8 Success
 
-                              $order_product_model = $order_qty = $type = "";
+                              $order_product_model = $order_qty = $pm_type = "";
 
                               $order_product_model = $row['obdata_products'];
                               $order_qty  = $row['obdata_qty'];
-                              
-                                  //Check Product Model Type
-                                  $pm_type_checker_query = "SELECT type FROM product_model WHERE custID = '".$obdata_products."'";
-                                  if($pm_result = mysqli_query($link, $pm_type_checker_query)){
-                                    if(mysqli_num_rows($pm_result) > 0){
-                                      $pm_type = $row['type'];
-                                    } 
-                                    //Check Product Model Type End
-                                    echo "<script>console.log('$pm_type');</script>";
-                                    if($pm_type=="retail"){ //if PM is Retail
-                                      //Stock Update
-                                      echo "<script>alert('".$order_product_model." is a retail.')</script>";
-                                      include('stock-update.php');
 
-                                    } elseif($pm_type=="package") {
-                                      //Get Package List
-                                      //Stock Update
-                                      echo "<script>alert('Its a Package')</script>";
-                                    } else {
-                                      //Do Nothing
+                                  //Check Product Model Type
+                                  $pm_type_checker_query = "SELECT type FROM product_model WHERE custID = '".$order_product_model."'";
+
+                                  $pm_result = mysqli_query($link, $pm_type_checker_query);
+
+                                  if(mysqli_num_rows($pm_result) > 0){ 
+   
+                                    while($rows = mysqli_fetch_array($pm_result)){
+                                      $pm_type = $rows['type'];
+
+
+                                      //Check Product Model Type End
+                                      if($pm_type=='retail'){ //if PM is Retail
+
+                                        $query_stock = "UPDATE stocks SET quantity = quantity - '$order_qty' WHERE product = '$order_product_model'";
+                                        mysqli_query($link, $query_stock) or die(mysqli_error($link)); //Execute  insert query
+
+                                      } elseif ($pm_type=='package') { //if PM is Package
+                                        //Get Package List
+                                        //Stock Update
+                                        echo "<script>alert('OK');</script>";
+                                        $query = ""; $result = "";
+                                        $query = "SELECT * FROM package_list WHERE packID = '".$order_product_model."'";
+                                        $result = mysqli_query($link, $query);
+                                        if(mysqli_num_rows($result) > 0){
+                                          while($rows = mysqli_fetch_array($result)){
+                                            $pkg_pm = $rows['pack_list_model'];
+                                            $pkg_qty = $rows['pack_list_qty'];
+
+                                            $query_stock = "UPDATE stocks SET quantity = quantity - ($pkg_qty * $order_qty)  WHERE product = '$pkg_pm'";
+                                            mysqli_query($link, $query_stock) or die(mysqli_error($link)); //Execute 
+                                          }
+                                        }
+
+
+
+
+
+
+
+
+                                      } else {
+                                        echo "<script>alert('Didnt worked.');</script>";
+                                   
+                                      }
+
+
+
                                     }
-                                  } else {
-                                      echo "<script>alert('An error has occured. Please Contact Support.')</script>";
                                   }
-                    }
+                                  
+                                 
+                                  
+
+                                  
+                           
+              }
+              echo "<script>alert('END');</script>";
 
               } else { //Step: 7 Fail
                 echo "<script>alert('An error has occured. Please Contact Support.')</script>";
@@ -105,7 +139,7 @@ if(isset($_POST['fullypaid'])){
   }
 
 
-  }
+  
 }//isset end
 
 
