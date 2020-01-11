@@ -103,7 +103,105 @@ if(isset($_POST['fullypaid'])){
         }
       }// ./validation
 
-    }// ./post data
+    }// ./post datae
+    else if (isset($_POST['unpaid'])){
+      $invCustName  = valData($_POST['invCustName']);
+  $invDate      = valData($_POST['invDate']);
+  $invRemarks   = valData($_POST['invRemarks']);
+
+  $account = $_SESSION['username'];
+
+
+  if(empty($invCustName) || empty($invDate)){
+    $alertMessage = "<div class='alert alert-danger' role='alert'>
+    Please input required fields.
+    </div>";
+  }else{
+
+    //Prepare Date for custom ID
+    $IDtype = "OBTX";
+    $m = date('m');
+    $y = date('y');
+    $d = date('d');
+
+    $qry = mysqli_query($link,"SELECT MAX(id) FROM `outboundtb` "); // Get the latest ID
+    $resulta = mysqli_fetch_array($qry);
+    $newID = $resulta['MAX(id)'] + 1; //Get the latest ID then Add 1
+    $custID = str_pad($newID, 8, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
+    $obtxid = $IDtype.$custID; //Prepare custom ID
+
+
+    //insert query to outboundTB table
+    $obQuery = "INSERT INTO outboundtb (ob_tx_id, ob_custName, ob_date, ob_remarks, ob_status, ob_created_by)
+    VALUES ('$obtxid','$invCustName', '$invDate', '$invRemarks', 'Unpaid', '$account')";
+    $obResult = mysqli_query($link, $obQuery) or die(mysqli_error($link));
+
+
+    if ($obResult === TRUE) {
+
+      $j = 0;
+
+      //Counts the elements in array
+      $count = count($_POST['invProduct']);
+
+      // Use insert_id property to get the id of previous table (packages table)
+      $obID = $link->insert_id;
+
+      for ($j = 0; $j < $count; $j++) {
+
+        $listquery = "INSERT INTO obdatatb (outbound_ID, ob_tx_id, obdata_products, obdata_qty) VALUES (
+          '".$obID."',
+          '".$obtxid."',
+          '".$_POST['invProduct'][$j]."',
+          '".$_POST['invQty'][$j]."')";
+
+          $listresult = mysqli_multi_query($link, $listquery) or die(mysqli_error($link));
+
+        }
+
+        if($listresult === TRUE){
+ //logs
+          $info = $_SESSION['username']." added new package";
+          $info2 = "Details: ".$invRemarks.", ".$obID;
+          $alertlogsuccess = $invRemarks.": has been added succesfully!";
+          include "logs.php";
+
+           $query = "SELECT obdata_products, obdata_qty FROM obdatatb WHERE ob_tx_id = '".$obtxid."' ";
+          if($result = mysqli_query($link, $query)){
+              if(mysqli_num_rows($result) > 0){
+                while($row = mysqli_fetch_array($result)){
+                  $package_model = $package_qty = "";
+                  
+                  $package_model = $row['obdata_products'];
+                  $package_qty  = $row['obdata_qty'];
+
+                  include ('pm-checker-2.php');
+              
+
+                }
+              // Free result set
+              //mysqli_free_result($result);
+            } else{
+              echo "<p class='lead'><em>No records were found.</em></p>";
+            }
+          } else{
+            echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+          }
+
+
+          $alertMessage = "<div class='alert alert-success' role='alert'>
+          Outbound Products Successfully Created.
+          </div>";
+
+        }else{
+          $alertMessage = "<div class='alert alert-danger' role='alert'>
+          Error Creating Outbound Products.
+          </div>";}
+          //INSERT query to so_transactions table end
+
+        }
+      }// ./validation
+    }
 
 
 
