@@ -79,7 +79,7 @@ if(isset($_POST['fullypaid'])){
                                       } elseif ($pm_type=='package') { //if PM is Package
                                         //Get Package List
                                         //Stock Update
-                                        echo "<script>alert('OK');</script>";
+                              
                                         $query = ""; $result = "";
                                         $query = "SELECT * FROM package_list WHERE packID = '".$order_product_model."'";
                                         $result = mysqli_query($link, $query);
@@ -116,7 +116,7 @@ if(isset($_POST['fullypaid'])){
                                   
                            
               }
-              echo "<script>alert('END');</script>";
+          
 
               } else { //Step: 7 Fail
                 echo "<script>alert('An error has occured. Please Contact Support.')</script>";
