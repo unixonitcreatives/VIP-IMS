@@ -77,6 +77,7 @@
                               echo "<td>" . $row['ob_created_by'] . "</td>";
                               echo "<td>" . $row['ob_remarks'] . "</td>";
                               echo "<td>";
+                              
                               echo " &nbsp; <a class='btn btn-danger' href='invoice-paid-delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='far  fa-trash-alt'></span></a>";
                               echo "</td>";
                               echo "</tr>";
