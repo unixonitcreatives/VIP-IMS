@@ -1,73 +1,78 @@
+<?php include "session.php";?>
+
 <?php
-include "session.php";
-require_once "config.php";
 // Define variables and initialize with empty values
 $username=$password=$usertype=$alertMessage="";
+require_once "config.php";
+$id = $_GET['id'];
 
-$account = $_SESSION["username"];?>
-
-<?php
+//If the form is submitted or not.
 //If the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //Assigning posted values to variables.
-    $description = test_input($_POST['description']);
-    $sku = test_input($_POST['sku']);
+    $name = test_input($_POST['name']);
+    $refID = test_input($_POST['id']);
+    $address = test_input($_POST['address']);
 
 
     // Check input errors before inserting in database
     if(empty($alertMessage)){
         //Check if the username is already in the database
-        $sql_check = "SELECT sku FROM `product_model` WHERE sku ='$sku'";
+        $sql_check = "SELECT refID FROM customers WHERE refID ='$refID'";
         if($result = mysqli_query($link, $sql_check)){ //Execute query
                                  if(mysqli_num_rows($result) > 0){
                                     //If the username already exists
                                     //Try another username pop up
-                                    echo "<script>alert('SKU already exist');</script>";
+                                    echo "<script>alert('customer reference ID already exist');</script>";
                                     mysqli_free_result($result);
                                  } else{
                                     //If the username doesnt exist in the database
                                     //Proceed adding to database
 
                                     //Prepare Date for custom ID
-                                    $IDtype = "PM";
+                                    $IDtype = "PH";
                                     $m = date('m');
                                     $y = date('y');
                                     $d = date('d');
 
-                                    $qry = mysqli_query($link,"SELECT MAX(id) FROM `product_model`"); // Get the latest ID
+                                    $qry = mysqli_query($link,"SELECT MAX(id) FROM `customers`"); // Get the latest ID
                                     $resulta = mysqli_fetch_array($qry);
                                     $newID = $resulta['MAX(id)'] + 1; //Get the latest ID then Add 1
-                                    $custID = str_pad($newID, 5, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
+                                    $custID = str_pad($newID, 8, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
                                     $custnewID = $IDtype.$custID; //Prepare custom ID
 
-                                    $query = "
-                                    INSERT INTO `product_model` (custID, description, sku, type, status, created_by)
-                                    VALUES ('$custnewID', '$description', '$sku', 'retail', 'Active','$account')"; //Prepare insert query
+                                    $account = $_SESSION["username"];//session name
+
+                                    $query = "UPDATE customers SET name = '$name', address = '$address', refID = '$refID' WHERE custID='$id'";
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
 
                                     if($result){
-                                    $info = $_SESSION['username']." added new product_model";
-                                    $info2 = "Details: ".$description.", ".$sku;
-                                    $alertlogsuccess = $description.", ".$sku.": has been added succesfully!";
+                                    $info = $_SESSION['username']." updated customer";
+                                    $info2 = "Details: ".$name.", ".$refID;
+                                    $alertlogsuccess = $name.", ".$refID.": has been updated succesfully!";
                                     include "logs.php";
-                                    echo "<script>window.location.href='product-manage.php'</script>";
+                                    echo "<script>window.location.href='customer-manage.php'</script>";
 
                                     }else{
                                       //If execution failed
                                       $alertMessage = "<div class='alert alert-danger' role='alert'>
                                       Error adding data.
                                       </div>";}
-                                      //mysqli_close($link);
+
                                  }
                              } else{
                                  echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                              }
 
-                             mysqli_close($link);
+
 
         }
+
+
+
+
       }
 
 function test_input($data) {
@@ -100,7 +105,7 @@ function test_input($data) {
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Add Product Model</li>
+              <li class="breadcrumb-item active">Update customer</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -116,26 +121,44 @@ function test_input($data) {
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Add Product Model</h3>
-                  <a href="product-manage.php">View all product model</a>
+                  <h3 class="card-title">Update customer</h3>
+                  <a href="customer-manage.php">View all customer</a>
                 </div>
               </div>
 
               <div class="card-body">
-                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
+                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?id=<?php echo $id;?>">
+
+                    <?php
+                    $q = "SELECT * FROM customers WHERE custID='$id'";
+                    $r = mysqli_query($link,$q);
+
+                    while($row = mysqli_fetch_assoc($r)){
+                      // $name = $row['name'];
+                      // $rid = $row['refID'];
+                      // $add = $row['address'];
+                    ?>
                       <div class="form-group">
-                        <label>Product Description</label>
-                        <input type="text" class="form-control" placeholder="Product Description" name="description" oninput="upperCase(this)" maxlength="20" required>
+                        <label>Customer Name</label>
+                        <input type="text" class="form-control" placeholder="Username" name="name" oninput="upperCase(this)" maxlength="20" value='<?php echo $row['name'];?>'>
                       </div>
 
                       <div class="form-group">
-                        <label>Product SKU</label>
-                        <input type="text" class="form-control" placeholder="SKU" name="sku" oninput="upperCase(this)" required>
+                        <label>Reference ID</label>
+                        <input type="text" class="form-control" placeholder="ID" name="id" oninput="upperCase(this)" maxlength="20" value="<?php echo $row['refID'];?>">
                       </div>
+
+                      <div class="form-group">
+                        <label>Shipping Address</label>
+                        <input type="text" class="form-control" placeholder="Address" name="address" oninput="upperCase(this)" maxlength="200" value="<?php echo $row['address']; ?>">
+                      </div>
+                      <?php   } ?>
               </div>
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" >Save</button>
+
                 </form>
               </div>
             </div>

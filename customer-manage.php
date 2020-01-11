@@ -21,7 +21,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manage Staff</li>
+              <li class="breadcrumb-item active">Manage Customer</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,14 +37,14 @@
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Manage Staff</h3>
-                  <a href="staff-add.php">add new staff</a>
+                  <h3 class="card-title">Manage Customers</h3>
+                  <a href="customer-add.php">add new customer</a>
                 </div>
               </div>
 
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-                      <thead>
+                    <thead>
                         <tr>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">ACC No.</th>
@@ -75,8 +75,8 @@
                               echo "<td>" . $row['address'] . "</td>";
                               echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";
-                              echo "<a href='user-update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-                              echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
+                              echo " &nbsp; <a href='customer-update.php?id=". $row['custID'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
+                              echo " &nbsp; <a href='customer-delete.php?id=". $row['custID'] ."' title='Delete Record' data-toggle='tooltip'><span class='fas fa-trash'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }
@@ -99,7 +99,7 @@
               </div>
 
               <div class="card-footer">
-  
+
               </div>
             </div>
           </div>

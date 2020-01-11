@@ -2,7 +2,7 @@
 session_start();
 require_once 'config.php';
 $id = $_GET['id'];
-$query = "DELETE FROM `warehouse` WHERE custID='$id'";
+$query = "DELETE FROM `customers` WHERE custID='$id'";
 $result = mysqli_query($link, $query) or die(mysqli_error($link));
 if ($result){
      //echo "<script>alert('new staff added succesfully');</script>";
@@ -10,7 +10,7 @@ if ($result){
                                     $info2 = "Details: ".$id;
                                     $alertlogsuccess = $id.": has been deleted succesfully!";
                                     include('logs.php');
-                                    echo "<script>window.location.href='warehouse-manage.php';</script>"; 
+                                    echo "<script>window.location.href='customer-manage.php';</script>";
 }else {
     echo "Error deleteing record: " . mysqli_error($link) ." please contact support.";
 }

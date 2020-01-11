@@ -76,6 +76,8 @@ if(isset($_POST['fullypaid'])){
                 include('pm-checker.php');
 
               }
+
+                echo "<script>window.location.href='invoice-manage.php'</script>";
               // Free result set
               //mysqli_free_result($result);
             } else{
@@ -90,6 +92,9 @@ if(isset($_POST['fullypaid'])){
           Outbound Products Successfully Created.
           </div>";
 
+
+
+
         }else{
           $alertMessage = "<div class='alert alert-danger' role='alert'>
           Error Creating Outbound Products.
@@ -97,6 +102,8 @@ if(isset($_POST['fullypaid'])){
           //INSERT query to so_transactions table end
 
         }
+
+
       }// ./validation
 
     }// ./post data

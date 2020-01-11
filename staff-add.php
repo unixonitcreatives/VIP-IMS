@@ -58,6 +58,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $info2 = "Details: ".$username.", ".$usertype;
                                     $alertlogsuccess = $username.", ".$usertype.": has been added succesfully!";
                                     include('logs.php');
+                                    echo "<script>window.location.href='staff-manage.php'</script>";
+                                    $username = "";
+                                    $hash = "";
+                                    $usertype = "";
 
                                     }else{
                                       //If execution failed

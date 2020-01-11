@@ -62,6 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $info2 = "Details: ".$name;
                                     $alertlogsuccess = $name.": has been added succesfully!";
                                     include "logs.php";
+                                    echo "<script>window.location.href='warehouse-manage.php'</script>"; 
+
 
                                     }else{
                                       //If execution failed
@@ -74,9 +76,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                  echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                              }
 
-                             mysqli_close($link);
+
 
         }
+
+        //mysqli_close($link);
       }
 
 function test_input($data) {
