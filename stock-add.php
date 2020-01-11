@@ -59,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $info2 = "Details: ".$product.", ".$qty."pcs";
                                     $alertlogsuccess = $product.", ".$qty."pcs: has been added succesfully!";
                                     include "logs.php";
+                                    echo "<script>window.location.href='stock-manage.php'</script>";
 
                                     }else{
                                     echo "<script>alert('Failed adding new stocks')</script>";

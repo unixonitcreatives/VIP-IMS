@@ -52,7 +52,7 @@
       $count = count($_POST['product-model']);
 
       // Use insert_id property to get the id of previous table (packages table)
-      $packages_id = $link->insert_id; 
+      $packages_id = $link->insert_id;
 
       //===========================================================================================
         //Prepare Date for custom ID
@@ -88,18 +88,19 @@
           $info2 = "Details: ".$packname.", ".$custnewID;
           $alertlogsuccess = $packname.": has been added succesfully!";
           include "logs.php";
+          echo "<script>window.location.href='package-manage.php'</script>";
 
            $query = "SELECT pack_list_model, pack_list_qty FROM package_list WHERE packId = '".$newPackID."' ";
           if($result = mysqli_query($link, $query)){
               if(mysqli_num_rows($result) > 0){
                 while($row = mysqli_fetch_array($result)){
                   $package_model = $package_qty = "";
-                  
+
                   $package_model = $row['pack_list_model'];
                   $package_qty  = $row['pack_list_qty'];
 
                   include ('pm-retail-checker.php');
-              
+
 
                 }
                 // Free result set

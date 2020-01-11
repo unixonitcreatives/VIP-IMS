@@ -54,18 +54,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $info2 = "Details: ".$name.", ".$refID;
                                     $alertlogsuccess = $name.", ".$refID.": has been added succesfully!";
                                     include "logs.php";
+                                    echo "<script>window.location.href='customer-manage.php'</script>";
+                                    $name = "";
+                                    $refID = "";
+                                    $address = "";
 
                                     }else{
                                       //If execution failed
                                       $alertMessage = "<div class='alert alert-danger' role='alert'>
                                       Error adding data.
                                       </div>";}
-                                      mysqli_close($link);
+
                                  }
                              } else{
                                  echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                              }
 
+                             //mysqli_close($link);
                              mysqli_close($link);
 
         }

@@ -1,73 +1,81 @@
+<?php include "session.php"; ?>
+
+
+
 <?php
-include "session.php";
-require_once "config.php";
 // Define variables and initialize with empty values
-$username=$password=$usertype=$alertMessage="";
-
-$account = $_SESSION["username"];?>
-
-<?php
+$name=$address=$alertMessage="";
+require_once "config.php";
+$id = $_GET['id'];
+//If the form is submitted or not.
 //If the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    //Assigning posted values to variables.
-    $description = test_input($_POST['description']);
-    $sku = test_input($_POST['sku']);
 
+    //Assigning posted values to variables.
+    $name = test_input($_POST['name']);
+    $address = test_input($_POST['address']);
+
+    if(empty($name)){
+      $alertMessage = "Please enter a warehouse name.";
+    }
+
+    if(empty($address)){
+      $alertMessage = "Please enter a warehouse address.";
+    }
 
     // Check input errors before inserting in database
     if(empty($alertMessage)){
         //Check if the username is already in the database
-        $sql_check = "SELECT sku FROM `product_model` WHERE sku ='$sku'";
+        $sql_check = "SELECT name FROM warehouse WHERE name ='$name'";
         if($result = mysqli_query($link, $sql_check)){ //Execute query
                                  if(mysqli_num_rows($result) > 0){
                                     //If the username already exists
                                     //Try another username pop up
-                                    echo "<script>alert('SKU already exist');</script>";
+                                    echo "<script>alert('Warehouse name already exist');</script>";
                                     mysqli_free_result($result);
                                  } else{
                                     //If the username doesnt exist in the database
                                     //Proceed adding to database
 
                                     //Prepare Date for custom ID
-                                    $IDtype = "PM";
+                                    $IDtype = "WH";
                                     $m = date('m');
                                     $y = date('y');
                                     $d = date('d');
 
-                                    $qry = mysqli_query($link,"SELECT MAX(id) FROM `product_model`"); // Get the latest ID
+                                    $qry = mysqli_query($link,"SELECT MAX(id) FROM `warehouse`"); // Get the latest ID
                                     $resulta = mysqli_fetch_array($qry);
                                     $newID = $resulta['MAX(id)'] + 1; //Get the latest ID then Add 1
-                                    $custID = str_pad($newID, 5, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
+                                    $custID = str_pad($newID, 4, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
                                     $custnewID = $IDtype.$custID; //Prepare custom ID
 
-                                    $query = "
-                                    INSERT INTO `product_model` (custID, description, sku, type, status, created_by)
-                                    VALUES ('$custnewID', '$description', '$sku', 'retail', 'Active','$account')"; //Prepare insert query
+                                    $account = $_SESSION["username"];//session name
 
+                                    $query = "UPDATE warehouse SET name = '$name', address = '$address' WHERE id='$id'";
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
-
                                     if($result){
-                                    $info = $_SESSION['username']." added new product_model";
-                                    $info2 = "Details: ".$description.", ".$sku;
-                                    $alertlogsuccess = $description.", ".$sku.": has been added succesfully!";
+                                    $info = $_SESSION['username']." updated warehouse:".$custID;
+                                    $info2 = "Details: ".$name;
+                                    $alertlogsuccess = $name.": has been updated succesfully!";
                                     include "logs.php";
-                                    echo "<script>window.location.href='product-manage.php'</script>";
-
+                                    echo "<script>window.location.href='warehouse-manage.php'</script>";
                                     }else{
                                       //If execution failed
                                       $alertMessage = "<div class='alert alert-danger' role='alert'>
-                                      Error adding data.
+                                      Error updating data.
                                       </div>";}
-                                      //mysqli_close($link);
+                                      mysqli_close($link);
                                  }
                              } else{
                                  echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                              }
 
-                             mysqli_close($link);
+
 
         }
+
+        //mysqli_close($link);
       }
 
 function test_input($data) {
@@ -100,7 +108,7 @@ function test_input($data) {
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Add Product Model</li>
+              <li class="breadcrumb-item active">Add warehouse</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -116,26 +124,34 @@ function test_input($data) {
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Add Product Model</h3>
-                  <a href="product-manage.php">View all product model</a>
+                  <h3 class="card-title">Update warehouse</h3>
+                  <a href="warehouse-manage.php">View all warehouse</a>
                 </div>
               </div>
 
               <div class="card-body">
-                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?id=<?php echo $id; ?>">
+                  <?php
+                    $q = "SELECT name,address FROM warehouse WHERE id='$id'";
+                    $r = mysqli_query($link,$q);
+                    while($row = mysqli_fetch_assoc($r)){
+                  ?>
                       <div class="form-group">
-                        <label>Product Description</label>
-                        <input type="text" class="form-control" placeholder="Product Description" name="description" oninput="upperCase(this)" maxlength="20" required>
+                        <label>Warehouse Name</label>
+                        <input type="text" class="form-control" placeholder="Warehouse Name" name="name" oninput="upperCase(this)" maxlength="20" value='<?php echo $row['name'];?>'>
                       </div>
 
                       <div class="form-group">
-                        <label>Product SKU</label>
-                        <input type="text" class="form-control" placeholder="SKU" name="sku" oninput="upperCase(this)" required>
+                        <label>Warehouse Address</label>
+                        <input type="text" class="form-control" placeholder="Address" name="address" oninput="upperCase(this)" value='<?php echo $row['address'];?>'>
                       </div>
+                    <?php } ?>
               </div>
 
               <div class="card-footer">
+
                 <button type="submit" class="btn btn-primary" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" >Save</button>
+                <?php echo $alertMessage ?>
                 </form>
               </div>
             </div>

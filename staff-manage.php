@@ -75,8 +75,8 @@
                               echo "<td>" . $row['created_by'] . "</td>";
                               echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";
-                              echo "<a href='user-update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-                              echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
+                              echo "<a href='staff-update.php?id=". $row['custID'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
+                              echo " &nbsp; <a href='staff-delete.php?id=". $row['custID'] ."' title='Delete Record' data-toggle='tooltip'><span class='fas fa-trash'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }
@@ -99,7 +99,7 @@
               </div>
 
               <div class="card-footer">
-  
+
               </div>
             </div>
           </div>
