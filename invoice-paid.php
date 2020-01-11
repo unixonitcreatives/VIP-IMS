@@ -62,7 +62,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM outboundtb WHERE ob_status = 'Fully Paid' ";
+                        $query = "SELECT * FROM outboundtb WHERE ob_status = 'Fully Paid' ORDER BY ob_tx_id desc";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;

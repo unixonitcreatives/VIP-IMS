@@ -69,12 +69,10 @@
 
       //===========================================================================================
 
-
-
       for ($j = 0; $j < $count; $j++) {
 
         $listquery = "INSERT INTO package_list (packId, pack_list_model, pack_list_qty) VALUES (
-          '".$newPackID."',
+          '".$custnewID."',
           '".$_POST['product-model'][$j]."',
           '".$_POST['modelQty'][$j]."')";
 
