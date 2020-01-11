@@ -12,6 +12,6 @@ if($resultss){
    echo "<script>alert('An Error has Occured. ERROR CODE: 223');</script>";
 }
 
-mysqli_close($link);
+//mysqli_close($link);
 
 ?>
