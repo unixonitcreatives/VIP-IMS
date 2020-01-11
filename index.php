@@ -31,47 +31,94 @@
 
     <!-- Main content -->
     <div class="content">
+
+
+
       <div class="container-fluid">
+
+        <div class="row">
+           <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header border-0">
+              <h3>Welcome to VIP Inventory Management Dashboard! BETA TESTING</h3> 
+              </div>
+              <div class="card-body">
+              <label>Quick Access:</label><br>
+              <a class="btn btn-primary" href="customer-add.php"><i class="nav-icon fas fa-users"></i> New Customer</a>
+              <a class="btn btn-primary" href="product-add.php"><i class="nav-icon fas fa-cubes"></i> New Product Model</a>
+              <a class="btn btn-primary" href="stock-add.php"><i class="nav-icon fas fa-cubes"></i> Add New Stocks</a>
+              <a class="btn btn-success" href="invoice-add-2.php"><i class="nav-icon fas fa-copy"></i> Add New Invoice</a>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
         <div class="row">
           <div class="col-lg-6">
             <div class="card">
               <div class="card-header border-0">
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Online Store Visitors</h3>
-                  <a href="javascript:void(0);">View Report</a>
+                <h3 class="card-title">Recent Added Customer</h3>
+                <div class="card-tools">
+                  <a href="customer-add.php" class="btn btn-tool btn-sm">
+                    <i class="fas fa-plus"></i>
+                  </a>
+                  <a href="customer-manage.php" class="btn btn-tool btn-sm">
+                    <i class="fas fa-bars"></i>
+                  </a>
                 </div>
               </div>
-              <div class="card-body">
-                <div class="d-flex">
-                  <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">820</span>
-                    <span>Visitors Over Time</span>
-                  </p>
-                  <p class="ml-auto d-flex flex-column text-right">
-                    <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> 12.5%
-                    </span>
-                    <span class="text-muted">Since last week</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
+              <div class="card-body p-0">
+                <table class="table table-striped table-valign-middle">
+                  <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>ID</th>
+                    <th>Ref ID</th>
+                    <th>Name</th>
+                  </tr>
+                  </thead>
+                  <?php
+                        // Include config file
+                        //require_once 'config.php';
 
-                <div class="position-relative mb-4">
-                  <canvas id="visitors-chart" height="200"></canvas>
-                </div>
+                        // Attempt select query execution
+                        $cust_qry = "SELECT * FROM customers ORDER BY custID DESC LIMIT 5";
+                        if($cust_result = mysqli_query($link, $cust_qry)){
+                          if(mysqli_num_rows($cust_result) > 0){
+                            $cust_ctr = 0;
+                            while($cust_row = mysqli_fetch_array($cust_result)){
+                              $cust_ctr++;
+                              echo "<tr>";
+                              echo "<td>" . $cust_ctr . "</td>";
+                              echo "<td>" . $cust_row['custID'] . "</td>";
+                              echo "<td>" . $cust_row['refID'] . "</td>";
+                              echo "<td>" . $cust_row['name'] . "</td>";
+                              echo "</tr>";
+                            }
+                            // Free result set
+                            mysqli_free_result($cust_result);
+                          } else{
+                            echo "<p class='lead'><em>No records were found.</em></p>";
+                          }
+                        } else{
+                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                        }
 
-                <div class="d-flex flex-row justify-content-end">
-                  <span class="mr-2">
-                    <i class="fas fa-square text-primary"></i> This Week
-                  </span>
-
-                  <span>
-                    <i class="fas fa-square text-gray"></i> Last Week
-                  </span>
-                </div>
+                        // Close connection
+                        //mysqli_close($link);
+                        ?>
+                      </tbody>
+                </table>
               </div>
             </div>
+            
             <!-- /.card -->
+            
 
             <div class="card">
               <div class="card-header border-0">
@@ -135,7 +182,7 @@
           <div class="col-lg-6">
             <div class="card">
               <div class="card-header border-0">
-                <h3 class="card-title">Unpaid</h3>
+                <h3 class="card-title">Unpaid Invoices</h3>
                 <div class="card-tools">
                   <a href="customer-add.php" class="btn btn-tool btn-sm">
                     <i class="fas fa-plus"></i>
@@ -217,7 +264,7 @@
                         //require_once 'config.php';
 
                         // Attempt select query execution
-                        $pkg_qry = "SELECT * FROM packages ORDER BY packId DESC LIMIT 5";
+                        $pkg_qry = "SELECT * FROM `product_model` WHERE type = 'package' ORDER BY custID DESC LIMIT 5";
                         if($pkg_result = mysqli_query($link, $pkg_qry)){
                           if(mysqli_num_rows($pkg_result) > 0){
                             $pkg_ctr = 0;
@@ -225,7 +272,7 @@
                               $pkg_ctr++;
                               echo "<tr>";
                               echo "<td>" . $pkg_ctr . "</td>";
-                              echo "<td>" . $pkg_row['package_name'] . "</td>";
+                              echo "<td>" . $pkg_row['description'] . "</td>";
                               echo "</tr>";
                             }
                             // Free result set
@@ -237,11 +284,65 @@
                           echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                         }
 
-                        // Close connection
-                        mysqli_close($link);
+                        
                         ?>
 
 
+                      </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header border-0">
+                <h3 class="card-title">Recent Logs</h3>
+                <div class="card-tools">
+             
+                  <a href="logs-manage.php" class="btn btn-tool btn-sm">
+                    <i class="fas fa-bars"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <table class="table table-striped table-valign-middle">
+                  <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Info</th>
+                    <th>Details</th>
+                    <th>Date</th>
+                  </tr>
+                  </thead>
+                  <?php
+                        // Include config file
+                        //require_once 'config.php';
+
+                        // Attempt select query execution
+                        $cust_qry = "SELECT * FROM logs ORDER BY id DESC LIMIT 5";
+                        if($cust_result = mysqli_query($link, $cust_qry)){
+                          if(mysqli_num_rows($cust_result) > 0){
+                            $cust_ctr = 0;
+                            while($cust_row = mysqli_fetch_array($cust_result)){
+                              $cust_ctr++;
+                              echo "<tr>";
+                              echo "<td>" . $cust_ctr . "</td>";
+                              echo "<td>" . $cust_row['info'] . "</td>";
+                              echo "<td>" . $cust_row['info2'] . "</td>";
+                              echo "<td>" . $cust_row['created_at'] . "</td>";
+                              echo "</tr>";
+                            }
+                            // Free result set
+                            mysqli_free_result($cust_result);
+                          } else{
+                            echo "<p class='lead'><em>No records were found.</em></p>";
+                          }
+                        } else{
+                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                        }
+
+                        // Close connection
+                        mysqli_close($link);
+                        ?>
                       </tbody>
                 </table>
               </div>
