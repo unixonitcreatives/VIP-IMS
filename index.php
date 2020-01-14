@@ -161,7 +161,7 @@
                               echo "</tr>";
                             }
                             // Free result set
-                            //mysqli_free_result($cust_result);
+                            mysqli_free_result($cust_result);
                           } else{
                             echo "<p class='lead'><em>No records were found.</em></p>";
                           }
@@ -332,7 +332,7 @@
                               echo "</tr>";
                             }
                             // Free result set
-                            //mysqli_free_result($cust_result);
+                            mysqli_free_result($cust_result);
                           } else{
                             echo "<p class='lead'><em>No records were found.</em></p>";
                           }
