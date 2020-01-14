@@ -342,9 +342,9 @@ if(isset($_POST['unpaid'])){
                             <div class="row">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label>Customer</label><a href="customer-add.php"> + new customer</a>
+                                  <label>Customer</label><a href="member-add.php"> + add new member</a>
                                   <select class="form-control select2" oninput="upperCase(this)"  name="invCustName" required>
-                                    <option value="">~~SELECT CUSTOMER~~</option>
+                                    <option value="">~~SELECT MEMBER~~</option>
                                     <?php
                                     // Include config file
                                     require_once "config.php";

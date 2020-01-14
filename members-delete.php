@@ -10,7 +10,7 @@ if ($result){
                                     $info2 = "Details: ".$id;
                                     $alertlogsuccess = $id.": has been deleted succesfully!";
                                     include('logs.php');
-                                    echo "<script>window.location.href='customer-manage.php';</script>";
+                                    echo "<script>window.location.href='members-manage.php';</script>";
 }else {
     echo "Error deleteing record: " . mysqli_error($link) ." please contact support.";
 }

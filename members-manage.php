@@ -21,7 +21,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manage Customer</li>
+              <li class="breadcrumb-item active">Manage Members</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,8 +37,8 @@
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Manage Customers</h3>
-                  <a href="customer-add.php">add new customer</a>
+                  <h3 class="card-title">Manage Members</h3>
+                  <a href="members-add.php">add new member</a>
                 </div>
               </div>
 
@@ -75,13 +75,13 @@
                               echo "<td>" . $row['address'] . "</td>";
                               echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";
-                              echo " &nbsp; <a href='customer-update.php?id=". $row['custID'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
-                              echo " &nbsp; <a href='customer-delete.php?id=". $row['custID'] ."' title='Delete Record' data-toggle='tooltip'><span class='fas fa-trash'></span></a>";
+                              echo " &nbsp; <a href='members-update.php?id=". $row['custID'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
+                              echo " &nbsp; <a href='members-delete.php?id=". $row['custID'] ."' title='Delete Record' data-toggle='tooltip'><span class='fas fa-trash'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }
                             // Free result set
-                            mysqli_free_result($result);
+                            //mysqli_free_result($result);
                           } else{
                             echo "<p class='lead'><em>No records were found.</em></p>";
                           }
@@ -90,7 +90,7 @@
                         }
 
                         // Close connection
-                        mysqli_close($link);
+                        //mysqli_close($link);
                         ?>
                       </tbody>
                     </table>

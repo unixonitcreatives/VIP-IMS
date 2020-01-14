@@ -44,7 +44,7 @@
               </div>
               <div class="card-body">
               <label>Quick Access:</label><br>
-              <a class="btn btn-primary" href="customer-add.php"><i class="nav-icon fas fa-users"></i> New Customer</a>
+              <a class="btn btn-primary" href="members-add.php"><i class="nav-icon fas fa-users"></i> New Member</a>
               <a class="btn btn-primary" href="product-add.php"><i class="nav-icon fas fa-cubes"></i> New Product Model</a>
               <a class="btn btn-primary" href="stock-add.php"><i class="nav-icon fas fa-cubes"></i> Add New Stocks</a>
               <a class="btn btn-success" href="invoice-add-2.php"><i class="nav-icon fas fa-copy"></i> Add New Invoice</a>
@@ -122,12 +122,12 @@
 
             <div class="card">
               <div class="card-header border-0">
-                <h3 class="card-title">Recent Added Customer</h3>
+                <h3 class="card-title">Recent Added Members</h3>
                 <div class="card-tools">
-                  <a href="customer-add.php" class="btn btn-tool btn-sm">
+                  <a href="members-add.php" class="btn btn-tool btn-sm">
                     <i class="fas fa-plus"></i>
                   </a>
-                  <a href="customer-manage.php" class="btn btn-tool btn-sm">
+                  <a href="members-manage.php" class="btn btn-tool btn-sm">
                     <i class="fas fa-bars"></i>
                   </a>
                 </div>
@@ -161,7 +161,7 @@
                               echo "</tr>";
                             }
                             // Free result set
-                            mysqli_free_result($cust_result);
+                            //mysqli_free_result($cust_result);
                           } else{
                             echo "<p class='lead'><em>No records were found.</em></p>";
                           }
@@ -332,7 +332,7 @@
                               echo "</tr>";
                             }
                             // Free result set
-                            mysqli_free_result($cust_result);
+                            //mysqli_free_result($cust_result);
                           } else{
                             echo "<p class='lead'><em>No records were found.</em></p>";
                           }
@@ -341,7 +341,7 @@
                         }
 
                         // Close connection
-                        mysqli_close($link);
+                        //mysqli_close($link);
                         ?>
                       </tbody>
                 </table>

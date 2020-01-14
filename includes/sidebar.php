@@ -152,21 +152,21 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Customers
+                Members
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="customer-add.php" class="nav-link">
+                <a href="members-add.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Customer</p>
+                  <p>Add Member</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="customer-manage.php" class="nav-link">
+                <a href="members-manage.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Customers</p>
+                  <p>Manage Members</p>
                 </a>
               </li>
 
@@ -181,7 +181,7 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <!-- <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="pages/tables/simple.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -200,7 +200,7 @@
                   <p>Report</p>
                 </a>
               </li>
-            </ul>
+            </ul> -->
           </li>
 
           <li class="nav-item has-treeview">
