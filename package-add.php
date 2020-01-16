@@ -46,13 +46,7 @@
 
 
     if ($packageResult === TRUE) {
-      $j = 0;
-
-      //Counts the elements in array
-      $count = count($_POST['product-model']);
-
-      // Use insert_id property to get the id of previous table (packages table)
-      $packages_id = $link->insert_id;
+      
 
       //===========================================================================================
         //Prepare Date for custom ID
@@ -68,6 +62,15 @@
     $newPackID = $IDtype.$custID; //Prepare custom ID
 
       //===========================================================================================
+
+
+      $j = 0;
+
+      //Counts the elements in array
+      $count = count($_POST['product-model']);
+
+      // Use insert_id property to get the id of previous table (packages table)
+      $packages_id = $link->insert_id;
 
       for ($j = 0; $j < $count; $j++) {
 
@@ -88,17 +91,16 @@
           include "logs.php";
           echo "<script>window.location.href='package-manage.php'</script>";
 
-           $query = "SELECT pack_list_model, pack_list_qty FROM package_list WHERE packId = '".$newPackID."' ";
+           $query = "SELECT pack_list_model, pack_list_qty FROM package_list WHERE packId = '".$custnewID."' ";
           if($result = mysqli_query($link, $query)){
               if(mysqli_num_rows($result) > 0){
                 while($row = mysqli_fetch_array($result)){
-                  $package_model = $package_qty = "";
+                  //$package_model = $package_qty = "";
 
                   $package_model = $row['pack_list_model'];
                   $package_qty  = $row['pack_list_qty'];
 
                   include ('pm-retail-checker.php');
-
 
                 }
                 // Free result set
@@ -230,7 +232,7 @@
                             </td>
                           </div>
                             <td>
-                              <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="modQty<?php echo $x; ?>" required>
+                              <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?php echo $x; ?>" required>
                             </td>
                             <td>
                               <button class="btn btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
