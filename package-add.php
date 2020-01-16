@@ -230,7 +230,7 @@
                             </td>
                           </div>
                             <td>
-                              <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?$php echo $x; ?>" required>
+                              <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="modQty<?php echo $x; ?>" required>
                             </td>
                             <td>
                               <button class="btn btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
