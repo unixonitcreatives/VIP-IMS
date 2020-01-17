@@ -3,7 +3,7 @@
 
 <?php
 
-$id = $_GET['id'];
+$id = $_GET['custID'];
 
 // Attempt select query execution
 $Getquery = "SELECT * FROM product_model WHERE custID = '$id'";
@@ -102,7 +102,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
                     <tbody>
                       <?php
                       // Attempt select query execution
-                      $query = "SELECT * FROM package_list, product_model WHERE package_list.pack_list_model = product_model.custID";
+                      $query = "SELECT * FROM package_list WHERE packID = '$id'";
                       if($result = mysqli_query($link, $query)){
                         if(mysqli_num_rows($result) > 0){
                           $ctr = 0;

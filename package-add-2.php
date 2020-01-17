@@ -1,9 +1,3 @@
-   <?php 
-  include "session.php";
-  //loggedin username
-  $account = $_SESSION["username"];
-  ?>
-  
   <?php
   //Connection
   require_once "config.php";
@@ -11,7 +5,10 @@
   $pname=$account=$alertMessage="";
   ?>
 
- 
+  <?php include "session.php";
+      //loggedin username
+      $account = $_SESSION["username"];
+  ?>
 
   <?php
 
@@ -91,7 +88,7 @@
           include "logs.php";
           echo "<script>window.location.href='package-manage.php'</script>";
 
-           $query = "SELECT pack_list_model, pack_list_qty FROM package_list WHERE packId = '".$custnewID."' ";
+           $query = "SELECT pack_list_model, pack_list_qty FROM package_list WHERE packId = '".$newPackID."' ";
           if($result = mysqli_query($link, $query)){
               if(mysqli_num_rows($result) > 0){
                 while($row = mysqli_fetch_array($result)){
@@ -233,7 +230,7 @@
                             </td>
                           </div>
                             <td>
-                              <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?php echo $x; ?>" required>
+                              <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?$php echo $x; ?>" required>
                             </td>
                             <td>
                               <button class="btn btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
