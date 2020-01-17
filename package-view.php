@@ -102,7 +102,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
                     <tbody>
                       <?php
                       // Attempt select query execution
-                      $query = "SELECT * FROM package_list WHERE packID = '$id'";
+                      $query = "SELECT * FROM package_list WHERE packID = '$id' ";
                       if($result = mysqli_query($link, $query)){
                         if(mysqli_num_rows($result) > 0){
                           $ctr = 0;
