@@ -60,11 +60,11 @@ if(isset($_POST['fullypaid'])){
                               $order_qty  = $row['obdata_qty'];
 
                                   //Check Product Model Type
-                                  $pm_type_checker_query = "SELECT type FROM product_model WHERE custID = '".$order_product_model."'";
+                                  $pm_type_checker_query = "SELECT type FROM product_model WHERE custID = '$order_product_model' ORDER BY type desc" ;
 
                                   $pm_result = mysqli_query($link, $pm_type_checker_query);
 
-                                  if(mysqli_num_rows($pm_result) > 0){ 
+                                  if(mysqli_num_rows($pm_result) > 0){ //Step: 9
    
                                     while($rows = mysqli_fetch_array($pm_result)){
                                       $pm_type = $rows['type'];
@@ -72,50 +72,34 @@ if(isset($_POST['fullypaid'])){
 
                                       //Check Product Model Type End
                                       if($pm_type=='retail'){ //if PM is Retail
-
+                                        echo "<script>alert('Retail');</script>";
                                         $query_stock = "UPDATE stocks SET quantity = quantity - '$order_qty' WHERE product = '$order_product_model'";
                                         mysqli_query($link, $query_stock) or die(mysqli_error($link)); //Execute  insert query
 
                                       } elseif ($pm_type=='package') { //if PM is Package
                                         //Get Package List
                                         //Stock Update
-                              
-                                        $query = ""; $result = "";
-                                        $query = "SELECT * FROM package_list WHERE packID = '".$order_product_model."'";
-                                        $result = mysqli_query($link, $query);
-                                        if(mysqli_num_rows($result) > 0){
-                                          while($rows = mysqli_fetch_array($result)){
-                                            $pkg_pm = $rows['pack_list_model'];
-                                            $pkg_qty = $rows['pack_list_qty'];
-
+                                        echo "<script>alert('Package');</script>";
+                                        $query = ""; $resulta = "";
+                                        $query = "SELECT * FROM package_list WHERE packID = '$order_product_model'";
+                                        $resulta = mysqli_query($link, $query);
+                                        if(mysqli_num_rows($resulta) > 0){
+                                          while($rowsa = mysqli_fetch_array($resulta)){
+                                            $pkg_pm = $rowsa['pack_list_model'];
+                                            $pkg_qty = $rowsa['pack_list_qty'];
                                             $query_stock = "UPDATE stocks SET quantity = quantity - ($pkg_qty * $order_qty)  WHERE product = '$pkg_pm'";
                                             mysqli_query($link, $query_stock) or die(mysqli_error($link)); //Execute 
                                           }
                                         }
-
-
-
-
-
-
-
-
-                                      } else {
-                                        echo "<script>alert('Didnt worked.');</script>";
-                                   
-                                      }
+                                      } 
 
 
 
                                     }
-                                  }
-                                  
-                                 
-                                  
-
-                                  
+                                  } //Step: 9 Close
+                                   
                            
-              }
+                    } //Step: 8 Fail
           
 
               } else { //Step: 7 Fail
@@ -197,11 +181,11 @@ if(isset($_POST['unpaid'])){
                               $order_qty  = $row['obdata_qty'];
 
                                   //Check Product Model Type
-                                  $pm_type_checker_query = "SELECT type FROM product_model WHERE custID = '".$order_product_model."'";
+                                  $pm_type_checker_query = "SELECT type FROM product_model WHERE custID = '$order_product_model' ORDER BY type desc" ;
 
                                   $pm_result = mysqli_query($link, $pm_type_checker_query);
 
-                                  if(mysqli_num_rows($pm_result) > 0){ 
+                                  if(mysqli_num_rows($pm_result) > 0){ //Step: 9
    
                                     while($rows = mysqli_fetch_array($pm_result)){
                                       $pm_type = $rows['type'];
@@ -209,50 +193,34 @@ if(isset($_POST['unpaid'])){
 
                                       //Check Product Model Type End
                                       if($pm_type=='retail'){ //if PM is Retail
-
+                                        echo "<script>alert('Retail');</script>";
                                         $query_stock = "UPDATE stocks SET quantity = quantity - '$order_qty' WHERE product = '$order_product_model'";
                                         mysqli_query($link, $query_stock) or die(mysqli_error($link)); //Execute  insert query
 
                                       } elseif ($pm_type=='package') { //if PM is Package
                                         //Get Package List
                                         //Stock Update
-                              
-                                        $query = ""; $result = "";
-                                        $query = "SELECT * FROM package_list WHERE packID = '".$order_product_model."'";
-                                        $result = mysqli_query($link, $query);
-                                        if(mysqli_num_rows($result) > 0){
-                                          while($rows = mysqli_fetch_array($result)){
-                                            $pkg_pm = $rows['pack_list_model'];
-                                            $pkg_qty = $rows['pack_list_qty'];
-
+                                        echo "<script>alert('Package');</script>";
+                                        $query = ""; $resulta = "";
+                                        $query = "SELECT * FROM package_list WHERE packID = '$order_product_model'";
+                                        $resulta = mysqli_query($link, $query);
+                                        if(mysqli_num_rows($resulta) > 0){
+                                          while($rowsa = mysqli_fetch_array($resulta)){
+                                            $pkg_pm = $rowsa['pack_list_model'];
+                                            $pkg_qty = $rowsa['pack_list_qty'];
                                             $query_stock = "UPDATE stocks SET quantity = quantity - ($pkg_qty * $order_qty)  WHERE product = '$pkg_pm'";
                                             mysqli_query($link, $query_stock) or die(mysqli_error($link)); //Execute 
                                           }
                                         }
-
-
-
-
-
-
-
-
-                                      } else {
-                                        echo "<script>alert('Didnt worked.');</script>";
-                                   
-                                      }
+                                      } 
 
 
 
                                     }
-                                  }
-                                  
-                                 
-                                  
-
-                                  
+                                  } //Step: 9 Close
+                                   
                            
-              }
+                    } //Step: 8 Fail
           
 
               } else { //Step: 7 Fail
@@ -381,7 +349,7 @@ if(isset($_POST['unpaid'])){
                                     <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="date" name="invDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" placeholder="mm/dd/yyyy" data-mask im-insert="false">
+                                    <input type="date" name="invDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" placeholder="mm/dd/yyyy" data-mask im-insert="false" required>
                                   </div>
                                   <!-- /.input group -->
                                 </div>
