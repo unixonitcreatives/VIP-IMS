@@ -16,8 +16,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //Assigning posted values to variables.
     $username = test_input($_POST['username']);
     $password = test_input($_POST['password']);
+    $NewPassword = test_input($_POST['NewPassword']);
     $hash = password_hash($password, PASSWORD_DEFAULT);
+    $newHash = password_hash($NewPassword, PASSWORD_DEFAULT);
     $usertype = test_input($_POST['usertype']);
+
+    //password validation
+                                    if($hash != $hash){
+                                      $alertMessage = "<div class='alert alert-danger' role='alert'>
+                                      Please enter old password.
+                                      </div>";
+                                    }else{
 
 
     // Check input errors before inserting in database
@@ -40,7 +49,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
                                     $query = "
                                     INSERT INTO users (custID, username, password, usertype, created_by)
-                                    VALUES ('$custnewID', '$username', '$hash', '$usertype', '$account')"; //Prepare insert query
+                                    VALUES ('$custnewID', '$username', '$hash', '$usertype', '$account')"; 
+
+
+
+                                    
+
                                     $query = "UPDATE users SET username = '$username',password = '$hash',usertype = '$usertype' WHERE custID='$id'";
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
@@ -62,10 +76,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     }
                                       //mysqli_close($link);
                                  }
+
                              } else{
                                  echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                              }
 
+
+}
                              //mysqli_close($link);
 
     }
@@ -135,8 +152,13 @@ function test_input($data) {
                       </div>
 
                       <div class="form-group">
-                        <label>Password</label>
-                        <input type="Password" class="form-control" placeholder="Password" name="password" oninput="upperCase(this)" maxlength="20" value='<?php $row['password'];?>'>
+                        <label>Old Password</label>
+                        <input type="Password" class="form-control" placeholder="Password" name="password"  maxlength="20" value='<?php $row['password'];?>'>
+                      </div>
+
+                      <div class="form-group">
+                        <label>New Password</label>
+                        <input type="Password" class="form-control" placeholder="Password" name="NewPassword" maxlength="20">
                       </div>
 
                       <div class="form-group">
