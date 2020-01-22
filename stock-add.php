@@ -186,7 +186,7 @@ function test_input($data) {
 
                               while($row = mysqli_fetch_array($result)){
 
-                              echo "<option value='".$row['custID']."'>" . $row['name'] .  "</option>";
+                              echo "<option value='".$row['name']."'>" . $row['name'] .  "</option>";
                               }
 
                                // Free result set

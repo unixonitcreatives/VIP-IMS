@@ -49,7 +49,7 @@
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">PM No.</th>
 
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">SKU</th>
+                          <!--<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">SKU</th>-->
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Description</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Time Created</th>
                           <th>Action</th>
@@ -70,7 +70,7 @@
                               echo "<tr>";
                               echo "<td>" . $ctr . "</td>";
                               echo "<td>" . $row['custID'] . "</td>";
-                              echo "<td>" . $row['sku'] . "</td>";
+                              //echo "<td>" . $row['sku'] . "</td>";
                               echo "<td>" . $row['description'] . "</td>";
                               echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";

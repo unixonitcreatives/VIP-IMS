@@ -1,7 +1,6 @@
    <?php 
   include "session.php";
-  //loggedin username
-  $account = $_SESSION["username"];
+  
   ?>
   
   <?php
@@ -9,6 +8,10 @@
   require_once "config.php";
   // Define variables and initialize with empty values
   $pname=$account=$alertMessage="";
+
+
+  //loggedin username
+  $account = $_SESSION["username"];
   ?>
 
  

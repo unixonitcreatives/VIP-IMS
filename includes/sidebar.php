@@ -77,7 +77,7 @@
               <li class="nav-item">
                 <a href="product-add.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Add Product Model</p>
+                  <p>Add Product Description</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -95,7 +95,7 @@
                <li class="nav-item">
                 <a href="stock-manage.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Stock</p>
+                  <p>Manage Package</p>
                 </a>
               </li>
             </ul>

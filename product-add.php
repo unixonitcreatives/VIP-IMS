@@ -100,7 +100,7 @@ function test_input($data) {
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Add Product Model</li>
+              <li class="breadcrumb-item active">Add Product Description</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -116,8 +116,8 @@ function test_input($data) {
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Add Product Model</h3>
-                  <a href="product-manage.php">View all product model</a>
+                  <h3 class="card-title">Add Product Description</h3>
+                  <a href="product-manage.php">Manage description</a>
                 </div>
               </div>
 

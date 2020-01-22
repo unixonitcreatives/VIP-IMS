@@ -9,8 +9,11 @@ if(isset($_POST['fullypaid'])){
   //Step 1: Prepare Variables
 
   $invCustName  = valData($_POST['invCustName']);
+  $invWarehouse  = valData($_POST['invWarehouse']);
   $invDate      = valData($_POST['invDate']);
   $invRemarks   = valData($_POST['invRemarks']);
+  $invMot   = valData($_POST['invMot']);
+  $invReceivedBy   = valData($_POST['invReceivedBy']);
   $account = $_SESSION['username'];
 
   //Step 2: Check for empty fields
@@ -18,34 +21,34 @@ if(isset($_POST['fullypaid'])){
 
   } else {
   //If all fields are !empty, Step 3: Prepare Custom ID then add to
- 
+
     include ('invoice-obtx-id.php');
 
     //Step: 4 Insert query to outboundTB table
-    $obQuery = "INSERT INTO outboundtb (ob_tx_id, ob_custName, ob_date, ob_remarks, ob_status, ob_created_by)
-    VALUES ('$obtxid','$invCustName', '$invDate', '$invRemarks', 'Fully Paid', '$account')";
+    $obQuery = "INSERT INTO outboundtb (ob_tx_id, ob_custName, ob_warehouse, ob_date, ob_remarks, ob_mot, ob_status, ob_received_by, ob_created_by)
+    VALUES ('$obtxid','$invCustName', '$invWarehouse', '$invDate', '$invRemarks', '$invMot', 'Fully Paid', '$invReceivedBy', '$account')";
     $obResult = mysqli_query($link, $obQuery) or die(mysqli_error($link));
 
     if ($obResult === TRUE) { //if Step: 4 is success
-        
+
         //Step: 5 Save the data of the invoice to obdatatb table
-        $j = 0; $count = count($_POST['invProduct']);
+      $j = 0; $count = count($_POST['invProduct']);
         //Counts the elements in array
         // Use insert_id property to get the id of previous table (packages table)
-        $obID = $link->insert_id;
-        for ($j = 0; $j < $count; $j++) {
-          $listquery = "INSERT INTO obdatatb (outbound_ID, ob_tx_id, obdata_products, obdata_qty) VALUES (
-            '".$obID."',
-            '".$obtxid."',
-            '".$_POST['invProduct'][$j]."',
-            '".$_POST['invQty'][$j]."')";
-            $listresult = mysqli_multi_query($link, $listquery) or die(mysqli_error($link));
+      $obID = $link->insert_id;
+      for ($j = 0; $j < $count; $j++) {
+        $listquery = "INSERT INTO obdatatb (outbound_ID, ob_tx_id, obdata_products, obdata_qty) VALUES (
+        '".$obID."',
+        '".$obtxid."',
+        '".$_POST['invProduct'][$j]."',
+        '".$_POST['invQty'][$j]."')";
+        $listresult = mysqli_multi_query($link, $listquery) or die(mysqli_error($link));
         } //Step: 5 forloop end
         
         //Step: 6 Update Stocks
         if($listresult === TRUE){ //If Step: 5 is success
           //Prepare Select OBdata Info Query
-          
+
           $query = "SELECT obdata_products, obdata_qty FROM obdatatb WHERE ob_tx_id = '".$obtxid."'";
           //Execute Query
           if($result = mysqli_query($link, $query)){ //If Step: 6 is success
@@ -54,18 +57,18 @@ if(isset($_POST['fullypaid'])){
               if(mysqli_num_rows($result) > 0){ //Step: 7 Success
                     while($row = mysqli_fetch_array($result)){ //Step: 8 Success
 
-                              $order_product_model = $order_qty = $pm_type = "";
+                      $order_product_model = $order_qty = $pm_type = "";
 
-                              $order_product_model = $row['obdata_products'];
-                              $order_qty  = $row['obdata_qty'];
+                      $order_product_model = $row['obdata_products'];
+                      $order_qty  = $row['obdata_qty'];
 
                                   //Check Product Model Type
-                                  $pm_type_checker_query = "SELECT type FROM product_model WHERE custID = '$order_product_model' ORDER BY type desc" ;
+                      $pm_type_checker_query = "SELECT type FROM product_model WHERE custID = '$order_product_model' ORDER BY type desc" ;
 
-                                  $pm_result = mysqli_query($link, $pm_type_checker_query);
+                      $pm_result = mysqli_query($link, $pm_type_checker_query);
 
                                   if(mysqli_num_rows($pm_result) > 0){ //Step: 9
-   
+
                                     while($rows = mysqli_fetch_array($pm_result)){
                                       $pm_type = $rows['type'];
 
@@ -97,10 +100,10 @@ if(isset($_POST['fullypaid'])){
 
                                     }
                                   } //Step: 9 Close
-                                   
-                           
+
+
                     } //Step: 8 Fail
-          
+
 
               } else { //Step: 7 Fail
                 echo "<script>alert('An error has occured. Please Contact Support.')</script>";
@@ -130,8 +133,11 @@ if(isset($_POST['unpaid'])){
   //Step 1: Prepare Variables
 
   $invCustName  = valData($_POST['invCustName']);
+  $invWarehouse  = valData($_POST['invWarehouse']);
   $invDate      = valData($_POST['invDate']);
   $invRemarks   = valData($_POST['invRemarks']);
+  $invMot   = valData($_POST['invMot']);
+  $invReceivedBy   = valData($_POST['invReceivedBy']);
   $account = $_SESSION['username'];
 
   //Step 2: Check for empty fields
@@ -139,34 +145,34 @@ if(isset($_POST['unpaid'])){
 
   } else {
   //If all fields are !empty, Step 3: Prepare Custom ID then add to
- 
+
     include ('invoice-obtx-id.php');
 
     //Step: 4 Insert query to outboundTB table
-    $obQuery = "INSERT INTO outboundtb (ob_tx_id, ob_custName, ob_date, ob_remarks, ob_status, ob_created_by)
-    VALUES ('$obtxid','$invCustName', '$invDate', '$invRemarks', 'Unpaid', '$account')";
+    $obQuery = "INSERT INTO outboundtb (ob_tx_id, ob_custName, ob_warehouse, ob_date, ob_remarks, ob_mot, ob_status, ob_received_by, ob_created_by)
+    VALUES ('$obtxid','$invCustName', '$invWarehouse', '$invDate', '$invRemarks', '$invMot', 'Unpaid', '$invReceivedBy', '$account')";
     $obResult = mysqli_query($link, $obQuery) or die(mysqli_error($link));
 
     if ($obResult === TRUE) { //if Step: 4 is success
-        
+
         //Step: 5 Save the data of the invoice to obdatatb table
-        $j = 0; $count = count($_POST['invProduct']);
+      $j = 0; $count = count($_POST['invProduct']);
         //Counts the elements in array
         // Use insert_id property to get the id of previous table (packages table)
-        $obID = $link->insert_id;
-        for ($j = 0; $j < $count; $j++) {
-          $listquery = "INSERT INTO obdatatb (outbound_ID, ob_tx_id, obdata_products, obdata_qty) VALUES (
-            '".$obID."',
-            '".$obtxid."',
-            '".$_POST['invProduct'][$j]."',
-            '".$_POST['invQty'][$j]."')";
-            $listresult = mysqli_multi_query($link, $listquery) or die(mysqli_error($link));
+      $obID = $link->insert_id;
+      for ($j = 0; $j < $count; $j++) {
+        $listquery = "INSERT INTO obdatatb (outbound_ID, ob_tx_id, obdata_products, obdata_qty) VALUES (
+        '".$obID."',
+        '".$obtxid."',
+        '".$_POST['invProduct'][$j]."',
+        '".$_POST['invQty'][$j]."')";
+        $listresult = mysqli_multi_query($link, $listquery) or die(mysqli_error($link));
         } //Step: 5 forloop end
         
         //Step: 6 Update Stocks
         if($listresult === TRUE){ //If Step: 5 is success
           //Prepare Select OBdata Info Query
-          
+
           $query = "SELECT obdata_products, obdata_qty FROM obdatatb WHERE ob_tx_id = '".$obtxid."'";
           //Execute Query
           if($result = mysqli_query($link, $query)){ //If Step: 6 is success
@@ -175,18 +181,18 @@ if(isset($_POST['unpaid'])){
               if(mysqli_num_rows($result) > 0){ //Step: 7 Success
                     while($row = mysqli_fetch_array($result)){ //Step: 8 Success
 
-                              $order_product_model = $order_qty = $pm_type = "";
+                      $order_product_model = $order_qty = $pm_type = "";
 
-                              $order_product_model = $row['obdata_products'];
-                              $order_qty  = $row['obdata_qty'];
+                      $order_product_model = $row['obdata_products'];
+                      $order_qty  = $row['obdata_qty'];
 
                                   //Check Product Model Type
-                                  $pm_type_checker_query = "SELECT type FROM product_model WHERE custID = '$order_product_model' ORDER BY type desc" ;
+                      $pm_type_checker_query = "SELECT type FROM product_model WHERE custID = '$order_product_model' ORDER BY type desc" ;
 
-                                  $pm_result = mysqli_query($link, $pm_type_checker_query);
+                      $pm_result = mysqli_query($link, $pm_type_checker_query);
 
                                   if(mysqli_num_rows($pm_result) > 0){ //Step: 9
-   
+
                                     while($rows = mysqli_fetch_array($pm_result)){
                                       $pm_type = $rows['type'];
 
@@ -218,10 +224,10 @@ if(isset($_POST['unpaid'])){
 
                                     }
                                   } //Step: 9 Close
-                                   
-                           
+
+
                     } //Step: 8 Fail
-          
+
 
               } else { //Step: 7 Fail
                 echo "<script>alert('An error has occured. Please Contact Support.')</script>";
@@ -252,125 +258,159 @@ if(isset($_POST['unpaid'])){
 
 
 
-        <?php
+<?php
         //data validation
-        function valData($data) {
-          $data = trim($data);
-          $data = stripslashes($data);
-          $data = htmlspecialchars($data);
-          return $data;
-        }
-        ?>
+function valData($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?>
 
-        <!DOCTYPE html>
-        <html lang="en">
-        <?php include "includes/header.php"; ?>
+<!DOCTYPE html>
+<html lang="en">
+<?php include "includes/header.php"; ?>
 
-        <body class="hold-transition sidebar-mini">
-          <div class="wrapper">
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
 
-            <?php include "includes/navbar.php"; ?>
-            <?php include "includes/sidebar.php"; ?>
+    <?php include "includes/navbar.php"; ?>
+    <?php include "includes/sidebar.php"; ?>
 
-            <div class="content-wrapper">
-              <!-- Content Header (Page header) -->
-              <div class="content-header">
-                <div class="container-fluid">
-                  <div class="row mb-2">
-                    <div class="col-sm-6">
-                      <h1 class="m-0 text-dark">VIP Inventory Management System</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                      <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item active">Add Package</li>
-                      </ol>
-                    </div><!-- /.col -->
-                  </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-              </div>
-              <!-- /.content-header -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">VIP Inventory Management System</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                <li class="breadcrumb-item active">Add Package</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
 
-              <!-- Main content -->
-              <div class="content">
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="card">
-                        <div class="card-header">
-                          <div class="d-flex justify-content-between">
-                            <h3 class="card-title">Add Invoice</h3>
-                            <a href="invoice-manage.php">View all invoice</a>
-                          </div>
-                        </div>
+      <!-- Main content -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-header">
+                  <div class="d-flex justify-content-between">
+                    <h3 class="card-title">Add Invoice</h3>
+                    <a href="invoice-manage.php">View all invoice</a>
+                  </div>
+                </div>
 
-                        <div class="card-body">
-                          <?php echo $alertMessage; ?>
-                          <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label>Customer</label><a href="member-add.php"> + add new member</a>
-                                  <select class="form-control select2" oninput="upperCase(this)"  name="invCustName" required>
-                                    <option value="">~~SELECT MEMBER~~</option>
-                                    <?php
-                                    // Include config file
-                                    require_once "config.php";
-                                    // Attempt select query executions
-                                    $query = "";
-                                    $query = "SELECT * FROM customers ORDER BY custID desc";
-                                    // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
-                                    if($result = mysqli_query($link, $query)){
-                                      if(mysqli_num_rows($result) > 0){
-                                        while($row = mysqli_fetch_array($result)){
+                <div class="card-body">
+                  <?php echo $alertMessage; ?>
+                  <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Customer</label><a href="member-add.php"> + add new member</a>
+                          <select class="form-control select2" oninput="upperCase(this)"  name="invCustName" required>
+                            <option value="">~~SELECT MEMBER~~</option>
+                            <?php
+                            $query = "";
+                            $query = "SELECT * FROM customers ORDER BY custID desc";
+                            if($result = mysqli_query($link, $query)){
+                              if(mysqli_num_rows($result) > 0){
+                                while($row = mysqli_fetch_array($result)){
 
-                                          echo "<option value='".$row['name']."'>" . $row['name'] .  "</option>";
-                                        }
+                                  echo "<option value='".$row['name']."'>" . $row['name'] .  "</option>";
+                                }
 
                                         // Free result set
-                                        mysqli_free_result($result);
-                                      } else{
-                                        echo "<p class='lead'><em>No records were found.</em></p>";
-                                      }
-                                    } else{
-                                      echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                                    }
+                                mysqli_free_result($result);
+                              } else{
+                                echo "<p class='lead'><em>No records were found.</em></p>";
+                              }
+                            } else{
+                              echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                            }
 
 
-                                    ?>
-                                  </select>
-                                </div>
-                              </div>
+                            ?>
+                          </select>
+                        </div>
 
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label>Date:</label>
-                                  <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                    </div>
-                                    <input type="date" name="invDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" placeholder="mm/dd/yyyy" data-mask im-insert="false" required>
-                                  </div>
-                                  <!-- /.input group -->
-                                </div>
-                              </div>
+                        <div class="form-group">
+                          <label>Warehouse</label><a href="warehouse-add.php"> + add new warehouse</a>
+                          <select class="form-control select2" oninput="upperCase(this)"  name="invWarehouse" required>
+                            <option value="">~~SELECT WAREHOUSE~~</option>
+                            <?php
+                            $queryWarehouse = "";
+                            $queryWarehouse = "SELECT name FROM warehouse";
+                            if($resultWarehouse = mysqli_query($link, $queryWarehouse)){
+                              if(mysqli_num_rows($resultWarehouse) > 0){
+                                while($row = mysqli_fetch_array($resultWarehouse)){
+
+                                  echo "<option value='".$row['name']."'>" . $row['name'] .  "</option>";
+                                }
+
+                                        // Free result set
+                                mysqli_free_result($resultWarehouse);
+                              } else{
+                                echo "<p class='lead'><em>No records were found.</em></p>";
+                              }
+                            } else{
+                              echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                            }
+
+
+                            ?>
+                          </select>
+                        </div>
+                      </div>
+
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Date:</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
+                            <input type="date" name="invDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" placeholder="mm/dd/yyyy" data-mask im-insert="false" required>
+                          </div>
+                          <!-- /.input group -->
+                        </div>
+
+                        <div class="form-group">
+                          <label>Mode of transfer</label>
+                          <select class="form-control select2"  name="invMot" required>
+                            <option value="">~~Mode of transfer~~</option>
+                            <option value="Shipped">For Shipped</option>
+                            <option value="Pick-up">For Pick-up</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
 
 
-              <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="invTable">
-                <thead>
-                  <tr>
-                    <th width="50%">Product/s</th>
-                    <th width="30%">Quantity</th>
+                    <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="invTable">
+                      <thead>
+                        <tr>
+                          <th width="50%">Product/s</th>
+                          <th width="30%">Quantity</th>
                     <!-- <th>Unit Price</th>
-                    <th>Total Price</th> -->
-                    <th width="20%"><button type="button" class="btn btn-success" onclick="invAddRow()" id="invAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus"> Add Row</i></button></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $arrayNumber = 0;
-                  for($x =1; $x < 3; $x++){ ?> <!-- == loop start == -->
+                      <th>Total Price</th> -->
+                      <th width="20%"><button type="button" class="btn btn-success" onclick="invAddRow()" id="invAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus"> Add Row</i></button></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $arrayNumber = 0;
+                    for($x =1; $x < 3; $x++){ ?> <!-- == loop start == -->
                     <tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">
                       <td>
                         <div class="from-group">
@@ -426,8 +466,11 @@ if(isset($_POST['unpaid'])){
             <div class="form-group">
               <label>Remarks</label><br>
               <textarea class="form-control" width="100%" rows="5" style="resize: none;" placeholder="" name="invRemarks"></textarea>
-              <!--<input type="text" class="form-control">-->
+
               <br>
+
+              <label>Receive by: </label><br>
+              <input type="text" class="form-control" placeholder="Fullname" name="invReceivedBy"  required>
 
             </div>
 

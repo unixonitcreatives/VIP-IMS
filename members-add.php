@@ -135,7 +135,7 @@ function test_input($data) {
                       </div>
 
                       <div class="form-group">
-                        <label>Reference ID</label>
+                        <label>Username</label>
                         <input type="text" class="form-control" placeholder="ID" name="id" oninput="upperCase(this)" maxlength="20" required>
                       </div>
 

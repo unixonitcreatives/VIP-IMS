@@ -14,6 +14,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
 
       $ob_tx_id = $row['ob_tx_id'];
       $ob_custName = $row['ob_custName'];
+      $ob_warehouse = $row['ob_warehouse'];
       $ob_date = $row['ob_date'];
       $ob_remarks = $row['ob_remarks'];
       $ob_status = $row['ob_status'];
@@ -82,13 +83,15 @@ if($Getresult = mysqli_query($link, $Getquery)){
                       <input type="text" class="form-control" value="<?php echo $ob_custName; ?>" disabled>
                       <label>Status</label>
                       <input type="text" class="form-control" value="<?php echo $ob_status; ?>" disabled>
+                      <label>Created by</label>
+                      <input type="text" class="form-control" value="<?php echo $ob_created_by; ?>" disabled>
                     </div>
 
                     <div class="col-md-6">
                       <label>Date</label>
                       <input type="text" class="form-control" value="<?php echo $ob_date; ?>" disabled>
-                      <label>Created by</label>
-                      <input type="text" class="form-control" value="<?php echo $ob_created_by; ?>" disabled>
+                      <label>Warehouse</label>
+                      <input type="text" class="form-control" value="<?php echo $ob_warehouse; ?>" disabled>
                     </div>
 
                     <div class="col-md-12">
@@ -101,17 +104,14 @@ if($Getresult = mysqli_query($link, $Getquery)){
                     <thead>
                       <tr>
                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
-                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Customer Name</th>
-                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Transaction Date</th>
-                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
-                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Created By</th>
-                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Remarks</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Products</th>
+                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Quantity</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php
                       // Attempt select query execution
-                      $query = "SELECT * FROM outboundtb WHERE ob_tx_id = '$get_ob_tx_id'";
+                      $query = "SELECT * FROM obdatatb WHERE ob_tx_id = '$get_ob_tx_id'";
                       if($result = mysqli_query($link, $query)){
                         if(mysqli_num_rows($result) > 0){
                           $ctr = 0;
@@ -119,11 +119,8 @@ if($Getresult = mysqli_query($link, $Getquery)){
                             $ctr++;
                             echo "<tr>";
                             echo "<td>" . $ctr . "</td>";
-                            echo "<td>" . $row['ob_custName'] . "</td>";
-                            echo "<td>" . $row['ob_date'] . "</td>";
-                            echo "<td>" . $row['ob_status'] . "</td>";
-                            echo "<td>" . $row['ob_created_by'] . "</td>";
-                            echo "<td>" . $row['ob_remarks'] . "</td>";
+                            echo "<td>" . $row['obdata_products'] . "</td>";
+                            echo "<td>" . $row['obdata_qty'] . "</td>";
                             echo "</tr>";
                           }
                           // Free result set
