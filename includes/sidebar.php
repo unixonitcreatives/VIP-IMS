@@ -95,7 +95,7 @@
                <li class="nav-item">
                 <a href="stock-manage.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Package</p>
+                  <p>Manage Stocks</p>
                 </a>
               </li>
             </ul>

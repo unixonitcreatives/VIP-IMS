@@ -385,14 +385,7 @@ function valData($data) {
                           <!-- /.input group -->
                         </div>
 
-                        <div class="form-group">
-                          <label>Mode of transfer</label>
-                          <select class="form-control select2"  name="invMot" required>
-                            <option value="">~~Mode of transfer~~</option>
-                            <option value="Shipped">For Shipped</option>
-                            <option value="Pick-up">For Pick-up</option>
-                          </select>
-                        </div>
+                      
                       </div>
                     </div>
 
@@ -469,8 +462,17 @@ function valData($data) {
 
               <br>
 
-              <label>Receive by: </label><br>
-              <input type="text" class="form-control" placeholder="Fullname" name="invReceivedBy"  required>
+                <div class="form-group">
+                          <label>Mode of transfer</label>
+                          <select class="form-control select2"  name="invMot" required>
+                            <option value="">~~Mode of transfer~~</option>
+                            <option value="Shipped">For Shipped</option>
+                            <option value="Pick-up">For Pick-up</option>
+                          </select>
+                        </div>
+
+              <label>Note: </label><br>
+              <input type="text" class="form-control" placeholder="Name of recipient or Delivery Tracking No." name="invReceivedBy"  required>
 
             </div>
 
