@@ -73,6 +73,7 @@
                               echo "<td>" . $row['description'] . "</td>";
                               echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";
+                              echo "<a href='package-update.php?custID=". $row['custID'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa fa-pen'></span></a>";
                               echo "<a href='package-view.php?custID=". $row['custID'] ."' title='View Record' data-toggle='tooltip'><span class='fas fa fa-eye'></span></a>";
                               echo " &nbsp; <a href='package-delete.php?custID=". $row['custID'] ."' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-trash'></span></a>";
                               echo "</td>";

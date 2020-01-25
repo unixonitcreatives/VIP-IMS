@@ -106,7 +106,7 @@
                   $package_model = $row['pack_list_model'];
                   $package_qty  = $row['pack_list_qty'];
 
-                  include ('pm-retail-checker.php');
+                  //include ('pm-retail-checker.php');
 
                 }
                 // Free result set
