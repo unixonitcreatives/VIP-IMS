@@ -107,6 +107,7 @@
           <!-- ./col -->
         </div>
         <hr>
+              <!-- Quick Access > L -->
               <label>Quick Access:</label><br>
               <a class="btn btn-primary" href="members-add.php"><i class="nav-icon fas fa-users"></i> New Member</a>
               <a class="btn btn-primary" href="product-add.php"><i class="nav-icon fas fa-cubes"></i> New Product Model</a>
