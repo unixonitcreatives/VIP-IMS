@@ -11,10 +11,10 @@ define('DB_NAME', 'vipfouuo_vip-ims-2');*/
  define('DB_PASSWORD', '');
  define('DB_NAME', 'vipfouuo_vip-ims');*/
 
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
-define('DB_NAME', 'vipfouuo_vip-ims');
+define('DB_SERVER', 'unixondev.com');
+define('DB_USERNAME', 'vipfouuo_vip-ims');
+define('DB_PASSWORD', 'Unixon2018!');
+define('DB_NAME', 'vipfouuo_vip-ims-2');
 
 
 /* Attempt to connect to MySQL database */

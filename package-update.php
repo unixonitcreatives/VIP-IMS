@@ -167,7 +167,7 @@
 
                        <div class="form-group">
                         <label>SKU</label>
-                        <input type="text" class="form-control" value="<?php echo $sku; ?>" name="sku">
+                        <input type="text" class="form-control" value="<?php echo $sku; ?>" name="sku" readonly>
                         </div>
 
                         <label>Type</label>
