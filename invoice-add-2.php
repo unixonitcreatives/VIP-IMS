@@ -437,7 +437,7 @@ function valData($data) {
                         </td>
 
                         <td>
-                          <input type="text" class="form-control" placeholder="Quantity" name="invQty[]" id="moddQty<?php echo $x; ?>" required>
+                          <input type="number" class="form-control" placeholder="Quantity" name="invQty[]" id="moddQty<?php echo $x; ?>" required>
                         </td>
                         <!-- <td>
                         <input type="text" class="form-control" placeholder="Price" name="modelQty[]" id="moddQty<?$php //echo $x; ?>" required>
