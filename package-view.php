@@ -3,15 +3,14 @@
 
 <?php
 
-$id = $_GET['custID'];
+$get_model_id = $_GET['model_id'];
 
 // Attempt select query execution
-$Getquery = "SELECT * FROM product_model WHERE custID = '$id'";
+$Getquery = "SELECT * FROM product_model WHERE model_id = '$get_model_id'";
 if($Getresult = mysqli_query($link, $Getquery)){
   if(mysqli_num_rows($Getresult) > 0){
     while($row = mysqli_fetch_array($Getresult)){
-      $custID = $row['custID'];
-      $description = $row['description'];
+      $model = $row['model'];
       $sku = $row['sku'];
       $created_by = $row['created_by'];
       $created_at = $row['created_at'];
@@ -48,7 +47,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                <li class="breadcrumb-item active">View Package # <?php echo $custID; ?></li>
+                <li class="breadcrumb-item active">View Package</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -64,7 +63,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
               <div class="card">
                 <div class="card-header">
                   <div class="d-flex justify-content-between">
-                    <h3 class="card-title">Package # <?php echo $custID; ?></h3>
+                    <h3 class="card-title">Package Info</h3>
                     <a href="package-add.php">+ Add new package</a>
                   </div>
                 </div>
@@ -75,7 +74,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
 
                     <div class="col-md-6">
                       <label>Package Name</label>
-                      <input type="text" class="form-control" value="<?php echo $description; ?>" disabled>
+                      <input type="text" class="form-control" value="<?php echo $model; ?>" disabled>
                       <label>SKU</label>
                       <input type="text" class="form-control" value="<?php echo $sku; ?>" disabled>
                       <label>Type</label>
@@ -102,7 +101,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
                     <tbody>
                       <?php
                       // Attempt select query execution
-                      $query = "SELECT * FROM package_list WHERE packID = '$id' ";
+                      $query = "SELECT * FROM package_list WHERE model_id = '$get_model_id' ";
                       if($result = mysqli_query($link, $query)){
                         if(mysqli_num_rows($result) > 0){
                           $ctr = 0;

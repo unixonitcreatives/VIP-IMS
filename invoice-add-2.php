@@ -63,7 +63,7 @@ if(isset($_POST['fullypaid'])){
                       $order_qty  = $row['obdata_qty'];
 
                                   //Check Product Model Type
-                      $pm_type_checker_query = "SELECT type FROM product_model WHERE custID = '$order_product_model' ORDER BY type desc" ;
+                      $pm_type_checker_query = "SELECT type FROM product_model WHERE model = '$order_product_model' ORDER BY type desc" ;
 
                       $pm_result = mysqli_query($link, $pm_type_checker_query);
 
@@ -84,7 +84,7 @@ if(isset($_POST['fullypaid'])){
                                         //Stock Update
                                         echo "<script>alert('Package');</script>";
                                         $query = ""; $resulta = "";
-                                        $query = "SELECT * FROM package_list WHERE packID = '$order_product_model'";
+                                        $query = "SELECT * FROM package_list WHERE pack_list_model = '$order_product_model'";
                                         $resulta = mysqli_query($link, $query);
                                         if(mysqli_num_rows($resulta) > 0){
                                           while($rowsa = mysqli_fetch_array($resulta)){
@@ -321,7 +321,7 @@ function valData($data) {
                             <option value="">~~SELECT MEMBER~~</option>
                             <?php
                             $query = "";
-                            $query = "SELECT * FROM customers ORDER BY custID desc";
+                            $query = "SELECT * FROM customers ORDER BY member_id desc";
                             if($result = mysqli_query($link, $query)){
                               if(mysqli_num_rows($result) > 0){
                                 while($row = mysqli_fetch_array($result)){
@@ -414,14 +414,13 @@ function valData($data) {
                             require_once "config.php";
                             // Attempt select query executions
                             $query = "";
-                            $query = "SELECT custID, description FROM product_model";
-                            // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
+                            $query = "SELECT model FROM product_model ORDER BY model_id DESC";
                             if($result = mysqli_query($link, $query)){
                               if(mysqli_num_rows($result) > 0){
 
                                 while($row = mysqli_fetch_array($result)){
 
-                                  echo "<option value='".$row['custID']."' id='changeProduct".$row['custID']."'>" . $row['description'] .  "</option>";
+                                  echo "<option value='".$row['model']."' id='changeProduct".$row['model']."'>" . $row['model'] .  "</option>";
                                 }
 
                                 // Free result set

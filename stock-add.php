@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 } else { //KAPAG HINDI PA EXISTING UNG PRODUCT SA WAREHOUSE, CREATE NEW RECORD
 
-                                    $IDtype = "STOCK";
+                                   /* $IDtype = "STOCK";
                                     $m = date('m');
                                     $y = date('y');
                                     $d = date('d');
@@ -44,12 +44,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $newID = $resulta['MAX(id)'] + 1; //Get the latest ID then Add 1
                                     $custID = str_pad($newID, 8, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
                                     $custnewID = $IDtype.$custID; //Prepare custom ID
-
+*/
                                     $account = $_SESSION["username"];//session name
 
                                     $query = "
-                                    INSERT INTO `stocks` (custID, product, warehouse, quantity, status, created_by)
-                                    VALUES ('$custnewID', '$product', '$warehouse', '$qty', 'In Stock','$account')"; //Prepare insert query
+                                    INSERT INTO `stocks` (product, warehouse, quantity, status, created_by)
+                                    VALUES ('$product', '$warehouse', '$qty', 'In Stock','$account')"; //Prepare insert query
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
@@ -141,14 +141,13 @@ function test_input($data) {
                               require_once "config.php";
                               // Attempt select query executions
                               $query = "";
-                              $query = "SELECT * FROM `product_model` WHERE type='retail' ORDER BY custID asc";
-                              // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
+                              $query = "SELECT * FROM `product_model` WHERE type='retail' ORDER BY model_id DESC";
                               if($result = mysqli_query($link, $query)){
                               if(mysqli_num_rows($result) > 0){
 
                               while($row = mysqli_fetch_array($result)){
 
-                              echo "<option value='".$row['custID']."'>" . $row['description'] .  "</option>";
+                              echo "<option value='".$row['model']."'>" . $row['model'] .  "</option>";
                               }
 
                                // Free result set
@@ -174,7 +173,7 @@ function test_input($data) {
                               require_once "config.php";
                               // Attempt select query executions
                               $query = "";
-                              $query = "SELECT * FROM warehouse ORDER BY custID asc";
+                              $query = "SELECT * FROM warehouse ORDER BY warehouse_id DESC";
                               // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
                               if($result = mysqli_query($link, $query)){
                               if(mysqli_num_rows($result) > 0){

@@ -34,8 +34,8 @@ function invAddRow() {
 					'<select class="form-control select2" style="width: 100%;" name="invProduct[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" >'+
 						'<option value="">~~Select Product~~</option>';
 						//console.log(response);
-						$.each(response, function(index, value) {
-							tr += '<option value="'+value[0]+'">'+value[1]+'</option>';
+						$.each(response, function(value, value) {
+							tr += '<option value="'+value[1]+'">'+value[1]+'</option>';
 						});
 
 					tr += '</select>'+

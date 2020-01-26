@@ -6,16 +6,16 @@ $account = $_SESSION["username"];?>
 
 <?php
 
-$id = $_GET['id'];
+$get_model_id = $_GET['model_id'];
 //If the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //Assigning posted values to variables.
-    $description = test_input($_POST['description']);
+    $model = test_input($_POST['model']);
     $sku = test_input($_POST['sku']);
 
 
 
-    $query = "UPDATE product_model SET description='$description', sku='$sku' WHERE id='$id'";
+    $query = "UPDATE product_model SET model='$model', sku='$sku' WHERE model_id='$get_model_id'";
     $result = mysqli_query($link,$query);
 
     if($result){
@@ -74,22 +74,22 @@ function test_input($data) {
               <div class="card-header">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Update Product Model</h3>
-                  <a href="product-manage.php">View all product model</a>
+                  <a href="product-manage.php">View all product models</a>
                 </div>
               </div>
 
               <div class="card-body">
-                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?id=<?php echo $id; ?>">
+                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?model_id=<?php echo $get_model_id; ?>">
                   <?php
-                  $q = "SELECT description,sku FROM product_model WHERE id='$id'";
+                  $q = "SELECT model,sku FROM product_model WHERE model_id='$get_model_id'";
                   $r = mysqli_query($link,$q);
                   while($row = mysqli_fetch_assoc($r)){
-                    $desc = $row['description'];
+                    $model = $row['model'];
                     $sk = $row['sku'];
                   ?>
                       <div class="form-group">
-                        <label>Product Description</label>
-                        <input type="text" class="form-control" placeholder="Product Description" name="description" oninput="upperCase(this)" maxlength="20" value="<?php echo $desc; ?>">
+                        <label>Product Model</label>
+                        <input type="text" class="form-control" placeholder="Product Model" name="model" oninput="upperCase(this)" maxlength="20" value="<?php echo $model; ?>">
                       </div>
 
                       <div class="form-group">

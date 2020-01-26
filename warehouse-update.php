@@ -6,7 +6,7 @@
 // Define variables and initialize with empty values
 $name=$address=$alertMessage="";
 require_once "config.php";
-$id = $_GET['id'];
+$get_warehouse_id = $_GET['warehouse_id'];
 //If the form is submitted or not.
 //If the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -35,27 +35,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     mysqli_free_result($result);
                                  } else{
                                     //If the username doesnt exist in the database
-                                    //Proceed adding to database
+                                    //Proceed to updating  database
 
-                                    //Prepare Date for custom ID
-                                    $IDtype = "WH";
-                                    $m = date('m');
-                                    $y = date('y');
-                                    $d = date('d');
-
-                                    $qry = mysqli_query($link,"SELECT MAX(id) FROM `warehouse`"); // Get the latest ID
-                                    $resulta = mysqli_fetch_array($qry);
-                                    $newID = $resulta['MAX(id)'] + 1; //Get the latest ID then Add 1
-                                    $custID = str_pad($newID, 4, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
-                                    $custnewID = $IDtype.$custID; //Prepare custom ID
 
                                     $account = $_SESSION["username"];//session name
 
-                                    $query = "UPDATE warehouse SET name = '$name', address = '$address' WHERE id='$id'";
+                                    $query = "UPDATE warehouse SET name = '$name', address = '$address' WHERE warehouse_id='$get_warehouse_id'";
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
                                     if($result){
-                                    $info = $_SESSION['username']." updated warehouse:".$custID;
+                                    $info = $_SESSION['username']." updated warehouse:".$get_warehouse_id;
                                     $info2 = "Details: ".$name;
                                     $alertlogsuccess = $name.": has been updated succesfully!";
                                     include "logs.php";
@@ -130,9 +119,9 @@ function test_input($data) {
               </div>
 
               <div class="card-body">
-                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?id=<?php echo $id; ?>">
+                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?warehouse_id=<?php echo $get_warehouse_id; ?>">
                   <?php
-                    $q = "SELECT name,address FROM warehouse WHERE id='$id'";
+                    $q = "SELECT name,address FROM warehouse WHERE warehouse_id='$get_warehouse_id'";
                     $r = mysqli_query($link,$q);
                     while($row = mysqli_fetch_assoc($r)){
                   ?>

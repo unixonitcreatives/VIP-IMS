@@ -4,7 +4,7 @@
 // Define variables and initialize with empty values
 $username=$password=$usertype=$alertMessage="";
 require_once "config.php";
-$id = $_GET['id'];
+$get_member_id = $_GET['member_id'];
 
 //If the form is submitted or not.
 //If the form is submitted
@@ -18,32 +18,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($alertMessage)){
         //Check if the username is already in the database
-        $sql_check = "SELECT refID FROM customers WHERE refID ='$refID'";
+        $sql_check = "SELECT * FROM customers WHERE member_id ='$get_member_id'";
         if($result = mysqli_query($link, $sql_check)){ //Execute query
-                                 if(mysqli_num_rows($result) > 0){
+                                /* if(mysqli_num_rows($result) > 0){
                                     //If the username already exists
                                     //Try another username pop up
                                     echo "<script>alert('customer reference ID already exist');</script>";
                                     mysqli_free_result($result);
                                  } else{
                                     //If the username doesnt exist in the database
-                                    //Proceed adding to database
-
-                                    //Prepare Date for custom ID
-                                    $IDtype = "PH";
-                                    $m = date('m');
-                                    $y = date('y');
-                                    $d = date('d');
-
-                                    $qry = mysqli_query($link,"SELECT MAX(id) FROM `customers`"); // Get the latest ID
-                                    $resulta = mysqli_fetch_array($qry);
-                                    $newID = $resulta['MAX(id)'] + 1; //Get the latest ID then Add 1
-                                    $custID = str_pad($newID, 8, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
-                                    $custnewID = $IDtype.$custID; //Prepare custom ID
+                                    //Proceed adding to database*/
 
                                     $account = $_SESSION["username"];//session name
 
-                                    $query = "UPDATE customers SET name = '$name', address = '$address', refID = '$refID' WHERE custID='$id'";
+                                    $query = "UPDATE customers SET name = '$name', address = '$address', refID = '$refID' WHERE member_id='$get_member_id'";
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
@@ -61,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                       Error adding data.
                                       </div>";}
 
-                                 }
+                                 //}
                              } else{
                                  echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                              }
@@ -128,10 +116,10 @@ function test_input($data) {
 
               <div class="card-body">
 
-                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?id=<?php echo $id;?>">
+                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?member_id=<?php echo $get_member_id;?>">
 
                     <?php
-                    $q = "SELECT * FROM customers WHERE custID='$id'";
+                    $q = "SELECT * FROM customers WHERE member_id='$get_member_id'";
                     $r = mysqli_query($link,$q);
 
                     while($row = mysqli_fetch_assoc($r)){

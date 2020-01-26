@@ -47,7 +47,6 @@
                       <thead>
                         <tr>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Stock No.</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Product Model</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Quantity</th>
@@ -69,7 +68,6 @@
                               $ctr++;
                               echo "<tr>";
                               echo "<td>" . $ctr . "</td>";
-                              echo "<td>" . $row['custID'] . "</td>";
                               echo "<td>" . $row['product'] . "</td>";
                               echo "<td>" . $row['warehouse'] . "</td>";
                               echo "<td>" . $row['quantity'] . "</td>";
