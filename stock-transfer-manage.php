@@ -48,46 +48,15 @@
                       <thead>
                         <tr>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Product Description</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Quantity</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Reference No.</th>
+
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse Origin</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse Destination</th>
                           
                         </tr>
                       </thead>
                       <tbody>
-                        <?php
-                        // Include config file
-                        require_once 'config.php';
-
-                        // Attempt select query execution
-                        $query = "SELECT * FROM stocks ";
-                        if($result = mysqli_query($link, $query)){
-                          if(mysqli_num_rows($result) > 0){
-                            $ctr = 0;
-                            while($row = mysqli_fetch_array($result)){
-                              $ctr++;
-                              echo "<tr>";
-                              echo "<td>" . $ctr . "</td>";
-                              echo "<td>" . $row['product'] . "</td>";
-                              echo "<td>" . $row['warehouse'] . "</td>";
-                              echo "<td>" . $row['quantity'] . "</td>";
-                              echo "<td>" . $row['status'] . "</td>";
-
-                              echo "</tr>";
-                            }
-                            // Free result set
-                            mysqli_free_result($result);
-                          } else{
-                            echo "<p class='lead'><em>No records were found.</em></p>";
-                          }
-                        } else{
-                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                        }
-
-                        // Close connection
-                        mysqli_close($link);
-                        ?>
+                        <!-- QUERY HERE -->
                       </tbody>
                     </table>
 

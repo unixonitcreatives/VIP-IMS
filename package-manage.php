@@ -37,7 +37,7 @@
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Manage Stocks</h3>
+                  <h3 class="card-title">Manage Packages</h3>
                   <a href="package-add.php">add new package</a>
                 </div>
               </div>
@@ -49,6 +49,7 @@
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Package Name</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Created By</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Time Created</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -69,8 +70,9 @@
                               echo "<td>" . $row['model'] . "</td>";
                               echo "<td>" . $row['created_by'] . "</td>";
                               echo "<td>" . $row['created_at'] . "</td>";
+
                               echo "<td>";
-                              echo "<a href='package-update.php?model_id=".$row['model_id']."' title='Update Record' data-toggle='tooltip'><span class='fas fa fa-pen'></span></a>";
+                              echo "<a href='package-update.php?model_id=".$row['model_id']."' title='Update Record' data-toggle='tooltip'><span class='fas fa fa-pen'></span></a> &nbsp;";
                               echo "<a href='package-view.php?model_id=". $row['model_id'] ."' title='View Record' data-toggle='tooltip'><span class='fas fa fa-eye'></span></a>";
                               echo " &nbsp; <a href='package-delete.php?model_id=". $row['model_id'] ."' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-trash'></span></a>";
                               echo "</td>";

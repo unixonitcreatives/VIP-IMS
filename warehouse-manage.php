@@ -66,9 +66,10 @@
                             $ctr = 0;
                             while($row = mysqli_fetch_array($result)){
                               $ctr++;
+                              $id = $row['name'];
                               echo "<tr>";
                               echo "<td>" . $ctr . "</td>";
-                              echo "<td>" . $row['name'] . "</td>";
+                              echo "<td><a href='warehouse-view.php?id=$id'>" . $row['name'] . "</a></td>";
                               echo "<td>" . $row['address'] . "</td>";
                               echo "<td>" . $row['created_by'] . "</td>";
                               echo "<td>" . $row['created_at'] . "</td>";

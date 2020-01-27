@@ -21,7 +21,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manage Stocks</li>
+              <li class="breadcrumb-item active">Manage Warehouse</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -36,44 +36,48 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-header">
+              <?php $warehouse = $_GET['id']; ?>
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Manage Stocks</h3>
-                  <a href="stock-add.php">add new stocks</a>
-                  
+                  <h3 class="card-title"><?php echo $warehouse; ?> Stocks</h3>
+                  <a href="warehouse-add.php">add new warehouse</a>
                 </div>
               </div>
 
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                <table id="example2" class="table dataTable">
                       <thead>
                         <tr>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Product Description</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse</th>
+                          <!-- <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse</th> -->
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Quantity</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
-                          
+                         
                         </tr>
                       </thead>
                       <tbody>
                         <?php
                         // Include config file
                         require_once 'config.php';
-
+                        
                         // Attempt select query execution
-                        $query = "SELECT * FROM stocks ";
+                        $query = "SELECT * FROM stocks WHERE warehouse = '$warehouse' ORDER BY product";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
                             while($row = mysqli_fetch_array($result)){
                               $ctr++;
+                              
                               echo "<tr>";
                               echo "<td>" . $ctr . "</td>";
                               echo "<td>" . $row['product'] . "</td>";
-                              echo "<td>" . $row['warehouse'] . "</td>";
+                              //echo "<td>" . $row['warehouse'] . "</td>";
                               echo "<td>" . $row['quantity'] . "</td>";
-                              echo "<td>" . $row['status'] . "</td>";
+                              //echo "<td>";
+                              
+                              //echo " &nbsp; <a href='warehouse-update.php?warehouse_id=". $row['warehouse_id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
+                              //echo " &nbsp; <a href='warehouse-delete.php?warehouse_id=". $row['warehouse_id'] ."' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-trash'></span></a>";
 
+                              //echo "</td>";
                               echo "</tr>";
                             }
                             // Free result set
@@ -115,6 +119,7 @@
 <!-- ./wrapper -->
 
  <?php include "includes/js.php"; ?>
+
 
 </body>
 </html>

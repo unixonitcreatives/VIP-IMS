@@ -98,6 +98,7 @@
                   <p>Manage Stocks</p>
                 </a>
               </li>
+               
             </ul>
           </li>
           <li class="nav-item has-treeview">
@@ -144,6 +145,18 @@
                 <a href="warehouse-manage.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Warehouse</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="stock-transfer.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Transfer Stocks</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="stock-transfer-manage.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Stocks Transfer</p>
                 </a>
               </li>
             </ul>
