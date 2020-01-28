@@ -199,7 +199,7 @@ function test_input($data) {
 
                       <div class="form-group">
                         <label>Quantity</label>
-                        <input type="text" class="form-control" placeholder="Quantity" name="qty" oninput="upperCase(this)" required>
+                        <input type="text" class="form-control" placeholder="Quantity" name="qty" onkeypress="return isNumberKey(event)" oninput="upperCase(this)" required>
                       </div>
 
 

@@ -111,10 +111,10 @@ if(isset($_POST['fullypaid'])){
                                       
 
                                     }
-                                    echo "<script>alert('Success Add Invoice $obtxid');</script>";
+
                                   } //Step: 9 Close
 
-
+                                  echo "<script>alert('Success Add Invoice $obtxid');</script>";
                     } //Step: 8 Fail
 
 
@@ -311,7 +311,7 @@ function valData($data) {
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                <li class="breadcrumb-item active">Add Package</li>
+                <li class="breadcrumb-item active">Add Invoice</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -484,7 +484,7 @@ function valData($data) {
             <div class="form-group">
               <label>Mode of Transfer: </label><br>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="invMot" value="">
+              <input class="form-check-input" type="radio" name="invMot" value="Shipped">
               <label class="form-check-label">For Shipping</label>
             </div>
             <div class="form-check">
