@@ -4,6 +4,28 @@
 <?php include "includes/header.php"; ?>
 <?php require_once 'config.php'; ?>
 
+<?php 
+//Total In Stocks 
+$stocksquery = "SELECT SUM(quantity) as TotalStocks FROM stocks WHERE status = 'In Stock' ";
+$stocksresult = mysqli_query($link, $stocksquery) or die(mysqli_error($link));
+if (mysqli_num_rows($stocksresult) > 0) {
+  while($row = mysqli_fetch_array($stocksresult))
+
+  $totalStocks = $row['TotalStocks'];
+}
+?>
+
+<?php 
+//Total Members 
+$stocksquery = "SELECT SUM(quantity) as TotalStocks FROM stocks WHERE status = 'In Stock' ";
+$stocksresult = mysqli_query($link, $stocksquery) or die(mysqli_error($link));
+if (mysqli_num_rows($stocksresult) > 0) {
+  while($row = mysqli_fetch_array($stocksresult))
+
+  $totalStocks = $row['TotalStocks'];
+}
+?>
+
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
@@ -49,9 +71,8 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
-
-                <p>New Orders</p>
+                <h3><?php echo $totalStocks; ?></h3>
+                <p>Total Available Stocks</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -81,7 +102,7 @@
               <div class="inner">
                 <h3>44</h3>
 
-                <p>User Registrations</p>
+                <p>Total Members</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -127,7 +148,7 @@
           <div class="col-lg-6">
             <div class="card">
               <div class="card-header border-0">
-                <h3 class="card-title">Recent Added Customer</h3>
+                <h3 class="card-title">Recent Added Members</h3>
                 <div class="card-tools">
                   <a href="customer-add.php" class="btn btn-tool btn-sm">
                     <i class="fas fa-plus"></i>
@@ -142,7 +163,6 @@
                   <thead>
                   <tr>
                     <th>No</th>
-                    <th>ID</th>
                     <th>Ref ID</th>
                     <th>Name</th>
                   </tr>
@@ -152,7 +172,7 @@
                         //require_once 'config.php';
 
                         // Attempt select query execution
-                        $cust_qry = "SELECT * FROM customers ORDER BY custID DESC LIMIT 5";
+                        $cust_qry = "SELECT * FROM customers ORDER BY member_id DESC LIMIT 5";
                         if($cust_result = mysqli_query($link, $cust_qry)){
                           if(mysqli_num_rows($cust_result) > 0){
                             $cust_ctr = 0;
@@ -160,7 +180,6 @@
                               $cust_ctr++;
                               echo "<tr>";
                               echo "<td>" . $cust_ctr . "</td>";
-                              echo "<td>" . $cust_row['custID'] . "</td>";
                               echo "<td>" . $cust_row['refID'] . "</td>";
                               echo "<td>" . $cust_row['name'] . "</td>";
                               echo "</tr>";
@@ -202,7 +221,6 @@
                   <thead>
                   <tr>
                     <th>No</th>
-                    <th>ID</th>
                     <th>Ref ID</th>
                     <th>Name</th>
                   </tr>
@@ -212,7 +230,7 @@
                         //require_once 'config.php';
 
                         // Attempt select query execution
-                        $cust_qry = "SELECT * FROM customers ORDER BY custID DESC LIMIT 5";
+                        $cust_qry = "SELECT * FROM customers ORDER BY member_id DESC LIMIT 5";
                         if($cust_result = mysqli_query($link, $cust_qry)){
                           if(mysqli_num_rows($cust_result) > 0){
                             $cust_ctr = 0;
@@ -220,7 +238,6 @@
                               $cust_ctr++;
                               echo "<tr>";
                               echo "<td>" . $cust_ctr . "</td>";
-                              echo "<td>" . $cust_row['custID'] . "</td>";
                               echo "<td>" . $cust_row['refID'] . "</td>";
                               echo "<td>" . $cust_row['name'] . "</td>";
                               echo "</tr>";
@@ -329,7 +346,7 @@
                         //require_once 'config.php';
 
                         // Attempt select query execution
-                        $pkg_qry = "SELECT * FROM `product_model` WHERE type = 'package' ORDER BY custID DESC LIMIT 5";
+                        $pkg_qry = "SELECT * FROM `product_model` WHERE type = 'package' ORDER BY model_id DESC LIMIT 5";
                         if($pkg_result = mysqli_query($link, $pkg_qry)){
                           if(mysqli_num_rows($pkg_result) > 0){
                             $pkg_ctr = 0;
@@ -337,7 +354,7 @@
                               $pkg_ctr++;
                               echo "<tr>";
                               echo "<td>" . $pkg_ctr . "</td>";
-                              echo "<td>" . $pkg_row['description'] . "</td>";
+                              echo "<td>" . $pkg_row['model'] . "</td>";
                               echo "</tr>";
                             }
                             // Free result set
