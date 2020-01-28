@@ -18,12 +18,12 @@
       // Check input errors before inserting in database
     if(empty($alertMessage)){
           //Check if the username is already in the database
-      $sql_check = "SELECT sku FROM `product_model` WHERE sku ='$sku'";
+      $sql_check = "SELECT model, sku FROM `product_model` WHERE model ='$description' OR sku = '$sku' ";
           if($result = mysqli_query($link, $sql_check)){ //Execute query
            if(mysqli_num_rows($result) > 0){
                                       //If the username already exists
                                       //Try another username pop up
-            echo "<script>alert('SKU already exist');</script>";
+            echo "<script>alert('Product Model or SKU already exist');</script>";
             mysqli_free_result($result);
           } else{
                                       //If the username doesnt exist in the database
@@ -37,7 +37,7 @@
 
 
                                       if($result){
-                                        $info = $_SESSION['username']." added new product_model";
+                                        $info = $_SESSION['username']." added new product model";
                                         $info2 = "Details: ".$description.", ".$sku;
                                         $alertlogsuccess = $description.", ".$sku.": has been added succesfully!";
                                         include "logs.php";

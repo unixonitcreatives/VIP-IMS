@@ -38,7 +38,7 @@
               <div class="card-header">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Manage Invoices</h3>
-                  <a href="product-add.php">+ Add new invoice</a>
+                  <a href="invoice-add.php">+ Add new invoice</a>
                 </div>
               </div>
 
@@ -78,7 +78,7 @@
                               echo "<td>" . $row['ob_remarks'] . "</td>";
                               echo "<td>";
                               echo " &nbsp; <a href='invoice-view.php?ob_tx_id=". $row['ob_tx_id'] ."' title='View Invoice' data-toggle='tooltip'><span class='fas  fa fa-eye'></span></a>";
-                              echo " &nbsp; <a href='invoice-delete.php?id=". $row['id'] ."' title='Delete Record' data-toggle='tooltip'><span class='far  fa-trash-alt'></span></a>";
+                              echo " &nbsp; <a href='invoice-delete.php?ob_tx_id=". $row['ob_tx_id'] ."' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa-trash'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }
