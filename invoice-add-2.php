@@ -20,6 +20,7 @@ if(isset($_POST['fullypaid'])){
   if(empty($invCustName) || empty($invDate)){
 
   } else {
+    
   //If all fields are !empty, Step 3: Prepare Custom ID then add to
 
     include ('invoice-obtx-id.php');
@@ -72,10 +73,9 @@ if(isset($_POST['fullypaid'])){
                                     while($rows = mysqli_fetch_array($pm_result)){
                                       $pm_type = $rows['type'];
 
-
                                       //Check Product Model Type End
                                       if($pm_type=='retail'){ //if PM is Retail
-                                        $query_stock = "UPDATE stocks SET quantity = quantity - '$order_qty' WHERE product = '$order_product_model'";
+                                        $query_stock = "UPDATE stocks SET quantity = quantity - '$order_qty' WHERE product = '$order_product_model' AND warehouse = '$invWarehouse'";
                                         mysqli_query($link, $query_stock) or die(mysqli_error($link)); //Execute  insert query
 
                                       } elseif ($pm_type=='package') { //if PM is Package
@@ -98,13 +98,15 @@ if(isset($_POST['fullypaid'])){
                                           while($rowsa = mysqli_fetch_array($resulta)){
                                             $pkg_pm = $rowsa['pack_list_model'];
                                             $pkg_qty = $rowsa['pack_list_qty'];
-                                            $query_stock = "UPDATE stocks SET quantity = quantity - ($pkg_qty * $order_qty)  WHERE product = '$pkg_pm'";
+                                            $query_stock = "UPDATE stocks SET quantity = quantity - ($pkg_qty * $order_qty)  WHERE product = '$pkg_pm' AND warehouse = '$invWarehouse'";
                                             mysqli_query($link, $query_stock) or die(mysqli_error($link)); //Execute 
                                           }
                                         }
+
+
                                       } 
 
-
+                                      echo "<script>alert('Success Add Invoice $obtxid');</script>";
 
                                     }
                                   } //Step: 9 Close
