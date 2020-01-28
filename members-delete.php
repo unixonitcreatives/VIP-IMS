@@ -8,7 +8,7 @@ if ($result){
      //echo "<script>alert('new staff added succesfully');</script>";
                                     $info = $_SESSION['username']." deleted warehouse";
                                     $info2 = "Details: ".$get_member_id;
-                                    $alertlogsuccess = $get_member_id.": has been deleted succesfully!";
+                                    $alertlogsuccess = "Member has been deleted succesfully!";
                                     include('logs.php');
                                     echo "<script>window.location.href='members-manage.php';</script>";
 }else {

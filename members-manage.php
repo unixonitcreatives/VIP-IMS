@@ -74,7 +74,7 @@
                               echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";
                               echo " &nbsp; <a href='members-update.php?member_id=". $row['member_id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
-                              echo " &nbsp; <a href='members-delete.php?member_id=". $row['member_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='fas fa-trash'></span></a>";
+                              echo " &nbsp; <a href='members-delete.php?member_id=". $row['member_id'] ."' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa-trash'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }

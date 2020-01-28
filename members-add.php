@@ -139,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                                     <div class="input-group-prepend">
                                                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false" name="startDate">
+                                                    <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false" name="startDate" onkeydown="return false">
                                                   </div>
                                                 </div>
 
