@@ -430,7 +430,7 @@ function valData($data) {
                     <tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">
                       <td>
                         <div class="from-group">
-                          <select class="form-control" style="width: 100%;" name="invProduct[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)">
+                          <select class="form-control" style="width: 100%;" name="invProduct[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)" required>
                             <option value="">Select Product</option>
                             <?php
                             // Include config file
