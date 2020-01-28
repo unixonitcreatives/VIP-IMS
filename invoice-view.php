@@ -18,6 +18,8 @@ if($Getresult = mysqli_query($link, $Getquery)){
       $ob_date = $row['ob_date'];
       $ob_remarks = $row['ob_remarks'];
       $ob_status = $row['ob_status'];
+      $ob_mot = $row['ob_mot'];
+      $ob_received_by = $row['ob_received_by'];
       $ob_created_by = $row['ob_created_by'];
       $ob_created_at = $row['ob_created_at'];
 
@@ -62,45 +64,57 @@ if($Getresult = mysqli_query($link, $Getquery)){
       <!-- /.content-header -->
 
       <!-- Main content -->
-      <div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="card">
-                <div class="card-header">
-                  <div class="d-flex justify-content-between">
-                    <h3 class="card-title">Invoice # <?php echo $get_ob_tx_id; ?></h3>
-                    <a href="product-add.php">+ Add new invoice</a>
-                  </div>
+      <div class="invoice p-3 mb-3">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-12">
+                  <h4>
+                    <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" width="50px" height="auto"class="brand-image img-circle elevation-1"> VIP International
+                    <small class="float-right"><b>Invoice #<?php echo $get_ob_tx_id; ?></b></small>
+                  </h4>
                 </div>
+                <!-- /.col -->
+              </div>
+              <!-- info row -->
+              <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                  From
+                  <address>
+                    <strong>VIP International, Inc.</strong><br>
+                    795 Folsom Ave, Suite 600<br>
+                    San Francisco, CA 94107<br>
+                    Phone: (804) 123-5432<br>
+                    Email: vipsupport@gmail.com
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                  To
+                  <address>
+                    <strong><?php echo $ob_custName; ?></strong><br>
+                    795 Folsom Ave, Suite 600<br>
+                    San Francisco, CA 94107<br>
+                    Phone: (555) 539-1037<br>
+                    Email: john.doe@example.com
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                
+                  <b>Order Status:</b> <?php echo $ob_status; ?><br><br>
+                  <b>Date:</b> <?php echo $ob_date; ?><br>
+                  <b>Warehouse:</b> <?php echo $ob_warehouse; ?><br>
+                  <b>Mode of Transfer:</b> <?php echo $ob_mot; ?><br>
+                  <b>Note:</b> <?php echo $ob_received_by; ?>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
 
-
-                <div class="card-body">
-                  <div class="row">
-
-                    <div class="col-md-6">
-                      <label>Customer Name</label>
-                      <input type="text" class="form-control" value="<?php echo $ob_custName; ?>" disabled>
-                      <label>Status</label>
-                      <input type="text" class="form-control" value="<?php echo $ob_status; ?>" disabled>
-                      <label>Created by</label>
-                      <input type="text" class="form-control" value="<?php echo $ob_created_by; ?>" disabled>
-                    </div>
-
-                    <div class="col-md-6">
-                      <label>Date</label>
-                      <input type="text" class="form-control" value="<?php echo $ob_date; ?>" disabled>
-                      <label>Warehouse</label>
-                      <input type="text" class="form-control" value="<?php echo $ob_warehouse; ?>" disabled>
-                    </div>
-
-                    <div class="col-md-12">
-                      <label>Remarks</label>
-                      <textarea type="text" class="form-control" disabled><?php echo $ob_remarks; ?></textarea>
-                  </div>
-                  </div>
-                  <br>
-                  <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+              <!-- Table row -->
+              <div class="row">
+                <div class="col-12 table-responsive">
+                  <table id="" class="table table-striped">
                     <thead>
                       <tr>
                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
@@ -137,21 +151,41 @@ if($Getresult = mysqli_query($link, $Getquery)){
                       ?>
                     </tbody>
                   </table>
-
-
                 </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+              <br><br>
+              <div class="row">
+                <!-- accepted payments column -->
+                <div class="col-12">
+                  <p class="lead">Remarks:</p>
+                  <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                    <textarea class="form-control" width="100%" rows="5" style="resize: none;" placeholder="Remarks" name="invRemarks" value="<?php echo $ob_remarks; ?>"></textarea>
+                  </p>
+                </div>
+                <!-- /.col -->
+     
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
 
-                <div class="card-footer">
-
+              <!-- this row will not appear when printing -->
+              <div class="row no-print">
+                <div class="col-12">
+                  
+                  <a onclick="Print()" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+                  <!--
+                  <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+                    Payment
+                  </button>
+                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                    <i class="fas fa-download"></i> Generate PDF
+                  </button>
+                -->
                 </div>
               </div>
             </div>
-
-          </div>
-          <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
-      </div>
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -162,6 +196,14 @@ if($Getresult = mysqli_query($link, $Getquery)){
   <!-- ./wrapper -->
 
   <?php include "includes/js.php"; ?>
+
+
+<script>
+//print function
+function Print() {
+  window.print();
+}
+</script>
 
 </body>
 </html>
