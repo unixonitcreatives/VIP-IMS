@@ -136,70 +136,7 @@ include('session.php');
                     </div>
 
 
-                    <table class="table" role="grid" aria-describedby="example2_info" id="invTable">
-                      <thead>
-                        <tr>
-                          <th width="50%">Product/s</th>
-                          <th width="30%">Quantity</th>
-                    <!-- <th>Unit Price</th>
-                      <th>Total Price</th> -->
-                      <th width="20%"><button type="button" class="btn btn-success" onclick="invAddRow()" id="invAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus"> Add Row</i></button></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    $arrayNumber = 0;
-                    for($x =1; $x < 3; $x++){ ?> <!-- == loop start == -->
-                    <tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">
-                      <td>
-                        <div class="from-group">
-                          <select class="form-control select2" style="width: 100%;" name="invProduct[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)">
-                            <option value="">~~Select Product~~</option>
-                            <?php
-                            // Include config file
-                            require_once "config.php";
-                            // Attempt select query executions
-                            $query = "";
-                            $query = "SELECT model FROM product_model WHERE type = 'retail' ORDER BY model_id DESC";
-                            if($result = mysqli_query($link, $query)){
-                              if(mysqli_num_rows($result) > 0){
 
-                                while($row = mysqli_fetch_array($result)){
-
-                                  echo "<option value='".$row['model']."' id='changeProduct".$row['model']."'>" . $row['model'] .  "</option>";
-                                }
-
-                                // Free result set
-                                mysqli_free_result($result);
-                              } else{
-                                echo "<p class='lead'><em>No records were found.</em></p>";
-                              }
-                            } else{
-                              echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                            }
-
-                            ?>
-                          </select>
-                        </td>
-
-                        <td>
-                          <input type="number" class="form-control" placeholder="Quantity" name="invQty[]" id="moddQty<?php echo $x; ?>" required>
-                        </td>
-                        <!-- <td>
-                        <input type="text" class="form-control" placeholder="Price" name="modelQty[]" id="moddQty<?$php //echo $x; ?>" required>
-                      </td>
-                      <td>
-                      <input type="text" class="form-control" placeholder="Total Amount" name="modelQty[]" id="moddQty<?$php //echo $x; ?>" required>
-                    </td>
-                  -->
-                  <td>
-                    <button class="btn btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
-                  </td>
-                </tr>
-                <?php $arrayNumber++; } ?> <!-- == loop end == -->
-              </tbody>
-
-            </table>
 
             <div class="form-group">
               <label>Remarks</label><br>
