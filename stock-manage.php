@@ -61,16 +61,17 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM stocks ";
+                        $query = "SELECT * FROM stocks ORDER BY product, warehouse";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
                             while($row = mysqli_fetch_array($result)){
                               $ctr++;
+                              $id = $row['warehouse'];
                               echo "<tr>";
                               echo "<td>" . $ctr . "</td>";
                               echo "<td>" . $row['product'] . "</td>";
-                              echo "<td>" . $row['warehouse'] . "</td>";
+                              echo "<td> <a href='warehouse-view.php?id=$id'>" . $row['warehouse'] . "</a></td>";
                               echo "<td>" . $row['quantity'] . "</td>";
                               echo "<td>" . $row['status'] . "</td>";
 

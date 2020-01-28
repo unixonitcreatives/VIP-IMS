@@ -75,16 +75,24 @@ if(isset($_POST['fullypaid'])){
 
                                       //Check Product Model Type End
                                       if($pm_type=='retail'){ //if PM is Retail
-                                        echo "<script>alert('Retail');</script>";
                                         $query_stock = "UPDATE stocks SET quantity = quantity - '$order_qty' WHERE product = '$order_product_model'";
                                         mysqli_query($link, $query_stock) or die(mysqli_error($link)); //Execute  insert query
 
                                       } elseif ($pm_type=='package') { //if PM is Package
                                         //Get Package List
                                         //Stock Update
-                                        echo "<script>alert('Package');</script>";
+                          
                                         $query = ""; $resulta = "";
-                                        $query = "SELECT * FROM package_list WHERE pack_list_model = '$order_product_model'";
+                                        $query = "SELECT * FROM product_model WHERE model = '$order_product_model'";
+                                        $resulta = mysqli_query($link, $query);
+                                        if(mysqli_num_rows($resulta) > 0){
+                                          while($rowsa = mysqli_fetch_array($resulta)){
+                                            $model_id = $rowsa['model_id'];
+                                          }
+                                        }
+
+                                        $query = ""; $resulta = "";
+                                        $query = "SELECT * FROM package_list WHERE model_id = '$model_id'";
                                         $resulta = mysqli_query($link, $query);
                                         if(mysqli_num_rows($resulta) > 0){
                                           while($rowsa = mysqli_fetch_array($resulta)){
@@ -130,7 +138,7 @@ if(isset($_POST['fullypaid'])){
 }//isset end
 
 if(isset($_POST['unpaid'])){
-  //Step 1: Prepare Variables
+    //Step 1: Prepare Variables
 
   $invCustName  = valData($_POST['invCustName']);
   $invWarehouse  = valData($_POST['invWarehouse']);
@@ -187,7 +195,7 @@ if(isset($_POST['unpaid'])){
                       $order_qty  = $row['obdata_qty'];
 
                                   //Check Product Model Type
-                      $pm_type_checker_query = "SELECT type FROM product_model WHERE custID = '$order_product_model' ORDER BY type desc" ;
+                      $pm_type_checker_query = "SELECT type FROM product_model WHERE model = '$order_product_model' ORDER BY type desc" ;
 
                       $pm_result = mysqli_query($link, $pm_type_checker_query);
 
@@ -199,16 +207,24 @@ if(isset($_POST['unpaid'])){
 
                                       //Check Product Model Type End
                                       if($pm_type=='retail'){ //if PM is Retail
-                                        echo "<script>alert('Retail');</script>";
                                         $query_stock = "UPDATE stocks SET quantity = quantity - '$order_qty' WHERE product = '$order_product_model'";
                                         mysqli_query($link, $query_stock) or die(mysqli_error($link)); //Execute  insert query
 
                                       } elseif ($pm_type=='package') { //if PM is Package
                                         //Get Package List
                                         //Stock Update
-                                        echo "<script>alert('Package');</script>";
+                          
                                         $query = ""; $resulta = "";
-                                        $query = "SELECT * FROM package_list WHERE packID = '$order_product_model'";
+                                        $query = "SELECT * FROM product_model WHERE model = '$order_product_model'";
+                                        $resulta = mysqli_query($link, $query);
+                                        if(mysqli_num_rows($resulta) > 0){
+                                          while($rowsa = mysqli_fetch_array($resulta)){
+                                            $model_id = $rowsa['model_id'];
+                                          }
+                                        }
+
+                                        $query = ""; $resulta = "";
+                                        $query = "SELECT * FROM package_list WHERE model_id = '$model_id'";
                                         $resulta = mysqli_query($link, $query);
                                         if(mysqli_num_rows($resulta) > 0){
                                           while($rowsa = mysqli_fetch_array($resulta)){
@@ -250,6 +266,7 @@ if(isset($_POST['unpaid'])){
   }
 
 
+  
   
 }//isset end
 
@@ -390,14 +407,15 @@ function valData($data) {
                     </div>
 
 
-                    <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="invTable">
+                    <table class="table table-bordered" role="grid" aria-describedby="example2_info" id="invTable">
                       <thead>
                         <tr>
-                          <th width="50%">Product/s</th>
+                          <th width="50%">Product/s Description</th>
                           <th width="30%">Quantity</th>
+                          <th></th>
                     <!-- <th>Unit Price</th>
                       <th>Total Price</th> -->
-                      <th width="20%"><button type="button" class="btn btn-success" onclick="invAddRow()" id="invAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus"> Add Row</i></button></th>
+                     
                     </tr>
                   </thead>
                   <tbody>
@@ -439,19 +457,18 @@ function valData($data) {
                         <td>
                           <input type="number" class="form-control" placeholder="Quantity" name="invQty[]" id="moddQty<?php echo $x; ?>" required>
                         </td>
-                        <!-- <td>
-                        <input type="text" class="form-control" placeholder="Price" name="modelQty[]" id="moddQty<?$php //echo $x; ?>" required>
-                      </td>
-                      <td>
-                      <input type="text" class="form-control" placeholder="Total Amount" name="modelQty[]" id="moddQty<?$php //echo $x; ?>" required>
-                    </td>
-                  -->
                   <td>
                     <button class="btn btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
                   </td>
                 </tr>
                 <?php $arrayNumber++; } ?> <!-- == loop end == -->
               </tbody>
+              <tfoot>
+                <tr>
+                
+                <td colspan="3" align="center" width="20%"><button type="button" class="btn btn-success" onclick="invAddRow()" id="invAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus">Add Row</i></button></td>
+              </tr>
+              </tfoot>
 
             </table>
 
@@ -462,16 +479,19 @@ function valData($data) {
               <br>
 
                 <div class="form-group">
-                          <label>Mode of transfer</label>
-                          <select class="form-control select2"  name="invMot" required>
-                            <option value="">~~Mode of transfer~~</option>
-                            <option value="Shipped">For Shipped</option>
-                            <option value="Pick-up">For Pick-up</option>
-                          </select>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="invMot" value="">
+                          <label class="form-check-label">For Shipping</label>
                         </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="invMot" value="Pick-up" checked>
+                          <label class="form-check-label">For Pick-up</label>
+                        </div>
+    
+                </div>
 
               <label>Note: </label><br>
-              <input type="text" class="form-control" placeholder="Name of recipient or Delivery Tracking No." name="invReceivedBy"  required>
+              <input type="text" class="form-control" oninput="upperCase(this)" placeholder="Name of recipient or Delivery Tracking No." name="invReceivedBy"  required>
 
             </div>
 
