@@ -180,34 +180,35 @@
 
                       <div class="col-sm-6">
                         <div class="form-group">
-                          <label>Starting Date</label>
+                          <label>Date</label>
                           <div class="input-group">
                             <div class="input-group-prepend">
                               <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false" name="startDate">
+                            <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false" name="startDate" onkeydown="return false" required>
                           </div>
                         </div>
                       </div>
                       
                       </div>
 
-                        <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="productModelTable">
+                        <table class="table" role="grid" aria-describedby="example2_info" id="productModelTable">
                           <thead>
                             <tr>
-                              <th width="50%">Product Model</th>
+                              <th width="60%">Product Model</th>
                               <th width="30%">Quantity</th>
-                              <th width="20%"><button type="button" class="btn btn-success" onclick="modelAddRow()" id="modelAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus">Add Row</i></button></th>
+                              <th></th>
+                              
                             </tr>
                           </thead>
                           <tbody>
                             <?php
                             $arrayNumber = 0;
-                            for($x =1; $x < 3; $x++){ ?> <!-- == loop start == -->
+                            for($x =1; $x < 2; $x++){ ?> <!-- == loop start == -->
                             <tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">
                               <td>
                                 <div class="from-group">
-                                  <select class="form-control select2" style="width: 100%;" name="product-model[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)">
+                                  <select class="form-control" style="width: 100%;" name="product-model[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)">
                                     <option value="">Select Product</option>
                                     <?php
                                 // Include config file
@@ -238,15 +239,21 @@
                                 </td>
                               </div>
                               <td>
-                                <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?php echo $x; ?>" required>
+                                <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?php echo $x; ?>" onkeypress="return isNumberKey(event)" required>
                               </td>
                               <td>
-                                <button class="btn btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
+                                <button class="btn btn-sm btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
                               </td>
                             </tr>
 
                             <?php $arrayNumber++; } ?> <!-- == loop end == -->
                           </tbody>
+                          <tfoot>
+                          <tr>
+                          
+                          <td colspan="3" align="center" width="20%"><button type="button" class="btn btn-sm btn-success" onclick="modelAddRow()" id="modelAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus"></i> Add Row</button></td>
+                        </tr>
+                        </tfoot>
                         </table>
 
                       </div>
