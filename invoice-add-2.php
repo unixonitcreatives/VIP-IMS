@@ -20,7 +20,7 @@ if(isset($_POST['fullypaid'])){
   if(empty($invCustName) || empty($invDate)){
 
   } else {
-    
+
   //If all fields are !empty, Step 3: Prepare Custom ID then add to
 
     include ('invoice-obtx-id.php');
@@ -38,12 +38,14 @@ if(isset($_POST['fullypaid'])){
         // Use insert_id property to get the id of previous table (packages table)
       $obID = $link->insert_id;
       for ($j = 0; $j < $count; $j++) {
+
         $listquery = "INSERT INTO obdatatb (outbound_ID, ob_tx_id, obdata_products, obdata_qty) VALUES (
         '".$obID."',
         '".$obtxid."',
         '".$_POST['invProduct'][$j]."',
         '".$_POST['invQty'][$j]."')";
         $listresult = mysqli_multi_query($link, $listquery) or die(mysqli_error($link));
+        
         } //Step: 5 forloop end
         
         //Step: 6 Update Stocks
@@ -106,9 +108,10 @@ if(isset($_POST['fullypaid'])){
 
                                       } 
 
-                                      echo "<script>alert('Success Add Invoice $obtxid');</script>";
+                                      
 
                                     }
+                                    echo "<script>alert('Success Add Invoice $obtxid');</script>";
                                   } //Step: 9 Close
 
 
@@ -337,7 +340,7 @@ function valData($data) {
                         <div class="form-group">
                           <label>Customer</label><a href="member-add.php"> + add new member</a>
                           <select class="form-control select2" oninput="upperCase(this)"  name="invCustName" required>
-                            <option value="">~~SELECT MEMBER~~</option>
+                            <option value="">Select Member</option>
                             <?php
                             $query = "";
                             $query = "SELECT * FROM customers ORDER BY member_id desc";
@@ -365,7 +368,7 @@ function valData($data) {
                         <div class="form-group">
                           <label>Warehouse</label><a href="warehouse-add.php"> + add new warehouse</a>
                           <select class="form-control select2" oninput="upperCase(this)"  name="invWarehouse" required>
-                            <option value="">~~SELECT WAREHOUSE~~</option>
+                            <option value="">Select Warehouse</option>
                             <?php
                             $queryWarehouse = "";
                             $queryWarehouse = "SELECT name FROM warehouse";
@@ -399,7 +402,7 @@ function valData($data) {
                             <div class="input-group-prepend">
                               <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input type="date" name="invDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" placeholder="mm/dd/yyyy" data-mask im-insert="false" required>
+                            <input type="date" name="invDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" placeholder="mm/dd/yyyy" data-mask im-insert="false" onkeydown="return false" required>
                           </div>
                           <!-- /.input group -->
                         </div>
@@ -409,10 +412,10 @@ function valData($data) {
                     </div>
 
 
-                    <table class="table table-bordered" role="grid" aria-describedby="example2_info" id="invTable">
+                    <table class="table" role="grid" aria-describedby="example2_info" id="invTable">
                       <thead>
                         <tr>
-                          <th width="50%">Product/s Description</th>
+                          <th width="60%">Product/s Description</th>
                           <th width="30%">Quantity</th>
                           <th></th>
                     <!-- <th>Unit Price</th>
@@ -427,14 +430,14 @@ function valData($data) {
                     <tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">
                       <td>
                         <div class="from-group">
-                          <select class="form-control select2" style="width: 100%;" name="invProduct[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)">
-                            <option value="">~~Select Product~~</option>
+                          <select class="form-control" style="width: 100%;" name="invProduct[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)">
+                            <option value="">Select Product</option>
                             <?php
                             // Include config file
                             require_once "config.php";
                             // Attempt select query executions
                             $query = "";
-                            $query = "SELECT model FROM product_model ORDER BY model_id DESC";
+                            $query = "SELECT model FROM product_model ORDER BY type, model asc";
                             if($result = mysqli_query($link, $query)){
                               if(mysqli_num_rows($result) > 0){
 
@@ -457,10 +460,10 @@ function valData($data) {
                         </td>
 
                         <td>
-                          <input type="number" class="form-control" placeholder="Quantity" name="invQty[]" id="moddQty<?php echo $x; ?>" required>
+                          <input type="number" class="form-control" placeholder="Quantity" name="invQty[]" id="moddQty<?php echo $x; ?>" onkeypress="return isNumberKey(event)" required>
                         </td>
                   <td>
-                    <button class="btn btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
+                    <button class="btn btn-sm btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
                   </td>
                 </tr>
                 <?php $arrayNumber++; } ?> <!-- == loop end == -->
@@ -468,33 +471,37 @@ function valData($data) {
               <tfoot>
                 <tr>
                 
-                <td colspan="3" align="center" width="20%"><button type="button" class="btn btn-success" onclick="invAddRow()" id="invAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus">Add Row</i></button></td>
+                <td colspan="3" align="center" width="20%"><button type="button" class="btn btn-sm btn-success" onclick="invAddRow()" id="invAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus"></i> Add Row</button></td>
               </tr>
               </tfoot>
 
             </table>
 
-            <div class="form-group">
-              <label>Remarks</label><br>
-              <textarea class="form-control" width="100%" rows="5" style="resize: none;" placeholder="" name="invRemarks"></textarea>
-
+           
+              
               <br>
 
-                <div class="form-group">
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="invMot" value="">
-                          <label class="form-check-label">For Shipping</label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="invMot" value="Pick-up" checked>
-                          <label class="form-check-label">For Pick-up</label>
-                        </div>
+            <div class="form-group">
+              <label>Mode of Transfer: </label><br>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="invMot" value="">
+              <label class="form-check-label">For Shipping</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="invMot" value="Pick-up" checked>
+              <label class="form-check-label">For Pick-up</label>
+            </div>
     
-                </div>
+            </div>
 
-              <label>Note: </label><br>
-              <input type="text" class="form-control" oninput="upperCase(this)" placeholder="Name of recipient or Delivery Tracking No." name="invReceivedBy"  required>
+            <div class="form-group">
+            <label>Note: </label><br>
+            <input type="text" class="form-control" oninput="upperCase(this)" placeholder="Name of recipient or Delivery Tracking No." name="invReceivedBy"  required>
+            </div>
 
+            <div class="form-group">
+            <label>Remarks</label><small> (Only Staff & Admins can see this)</small><br>
+            <textarea class="form-control" width="100%" rows="5" style="resize: none;" placeholder="" name="invRemarks"></textarea>
             </div>
 
           </div>
@@ -523,6 +530,8 @@ function valData($data) {
 <!-- ./wrapper -->
 <!-- REQUIRED SCRIPTS -->
 <?php include "includes/js.php"; ?>
+
+
 
 
 </body>

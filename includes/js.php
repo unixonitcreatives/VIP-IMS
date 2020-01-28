@@ -1,5 +1,4 @@
-<!-- Select2 -->
-<script src="plugins/select2/js/select2.full.min.js"></script>
+
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -33,6 +32,9 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 
+<!-- Select2 -->
+<script src="plugins/select2/js/select2.full.min.js"></script>
+
 
 
 
@@ -51,7 +53,78 @@ $(document).ready(function () {
 });
 </script>
 
+
 <script>
+  $(function() {
+    $('#example2').DataTable()
+    $('#example1').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+      'scrollX'     : true
+    })
+  })
+</script>
+
+
+<script>
+  //uppercase text box
+  function upperCase(a){
+    setTimeout(function(){
+        a.value = a.value.toUpperCase();
+    }, 1);
+
+  }
+
+  //Notify
+  function Notify(msg,mode){
+    $.notify(msg,mode,{ position:"top left" });
+  }
+
+
+  function submit()
+
+  {
+    $.notify("its asd","warn");
+  }
+
+</script>
+
+<!-- Alert animation -->
+<script type="text/javascript">
+$(document).ready(function () {
+
+  window.setTimeout(function() {
+    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+      $(this).remove();
+    });
+  }, 1000);
+
+});
+</script>
+
+<script language="JavaScript" type="text/javascript">
+function checkDelete(){
+    return confirm('Are you sure you want to permanently delete this?');
+}
+
+function logoutConfirm(){
+    return confirm('Are you sure you want to logout?');
+}
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+</script>
+
+
+<script type="text/javascript">
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
@@ -119,66 +192,4 @@ $(document).ready(function () {
     });
 
   })
-</script>
-
-<script>
-  $(function() {
-    $('#example2').DataTable()
-    $('#example1').DataTable({
-      'paging'      : true,
-      'lengthChange': true,
-      'searching'   : true,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : true,
-      'scrollX'     : true
-    })
-  })
-</script>
-
-
-<script>
-  //uppercase text box
-  function upperCase(a){
-    setTimeout(function(){
-        a.value = a.value.toUpperCase();
-    }, 1);
-
-  }
-
-  //Notify
-  function Notify(msg,mode){
-    $.notify(msg,mode,{ position:"top left" });
-  }
-
-
-  function submit()
-
-  {
-    $.notify("its asd","warn");
-  }
-
-</script>
-
-<!-- Alert animation -->
-<script type="text/javascript">
-$(document).ready(function () {
-
-  window.setTimeout(function() {
-    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
-      $(this).remove();
-    });
-  }, 1000);
-
-});
-</script>
-
-<script language="JavaScript" type="text/javascript">
-function checkDelete(){
-    return confirm('Are you sure you want to permanently delete this?');
-}
-
-function logoutConfirm(){
-    return confirm('Are you sure you want to logout?');
-}
 </script>

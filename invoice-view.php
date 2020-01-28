@@ -55,6 +55,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                <li class="breadcrumb-item"><a href="invoice-manage.php">Manage Invoices</a></li>
                 <li class="breadcrumb-item active">View Invoice # <?php echo $get_ob_tx_id; ?></li>
               </ol>
             </div><!-- /.col -->
@@ -62,7 +63,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content-header -->
-
+      <section class="content">
       <!-- Main content -->
       <div class="invoice p-3 mb-3">
               <!-- title row -->
@@ -80,11 +81,21 @@ if($Getresult = mysqli_query($link, $Getquery)){
                 <div class="col-sm-4 invoice-col">
                   From
                   <address>
-                    <strong>VIP International, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    Phone: (804) 123-5432<br>
-                    Email: vipsupport@gmail.com
+                    <strong>VIP International Inc.</strong><br>
+                    <b>Warehouse:</b> <?php echo $ob_warehouse; ?><br>
+                    <?php 
+                    $qry = "SELECT address FROM warehouse WHERE name ='$ob_warehouse'";
+                    if($result = mysqli_query($link, $qry)){
+                        if(mysqli_num_rows($result) > 0){
+                          while($row = mysqli_fetch_array($result)){
+                            $waddress = $row['address'];
+                          }
+                        }
+                    }
+                    ?>
+                    <b>Address:</b> <?php echo $waddress; ?><br>
+                    <b>Phone:</b> (804) 123-5432<br>
+                    <b>Email:</b> vipsupport@gmail.com
                   </address>
                 </div>
                 <!-- /.col -->
@@ -92,18 +103,27 @@ if($Getresult = mysqli_query($link, $Getquery)){
                   To
                   <address>
                     <strong><?php echo $ob_custName; ?></strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    Phone: (555) 539-1037<br>
-                    Email: john.doe@example.com
+                    <?php 
+                    $qry = "SELECT refID, address FROM customers WHERE name ='$ob_custName'";
+                    if($result = mysqli_query($link, $qry)){
+                        if(mysqli_num_rows($result) > 0){
+                          while($row = mysqli_fetch_array($result)){
+                            $ref_ID = $row['refID'];
+                            $address = $row['address'];
+                          }
+                        }
+                    }
+                    ?>
+
+                    <b>Username:</b> <?php echo $ref_ID; ?><br>
+                    <b>Address:</b> <?php echo $address; ?><br>
                   </address>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4 invoice-col">
                 
-                  <b>Order Status:</b> <?php echo $ob_status; ?><br><br>
-                  <b>Date:</b> <?php echo $ob_date; ?><br>
-                  <b>Warehouse:</b> <?php echo $ob_warehouse; ?><br>
+                  <b>Order Status:</b> <?php echo $ob_status; ?><br>
+                  <b>Date:</b> <?php echo $ob_date; ?><br><br>
                   <b>Mode of Transfer:</b> <?php echo $ob_mot; ?><br>
                   <b>Note:</b> <?php echo $ob_received_by; ?>
                 </div>
@@ -125,7 +145,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
                     <tbody>
                       <?php
                       // Attempt select query execution
-                      $query = "SELECT * FROM obdatatb WHERE ob_tx_id = '$get_ob_tx_id'";
+                      $query = "SELECT obdata_products, SUM(obdata_qty) as total_qty FROM obdatatb WHERE ob_tx_id = '$get_ob_tx_id' GROUP BY obdata_products";
                       if($result = mysqli_query($link, $query)){
                         if(mysqli_num_rows($result) > 0){
                           $ctr = 0;
@@ -134,7 +154,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
                             echo "<tr>";
                             echo "<td>" . $ctr . "</td>";
                             echo "<td>" . $row['obdata_products'] . "</td>";
-                            echo "<td>" . $row['obdata_qty'] . "</td>";
+                            echo "<td>" . $row['total_qty'] . "</td>";
                             echo "</tr>";
                           }
                           // Free result set
@@ -156,12 +176,12 @@ if($Getresult = mysqli_query($link, $Getquery)){
               </div>
               <!-- /.row -->
               <br><br>
-              <div class="row">
+              <div class="row no-print">
                 <!-- accepted payments column -->
                 <div class="col-12">
-                  <p class="lead">Remarks:</p>
+                  <p class="lead">Remarks: <button class="btn btn-xs btn-primary no-print">Update</button><i><small> Only Staff & Admins can see this</small></i></p> 
                   <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                    <textarea class="form-control" width="100%" rows="5" style="resize: none;" placeholder="Remarks" name="invRemarks" value="<?php echo $ob_remarks; ?>"></textarea>
+                    <textarea class="form-control" width="100%" rows="5" style="resize: none;" placeholder="Remarks" name="invRemarks"><?php echo $ob_remarks; ?></textarea>
                   </p>
                 </div>
                 <!-- /.col -->
@@ -186,6 +206,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
                 </div>
               </div>
             </div>
+          </section>
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->

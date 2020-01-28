@@ -29,25 +29,25 @@ function invAddRow() {
 
 			var tr = '<tr id="row'+count+'" class="'+arrayNumber+'">'+
 				'<td>'+
-					'<div class="form-group">'+
+
 
 					'<select class="form-control select2" style="width: 100%;" name="invProduct[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" >'+
-						'<option value="">~~Select Product~~</option>';
+						'<option value="">Select Product</option>';
 						//console.log(response);
 						$.each(response, function(value, value) {
 							tr += '<option value="'+value[1]+'">'+value[1]+'</option>';
 						});
 
 					tr += '</select>'+
-					'</div>'+
+			
 				'</td>'+
 
 				'<td>'+
-					'<input type="number" name="invQty[]" id="modQty'+count+'" autocomplete="off" class="form-control" placeholder="Quantity"/>'+
+					'<input type="number" name="invQty[]" id="modQty'+count+'" autocomplete="off" class="form-control" placeholder="Quantity" keypress="return isNumberKey(event)" required/>'+
 				'</td>'+
 
 				'<td>'+
-					'<button class="btn btn-danger removeModelRowBtn" type="button" onclick="removeModelRow('+count+')"><i class="nav-icon fas fa-minus"></i></button>'+
+					'<button class="btn btn-sm btn-danger removeModelRowBtn" type="button" onclick="removeModelRow('+count+')"><i class="nav-icon fas fa-minus"></i></button>'+
 				'</td>'+
 			'</tr>';
 			if(tableLength > 0) {
