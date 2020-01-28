@@ -107,6 +107,40 @@ include('session.php');
                             ?>
                           </select>
                         </div>
+
+                        <div class="form-group">
+                          <label>Product</label>
+                          <select class="form-control select2" oninput="upperCase(this)"  name="invWarehouse" required>
+                            <option value="">SELECT PRODUCT</option>
+                            <?php
+                            $queryWarehouse = "";
+                            $queryWarehouse = "SELECT * FROM product_model WHERE type='retail'";
+                            if($resultWarehouse = mysqli_query($link, $queryWarehouse)){
+                              if(mysqli_num_rows($resultWarehouse) > 0){
+                                while($row = mysqli_fetch_array($resultWarehouse)){
+
+                                  echo "<option value='".$row['model']."'>" . $row['model'] .  "</option>";
+                                }
+
+                                        // Free result set
+                                mysqli_free_result($resultWarehouse);
+                              } else{
+                                echo "<p class='lead'><em>No records were found.</em></p>";
+                              }
+                            } else{
+                              echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                            }
+
+
+                            ?>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                          <label>Quantity</label>
+                          <input type="text" class="form-control" placeholder="pcs" name="" id="" required>
+
+                        </div>
                         
                       </div>
 
