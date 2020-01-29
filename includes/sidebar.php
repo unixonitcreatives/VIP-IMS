@@ -35,7 +35,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="invoice-add-2.php" class="nav-link">
+                <a href="invoice-add.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Invoice</p>
                 </a>
@@ -48,12 +48,12 @@
                 </a>
               </li>
 
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="invoice-paid.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Paid Invoice</p>
                 </a>
-              </li>
+              </li> -->
 
               <li class="nav-item">
                 <a href="invoice-unpaid.php" class="nav-link">

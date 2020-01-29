@@ -51,7 +51,7 @@
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Product Description</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Quantity</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
+                          <!-- <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th> -->
                           
                         </tr>
                       </thead>
@@ -73,7 +73,7 @@
                               echo "<td>" . $row['product'] . "</td>";
                               echo "<td> <a href='warehouse-view.php?id=$id'>" . $row['warehouse'] . "</a></td>";
                               echo "<td>" . $row['quantity'] . "</td>";
-                              echo "<td>" . $row['status'] . "</td>";
+                              //echo "<td>" . $row['status'] . "</td>";
 
                               echo "</tr>";
                             }

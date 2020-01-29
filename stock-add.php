@@ -23,8 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
                      if($result){
-                      echo "<script>alert('Successfuly added new stocks')</script>";
-                      header("location:stock-manage.php");
+                      $info = $_SESSION['username']."  new stock replenished";
+                                    $info2 = "Details: ".$product.", ".$qty."pcs on: " .$warehouse;
+                                    $alertlogsuccess = $product.", ".$qty."pcs: has been replenished succesfully!";
+                                    include "logs.php";
+                                    echo "<script>window.location.href='stock-manage.php'</script>";
 
                       }else{
                       echo "<script>alert('Failed adding new stocks')</script>";
@@ -56,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
                                     if($result){
                                     $info = $_SESSION['username']." added new stock";
-                                    $info2 = "Details: ".$product.", ".$qty."pcs";
+                                    $info2 = "Details: ".$product.", ".$qty."pcs on: " .$warehouse;
                                     $alertlogsuccess = $product.", ".$qty."pcs: has been added succesfully!";
                                     include "logs.php";
                                     echo "<script>window.location.href='stock-manage.php'</script>";
@@ -110,7 +113,7 @@ function test_input($data) {
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Add Product Model</li>
+              <li class="breadcrumb-item active">Add Stocks</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -126,8 +129,8 @@ function test_input($data) {
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Add Product Model</h3>
-                  <a href="stock-manage.php">View all product model</a>
+                  <h3 class="card-title">Add Stocks</h3>
+                  <a href="stock-manage.php">View all Stocks</a>
                 </div>
               </div>
 

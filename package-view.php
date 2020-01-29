@@ -101,7 +101,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
                     <tbody>
                       <?php
                       // Attempt select query execution
-                      $query = "SELECT * FROM package_list WHERE model_id = '$get_model_id' ";
+                      $query = "SELECT pack_list_model, SUM(pack_list_qty) as Qty FROM package_list WHERE model_id = '$get_model_id' GROUP BY pack_list_model ";
                       if($result = mysqli_query($link, $query)){
                         if(mysqli_num_rows($result) > 0){
                           $ctr = 0;
@@ -110,7 +110,7 @@ if($Getresult = mysqli_query($link, $Getquery)){
                             echo "<tr>";
                             echo "<td>" . $ctr . "</td>";
                             echo "<td>" . $row['pack_list_model'] . "</td>";
-                            echo "<td>" . $row['pack_list_qty'] . "</td>";
+                            echo "<td>" . $row['Qty'] . "</td>";
                             echo "</tr>";
                           }
                           // Free result set

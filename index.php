@@ -133,7 +133,7 @@ if (mysqli_num_rows($stocksresult) > 0) {
               <a class="btn btn-primary" href="members-add.php"><i class="nav-icon fas fa-users"></i> New Member</a>
               <a class="btn btn-primary" href="product-add.php"><i class="nav-icon fas fa-cubes"></i> New Product Model</a>
               <a class="btn btn-primary" href="stock-add.php"><i class="nav-icon fas fa-cubes"></i> Add New Stocks</a>
-              <a class="btn btn-success" href="invoice-add-2.php"><i class="nav-icon fas fa-copy"></i> Add New Invoice</a>
+              <a class="btn btn-success" href="invoice-add.php"><i class="nav-icon fas fa-copy"></i> Add New Invoice</a>
 
 
 

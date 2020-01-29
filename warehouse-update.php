@@ -31,10 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                  if(mysqli_num_rows($result) > 0){
                                     //If the username already exists
                                     //Try another username pop up
-                                    echo "<script>alert('Warehouse name already exist');</script>";
-                                    mysqli_free_result($result);
-                                 } else{
-                                    //If the username doesnt exist in the database
+                                    //echo "<script>alert('Warehouse name already exist');</script>";
+                                    //mysqli_free_result($result);
+
+                                  //If the username doesnt exist in the database
                                     //Proceed to updating  database
 
 
@@ -44,8 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
                                     if($result){
-                                    $info = $_SESSION['username']." updated warehouse:".$get_warehouse_id;
-                                    $info2 = "Details: ".$name;
+                                    $info = $_SESSION['username']." updated warehouse: " .$name;
+                                    $info2 = "Address Details: ".$address;
                                     $alertlogsuccess = $name.": has been updated succesfully!";
                                     include "logs.php";
                                     echo "<script>window.location.href='warehouse-manage.php'</script>";
@@ -55,6 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                       Error updating data.
                                       </div>";}
                                       mysqli_close($link);
+                                 } else{
+                                    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                                  }
                              } else{
                                  echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
@@ -127,7 +129,7 @@ function test_input($data) {
                   ?>
                       <div class="form-group">
                         <label>Warehouse Name</label>
-                        <input type="text" class="form-control" placeholder="Warehouse Name" name="name" oninput="upperCase(this)" maxlength="20" value='<?php echo $row['name'];?>'>
+                        <input type="text" class="form-control" placeholder="Warehouse Name" name="name" oninput="upperCase(this)" maxlength="20" value='<?php echo $row['name'];?>' readonly>
                       </div>
 
                       <div class="form-group">

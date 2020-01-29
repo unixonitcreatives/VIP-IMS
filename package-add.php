@@ -31,70 +31,54 @@
 
     }else {
 
-    /*//Prepare Date for custom ID
-    $IDtype = "PM";
-    $m = date('m');
-    $y = date('y');
-    $d = date('d');
 
-    $qry = mysqli_query($link,"SELECT MAX(id) FROM `product_model`"); // Get the latest ID
-    $resulta = mysqli_fetch_array($qry);
-    $newID = $resulta['MAX(id)'] + 1; //Get the latest ID then Add 1
-    $custID = str_pad($newID, 5, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
-    $custnewID = $IDtype.$custID; //Prepare custom ID
-*/
-    //INSERT query to product_model table
-    $packageQuery = "
-    INSERT INTO `product_model` (model, sku, type, status, created_by, created_at)
-    VALUES ('$packname', 'PKG', 'package', 'Active','$account', '$dateCreated') ";
-    $packageResult = mysqli_query($link, $packageQuery) or die(mysqli_error($link));
+    //Check if the package name is already in the database
+      $sql_check = "SELECT model FROM `product_model` WHERE model ='$packname' ";
+      if($result = mysqli_query($link, $sql_check)){
+           //Execute query
+       if(mysqli_num_rows($result) > 0){
+                                      //If the username already exists
+                                      //Try another username pop up
+        echo "<script>alert('Package name already exist');</script>";
+        mysqli_free_result($result);
+      } else{
+                  //If the username doesnt exist in the database
+                  //Proceed adding to database
+                  //INSERT query to product_model table
+        $packageQuery = "
+        INSERT INTO `product_model` (model, sku, type, status, created_by, created_at)
+        VALUES ('$packname', 'PKG', 'package', 'Active','$account', '$dateCreated') ";
+        $packageResult = mysqli_query($link, $packageQuery) or die(mysqli_error($link));
 
+        if ($packageResult === TRUE) {
 
-    if ($packageResult === TRUE) {
-
-
-      //===========================================================================================
-        //Prepare Date for custom ID
-   /* $IDtype = "PCKID";
-    $m = date('m');
-    $y = date('y');
-    $d = date('d');
-
-    $qry = mysqli_query($link,"SELECT MAX(id) FROM `product_model`"); // Get the latest ID
-    $resulta = mysqli_fetch_array($qry);
-    $newID = $resulta['MAX(id)'] + 1; //Get the latest ID then Add 1
-    $custID = str_pad($newID, 5, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
-    $newPackID = $IDtype.$custID; //Prepare custom ID*/
-
-      //===========================================================================================
-
-
-    $j = 0;
+          $j = 0;
 
       //Counts the elements in array
-    $count = count($_POST['product-model']);
+          $count = count($_POST['product-model']);
+
 
       // Use insert_id property to get the model_id of previous table (product_model)
-    $model_id = $link->insert_id;
+          $model_id = $link->insert_id;
 
-    for ($j = 0; $j < $count; $j++) {
+          for ($j = 0; $j < $count; $j++) {
 
-      $listquery = "INSERT INTO package_list (model_id, pack_list_model, pack_list_qty) VALUES (
-      '".$model_id."',
-      '".$_POST['product-model'][$j]."',
-      '".$_POST['modelQty'][$j]."')";
+            $listquery = "INSERT INTO package_list (model_id, pack_list_model, pack_list_qty) VALUES (
+            '".$model_id."',
+            '".$_POST['product-model'][$j]."',
+            '".$_POST['modelQty'][$j]."')";
 
-      $listresult = mysqli_multi_query($link, $listquery) or die(mysqli_error($link));
+            $listresult = mysqli_multi_query($link, $listquery) or die(mysqli_error($link));
 
-    }
+          }
 
-    if($listresult === TRUE){
+          if($listresult === TRUE){
           //logs
-      $info = $_SESSION['username']." added new package";
-      $info2 = "Details: ".$packname.", ".$model_id;
-      $alertlogsuccess = $packname.": has been added succesfully!";
-      include "logs.php";
-      echo "<script>window.location.href='package-manage.php'</script>";
+            $info = $_SESSION['username']." added new package";
+            $info2 = "Details: ".$packname.", ".$model_id;
+            $alertlogsuccess = $packname.": has been added succesfully!";
+            include "logs.php";
+            echo "<script>window.location.href='package-manage.php'</script>";
 
             }// ./listResult 
             else{
@@ -108,6 +92,11 @@
           Error Creating Package.
           </div>";
         }
+
+          }// end of result
+        } else{
+          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+          }//end of checking duplicate package name
 
       } // ./validation
     }// ./post
@@ -165,49 +154,49 @@
                         <a href="package-manage.php">View all packages</a>
                       </div>
                     </div>
-
+                    <!-- ./card=header -->
                     <div class="card-body">
                       <?php echo $alertMessage; ?>
                       <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                         <div class="row">
-                         
                           <div class="col-sm-6">
-                        <div class="form-group">
-                          <label>Package Name<span style="color: Red;">*</span></label>
-                          <input type="text" class="form-control" placeholder="Package Name" name="package_name" oninput="upperCase(this)" maxlength="20" required><br>
-                        </div>
-                      </div>
-
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label>Starting Date</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            <div class="form-group">
+                              <label>Package Name<span style="color: Red;">*</span></label>
+                              <input type="text" class="form-control" placeholder="Package Name" name="package_name" oninput="upperCase(this)" maxlength="20" required><br>
                             </div>
-                            <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false" name="startDate">
                           </div>
-                        </div>
-                      </div>
-                      
-                      </div>
 
-                        <table class="table table-bordered table-hover" role="grid" aria-describedby="example2_info" id="productModelTable">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label>Date</label>
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false" name="startDate" onkeydown="return false" required>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <table class="table" role="grid" aria-describedby="example2_info" id="productModelTable">
                           <thead>
                             <tr>
-                              <th width="50%">Product Model</th>
+                              <th width="60%">Product Model</th>
                               <th width="30%">Quantity</th>
-                              <th width="20%"><button type="button" class="btn btn-success" onclick="modelAddRow()" id="modelAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus">Add Row</i></button></th>
+                              <th></th>
+                              
                             </tr>
                           </thead>
                           <tbody>
                             <?php
                             $arrayNumber = 0;
-                            for($x =1; $x < 3; $x++){ ?> <!-- == loop start == -->
+                            for($x =1; $x < 2; $x++){ ?> <!-- == loop start == -->
                             <tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">
                               <td>
                                 <div class="from-group">
-                                  <select class="form-control select2" style="width: 100%;" name="product-model[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)">
+                                  <select class="form-control" style="width: 100%;" name="product-model[]" id="prod-mod<?php echo $x; ?>" onchange="get-prod-model-data(<?php echo $x;?>)" required>
                                     <option value="">Select Product</option>
                                     <?php
                                 // Include config file
@@ -235,29 +224,39 @@
 
                                     ?>
                                   </select>
-                                </td>
-                              </div>
+                                </div>
+                              </td>
+                              
                               <td>
-                                <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?php echo $x; ?>" required>
+                                <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?php echo $x; ?>" onkeypress="return isNumberKey(event)" required>
                               </td>
                               <td>
-                                <button class="btn btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
+                                <button class="btn btn-sm btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
                               </td>
                             </tr>
 
                             <?php $arrayNumber++; } ?> <!-- == loop end == -->
                           </tbody>
+                          <tfoot>
+                            <tr>
+
+                              <td colspan="3" align="center" width="20%"><button type="button" class="btn btn-sm btn-success" onclick="modelAddRow()" id="modelAddRowBtn" data-loading-text="Loading..."><i class="nav-icon fas fa-plus"></i> Add Row</button></td>
+                            </tr>
+                          </tfoot>
                         </table>
 
-                      </div>
 
+                    
                       <div class="card-footer">
                         <button type="submit" class="btn btn-primary" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" >Save</button>
                       </form>
-                    </div>
-                  </div>
-                </div>
 
+                    </div>
+                    
+                  </div>
+                  <!-- /.card -->
+                </div>
+                <!-- /.col-lg-12 -->
               </div>
               <!-- /.row -->
             </div>

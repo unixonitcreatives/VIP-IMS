@@ -32,8 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $account = $_SESSION["username"];//session name
 
                                     $query = "
-                                    INSERT INTO customers (name, refID, address, created_by, created_at)
-                                    VALUES ('$name', '$refID', '$address', '$account', '$startDate')"; //Prepare insert query
+                                    INSERT INTO customers (name, refID, address, status, created_by, created_at)
+                                    VALUES ('$name', '$refID', '$address', 'Active', '$account', '$startDate')"; //Prepare insert query
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
@@ -139,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                                     <div class="input-group-prepend">
                                                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false" name="startDate">
+                                                    <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false" name="startDate" onkeydown="return false">
                                                   </div>
                                                 </div>
 

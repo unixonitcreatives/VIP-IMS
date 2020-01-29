@@ -31,7 +31,7 @@ function invAddRow() {
 				'<td>'+
 
 
-					'<select class="form-control select2" style="width: 100%;" name="invProduct[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" >'+
+					'<select class="form-control select2" style="width: 100%;" name="invProduct[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" required>'+
 						'<option value="">Select Product</option>';
 						//console.log(response);
 						$.each(response, function(value, value) {

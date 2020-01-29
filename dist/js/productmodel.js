@@ -29,9 +29,9 @@ function modelAddRow() {
 
 			var tr = '<tr id="row'+count+'" class="'+arrayNumber+'">'+
 				'<td>'+
-					'<div class="form-group">'+
+					
 
-					'<select class="form-control" name="product-model[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" >'+
+					'<select class="form-control" name="product-model[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" required>'+
 						'<option value="">Select Product</option>';
 						//console.log(response);
 						$.each(response, function(value, value) {
@@ -39,15 +39,15 @@ function modelAddRow() {
 						});
 
 					tr += '</select>'+
-					'</div>'+
+			
 				'</td>'+
 
 				'<td>'+
-					'<input type="text" name="modelQty[]" id="modQty'+count+'" autocomplete="off" class="form-control" placeholder="Quantity"/>'+
+					'<input type="text" name="modelQty[]" id="modQty'+count+'" autocomplete="off" class="form-control" placeholder="Quantity" onkeypress="return isNumberKey(event)" required/>'+
 				'</td>'+
 
 				'<td>'+
-					'<button class="btn btn-danger removeModelRowBtn" type="button" onclick="removeModelRow('+count+')"><i class="nav-icon fas fa-minus"></i></button>'+
+					'<button class="btn btn-sm btn-danger removeModelRowBtn" type="button" onclick="removeModelRow('+count+')"><i class="nav-icon fas fa-minus"></i></button>'+
 				'</td>'+
 			'</tr>';
 			if(tableLength > 0) {

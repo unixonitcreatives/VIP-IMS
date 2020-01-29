@@ -43,13 +43,15 @@
               </div>
 
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-                    <thead>
+                 <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                      <thead>
                         <tr>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Username</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Name</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Address</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Created By</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Time Created</th>
                           <th>Action</th>
                         </tr>
@@ -71,15 +73,18 @@
                               echo "<td>" . $row['refID'] . "</td>";
                               echo "<td>" . $row['name'] . "</td>";
                               echo "<td>" . $row['address'] . "</td>";
+                              echo "<td>" . $row['status'] . "</td>";
+                              echo "<td>" . $row['created_by'] . "</td>";
                               echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";
-                              echo " &nbsp; <a href='members-update.php?member_id=". $row['member_id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
-                              echo " &nbsp; <a href='members-delete.php?member_id=". $row['member_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='fas fa-trash'></span></a>";
+                              echo " &nbsp; <a href='members-view-history.php?name=". $row['name'] ."' title='View History' data-toggle='tooltip'><span class='fas fa-eye'></span></a>";
+                             echo " &nbsp; <a href='members-update.php?member_id=". $row['member_id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
+                              echo " &nbsp; <a href='members-delete.php?member_id=". $row['member_id'] ."' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa-trash'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }
                             // Free result set
-                            //mysqli_free_result($result);
+                            mysqli_free_result($result);
                           } else{
                             echo "<p class='lead'><em>No records were found.</em></p>";
                           }

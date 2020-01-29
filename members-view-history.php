@@ -21,7 +21,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manage Invoices</li>
+              <li class="breadcrumb-item active">Member History</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,13 +37,40 @@
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Manage Invoices</h3>
-                  <a href="invoice-add.php">+ Add new invoice</a>
+                  <h3 class="card-title">Member History</h3>
+                  <a href="members-add.php">add new member</a>
                 </div>
               </div>
 
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+              	<?php
+                        // Include config file
+                        require_once 'config.php';
+
+                        $get_member_name = $_GET['name'];
+
+                        // Attempt select query execution
+                        $query = "SELECT * FROM customers WHERE name = '$get_member_name' ";
+                        if($result = mysqli_query($link, $query)){
+                          if(mysqli_num_rows($result) > 0){
+                            $ctr = 0;
+                            while($row = mysqli_fetch_array($result)){
+                              $refID = $row['refID'];
+                              $name = $row['name'];
+                              $address = $row['address'];
+                              $created_at = $row['created_at'];
+                            }
+                        } else{
+                          echo "cannot get data";
+                        }
+                        } else{
+                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                        }
+
+                        ?>
+
+
+                  <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                       <thead>
                         <tr>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
@@ -62,7 +89,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM outboundtb ORDER BY ob_tx_id DESC";
+                        $query = "SELECT * FROM outboundtb WHERE ob_custName = '$get_member_name' GROUP BY ob_tx_id  ORDER BY ob_tx_id DESC";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
