@@ -94,8 +94,9 @@ if($Getresult = mysqli_query($link, $Getquery)){
                     }
                     ?>
                     <b>Address:</b> <?php echo $waddress; ?><br>
-                    <b>Phone:</b> (804) 123-5432<br>
-                    <b>Email:</b> vipsupport@gmail.com
+                    <b>Phone:</b> 522-9730<br>
+                    <b>Email:</b> support@vip4u.ph<br>
+                    <b>Website:</b> www.vip4u.ph
                   </address>
                 </div>
                 <!-- /.col -->
