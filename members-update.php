@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
                                     if($result){
-                                    $info = $_SESSION['username']." updated customer";
+                                    $info = $_SESSION['username']." update member";
                                     $info2 = "Details: ".$name.", ".$refID;
                                     $alertlogsuccess = $name.", ".$refID.": has been updated succesfully!";
                                     include "logs.php";

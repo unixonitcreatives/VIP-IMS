@@ -38,7 +38,7 @@
               <div class="card-header">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Manage Packages</h3>
-                  <a href="package-add.php">add new package</a>
+                  <a href="package-add.php">+ Add new package</a>
                 </div>
               </div>
 

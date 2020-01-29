@@ -62,7 +62,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM customers WHERE status = 'Active' ORDER BY member_id DESC";
+                        $query = "SELECT * FROM customers WHERE status = 'Inactive' ORDER BY member_id DESC";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
@@ -79,7 +79,7 @@
                               echo "<td>";
                               echo " &nbsp; <a href='members-view-history.php?name=". $row['name'] ."' title='View History' data-toggle='tooltip'><span class='fas fa-eye'></span></a>";
                              echo " &nbsp; <a href='members-update.php?member_id=". $row['member_id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
-                              echo " &nbsp; <a href='members-status.php?member_id=". $row['member_id'] ."' title='Delete Record' data-toggle='tooltip' onclick='return inactive()'><span class='fas fa-trash'></span></a>";
+                              echo " &nbsp; <a href='members-delete.php?member_id=". $row['member_id'] ."' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa-trash'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }

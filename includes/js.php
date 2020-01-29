@@ -115,6 +115,10 @@ function logoutConfirm(){
     return confirm('Are you sure you want to logout?');
 }
 
+function inactive(){
+    return confirm('Are you sure you want to change this member status to Inactive?');
+}
+
 function isNumberKey(evt){
     var charCode = (evt.which) ? evt.which : evt.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57))

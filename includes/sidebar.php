@@ -182,6 +182,12 @@
                   <p>Manage Members</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="members-inactive.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inactive Members</p>
+                </a>
+              </li>
 
             </ul>
           </li>

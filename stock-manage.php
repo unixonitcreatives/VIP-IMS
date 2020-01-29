@@ -38,7 +38,7 @@
               <div class="card-header">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Manage Stocks</h3>
-                  <a href="stock-add.php">add new stocks</a>
+                  <a href="stock-add.php">+ Add new stocks</a>
                   
                 </div>
               </div>
