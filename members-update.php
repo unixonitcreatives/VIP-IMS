@@ -110,7 +110,7 @@ function test_input($data) {
               <div class="card-header">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">Update member</h3>
-                  <a href="customer-manage.php">View all members</a>
+                  <a href="members-manage.php">View all members</a>
                 </div>
               </div>
 
@@ -134,7 +134,7 @@ function test_input($data) {
 
                       <div class="form-group">
                         <label>Username</label>
-                        <input type="text" class="form-control" placeholder="ID" name="id" oninput="upperCase(this)" maxlength="20" value="<?php echo $row['refID'];?>">
+                        <input type="text" class="form-control" placeholder="ID" name="id" oninput="upperCase(this)" maxlength="20" value="<?php echo $row['refID'];?>" readonly>
                       </div>
 
                       <div class="form-group">

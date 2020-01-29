@@ -115,7 +115,7 @@ function test_input($data) {
               <div class="card">
                 <div class="card-header">
                   <div class="d-flex justify-content-between">
-                    <h3 class="card-title">Stock Transfer</h3>
+                    <h3 class="card-title"><strong><b>Notice:</b></strong> This page is under development and its not yet working properly. "Stock Transfer" </h3>
                   
                   </div>
                 </div>
@@ -257,7 +257,8 @@ function test_input($data) {
           </div>
 
           <div class="card-footer">
-            <button type="submit" name="transfer" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" class="btn btn-primary">Transfer</button>
+            <button type="submit" name="transfer" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" class="btn btn-primary" disabled>Transfer</button>
+            <strong><b>Notice:</b></strong> This page is under development and its not yet working properly. "Stock Transfer"
           </form>
         </div>
       </div>
