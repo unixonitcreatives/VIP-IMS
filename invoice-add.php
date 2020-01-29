@@ -143,7 +143,7 @@ if(isset($_POST['fullypaid'])){
 }//isset end
 
 if(isset($_POST['unpaid'])){
-    //Step 1: Prepare Variables
+  //Step 1: Prepare Variables
 
   $invCustName  = valData($_POST['invCustName']);
   $invWarehouse  = valData($_POST['invWarehouse']);
@@ -157,6 +157,7 @@ if(isset($_POST['unpaid'])){
   if(empty($invCustName) || empty($invDate)){
 
   } else {
+
   //If all fields are !empty, Step 3: Prepare Custom ID then add to
 
     include ('invoice-obtx-id.php');
@@ -174,12 +175,14 @@ if(isset($_POST['unpaid'])){
         // Use insert_id property to get the id of previous table (packages table)
       $obID = $link->insert_id;
       for ($j = 0; $j < $count; $j++) {
+
         $listquery = "INSERT INTO obdatatb (outbound_ID, ob_tx_id, obdata_products, obdata_qty) VALUES (
         '".$obID."',
         '".$obtxid."',
         '".$_POST['invProduct'][$j]."',
         '".$_POST['invQty'][$j]."')";
         $listresult = mysqli_multi_query($link, $listquery) or die(mysqli_error($link));
+        
         } //Step: 5 forloop end
         
         //Step: 6 Update Stocks
@@ -209,10 +212,9 @@ if(isset($_POST['unpaid'])){
                                     while($rows = mysqli_fetch_array($pm_result)){
                                       $pm_type = $rows['type'];
 
-
                                       //Check Product Model Type End
                                       if($pm_type=='retail'){ //if PM is Retail
-                                        $query_stock = "UPDATE stocks SET quantity = quantity - '$order_qty' WHERE product = '$order_product_model'";
+                                        $query_stock = "UPDATE stocks SET quantity = quantity - '$order_qty' WHERE product = '$order_product_model' AND warehouse = '$invWarehouse'";
                                         mysqli_query($link, $query_stock) or die(mysqli_error($link)); //Execute  insert query
 
                                       } elseif ($pm_type=='package') { //if PM is Package
@@ -235,18 +237,21 @@ if(isset($_POST['unpaid'])){
                                           while($rowsa = mysqli_fetch_array($resulta)){
                                             $pkg_pm = $rowsa['pack_list_model'];
                                             $pkg_qty = $rowsa['pack_list_qty'];
-                                            $query_stock = "UPDATE stocks SET quantity = quantity - ($pkg_qty * $order_qty)  WHERE product = '$pkg_pm'";
+                                            $query_stock = "UPDATE stocks SET quantity = quantity - ($pkg_qty * $order_qty)  WHERE product = '$pkg_pm' AND warehouse = '$invWarehouse'";
                                             mysqli_query($link, $query_stock) or die(mysqli_error($link)); //Execute 
                                           }
                                         }
+
+
                                       } 
 
-
+                                      
 
                                     }
+
                                   } //Step: 9 Close
 
-
+                                  echo "<script>alert('Success Add Invoice $obtxid');</script>";
                     } //Step: 8 Fail
 
 
@@ -271,7 +276,6 @@ if(isset($_POST['unpaid'])){
   }
 
 
-  
   
 }//isset end
 
@@ -334,7 +338,7 @@ function valData($data) {
 
                 <div class="card-body">
                   <?php echo $alertMessage; ?>
-                  <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                  <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
