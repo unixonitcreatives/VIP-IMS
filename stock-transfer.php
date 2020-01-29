@@ -3,6 +3,40 @@ require_once 'config.php';
 include('session.php');
 ?>
 
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    //Assigning posted values to variables.
+    $warehouse_orig = test_input($_POST['warehouse_orig']);
+    $warehouse_dest = test_input($_POST['warehouse_dest']);
+    $product = test_input($_POST['product']);
+    $qty = test_input($_POST['qty']);
+    $date = test_input($_POST['date']);
+    $refno = test_input($_POST['refno']);
+    $remarks = test_input($_POST['remarks']);
+}
+
+  //Step 2: Check for empty fields
+  if(empty($warehouse_orig) || empty($warehouse_dest) || empty($product) || empty($qty)){
+
+  } elseif($warehouse_orig == $warehouse_dest) {
+    echo "<script>alert('Warehouse Origin and Destination cannot be the same');</script>";
+  } elseif(){
+
+  } else {
+    //Step 3:
+  }
+  
+   
+
+
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php include "includes/header.php"; ?>
@@ -54,7 +88,7 @@ include('session.php');
 
                         <div class="form-group">
                           <label>Warehouse Origin</label>
-                          <select class="form-control select2" oninput="upperCase(this)"  name="invWarehouse" required>
+                          <select class="form-control select2" oninput="upperCase(this)"  name="warehouse_orig" required>
                             <option value="">SELECT WAREHOUSE ORIGIN</option>
                             <?php
                             $queryWarehouse = "";
@@ -82,7 +116,7 @@ include('session.php');
 
                          <div class="form-group">
                           <label>Warehouse Destination</label>
-                          <select class="form-control select2" oninput="upperCase(this)"  name="invWarehouse" required>
+                          <select class="form-control select2" oninput="upperCase(this)"  name="warehouse_dest" required>
                             <option value="">SELECT WAREHOUSE DESTINATION</option>
                             <?php
                             $queryWarehouse = "";
@@ -110,7 +144,7 @@ include('session.php');
 
                         <div class="form-group">
                           <label>Product</label>
-                          <select class="form-control select2" oninput="upperCase(this)"  name="invWarehouse" required>
+                          <select class="form-control select2" oninput="upperCase(this)"  name="product" required>
                             <option value="">SELECT PRODUCT</option>
                             <?php
                             $queryWarehouse = "";
@@ -138,7 +172,7 @@ include('session.php');
 
                         <div class="form-group">
                           <label>Quantity</label>
-                          <input type="text" class="form-control" placeholder="pcs" name="" id="" required>
+                          <input type="text" class="form-control" placeholder="pcs" name="qty" id="" required>
 
                         </div>
                         
@@ -152,14 +186,14 @@ include('session.php');
                             <div class="input-group-prepend">
                               <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input type="date" name="invDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" placeholder="mm/dd/yyyy" data-mask im-insert="false" required>
+                            <input type="date" name="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" placeholder="mm/dd/yyyy" data-mask im-insert="false" onkeydown="return false" required>
                           </div>
                           <!-- /.input group -->
                         </div>
 
                         <div class="form-group">
                           <label>Reference No.</label>
-                          <input type="text" class="form-control" placeholder="Reference No." name="" id="" required>
+                          <input type="text" class="form-control" placeholder="Reference No." name="refno" id="" required>
 
                         </div>
 
@@ -174,7 +208,7 @@ include('session.php');
 
             <div class="form-group">
               <label>Remarks</label><br>
-              <textarea class="form-control" width="100%" rows="5" style="resize: none;" placeholder="" name="invRemarks"></textarea>
+              <textarea class="form-control" width="100%" rows="5" style="resize: none;" placeholder="" name="remarks"></textarea>
 
               <br>
             </div>
@@ -182,7 +216,7 @@ include('session.php');
           </div>
 
           <div class="card-footer">
-            <button type="submit" name="transfer" class="btn btn-primary">Transfer</button>
+            <button type="submit" name="transfer" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" class="btn btn-primary">Transfer</button>
           </form>
         </div>
       </div>

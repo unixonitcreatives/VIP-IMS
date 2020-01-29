@@ -338,7 +338,7 @@ function valData($data) {
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label>Customer</label><a href="member-add.php"> + add new member</a>
+                          <label>Customer</label><a href="members-add.php"> + add new member</a>
                           <select class="form-control select2" oninput="upperCase(this)"  name="invCustName" required>
                             <option value="">Select Member</option>
                             <?php
