@@ -179,7 +179,7 @@
               <li class="nav-item">
                 <a href="members-manage.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Members</p>
+                  <p>Active Members</p>
                 </a>
               </li>
               <li class="nav-item">
