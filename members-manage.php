@@ -79,7 +79,7 @@
                               echo "<td>";
                               echo " &nbsp; <a href='members-view-history.php?name=". $row['name'] ."' title='View History' data-toggle='tooltip'><span class='fas fa-eye'></span></a>";
                              echo " &nbsp; <a href='members-update.php?member_id=". $row['member_id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
-                              echo " &nbsp; <a href='members-status.php?member_id=". $row['member_id'] ."' title='Delete Record' data-toggle='tooltip' onclick='return inactive()'><span class='fas fa-trash'></span></a>";
+                              echo " &nbsp; <a href='members-status.php?member_id=". $row['member_id'] ."' title='Set to Inactive' data-toggle='tooltip' onclick='return inactive()'><span class='fas fa-user-times'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }
