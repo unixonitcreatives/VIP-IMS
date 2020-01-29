@@ -31,7 +31,7 @@ function modelAddRow() {
 				'<td>'+
 					
 
-					'<select class="form-control" name="product-model[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" >'+
+					'<select class="form-control" name="product-model[]" id="prod-mod'+count+'" onchange="get-prod-model-data('+count+')" required>'+
 						'<option value="">Select Product</option>';
 						//console.log(response);
 						$.each(response, function(value, value) {

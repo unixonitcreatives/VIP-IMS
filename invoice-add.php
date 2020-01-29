@@ -343,7 +343,7 @@ function valData($data) {
                             <option value="">Select Member</option>
                             <?php
                             $query = "";
-                            $query = "SELECT * FROM customers ORDER BY member_id desc";
+                            $query = "SELECT * FROM customers WHERE status = 'Active' ORDER BY member_id desc";
                             if($result = mysqli_query($link, $query)){
                               if(mysqli_num_rows($result) > 0){
                                 while($row = mysqli_fetch_array($result)){

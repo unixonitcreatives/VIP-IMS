@@ -17,7 +17,7 @@
 
       // Check input errors before inserting in database
     if(empty($alertMessage)){
-          //Check if the username is already in the database
+      //Check if the username is already in the database
       $sql_check = "SELECT model, sku FROM `product_model` WHERE model ='$description' OR sku = '$sku' ";
           if($result = mysqli_query($link, $sql_check)){ //Execute query
            if(mysqli_num_rows($result) > 0){
