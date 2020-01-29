@@ -14,22 +14,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $date = test_input($_POST['date']);
     $refno = test_input($_POST['refno']);
     $remarks = test_input($_POST['remarks']);
-}
 
-  //Step 2: Check for empty fields
-  if(empty($warehouse_orig) || empty($warehouse_dest) || empty($product) || empty($qty)){
+    $i = 0;
+    if(empty($warehouse_orig) && empty($warehouse_dest)){
+    $i = 1;
+    }
 
-  } elseif($warehouse_orig == $warehouse_dest) {
-    echo "<script>alert('Warehouse Origin and Destination cannot be the same');</script>";
-  } elseif(){
+    if(empty($product) && empty($qty)){
+    $i = 1;
+    }
+
+    if(empty($date) && empty($refno)){
+    $i = 1;
+    }
+
+    //Check kung pareho ba ung Origin and Destination, dapat magkaiba kasi
+    if(!empty($warehouse_orig) && !empty($warehouse_dest)){ 
+      if($warehouse_orig == $warehouse_dest){
+      $i = 1;
+      echo "<script>alert('Warehouse Origin & Destination cant be the same')</script>";
+      }
+    }
+
+    //Check kung may stock paba ung origin, baka wala na
+    if(!empty($warehouse_orig) && !empty($warehouse_dest) && !empty($product) && !empty($qty)){
+      checkStock();
+    }
+
+  
+
+function checkStock(){
+$qry = "SELECT * FROM stocks WHERE product = '$product' AND warehouse = '$warehouse_orig'";
+$result = mysqli_query($link, $qry);
+  if(mysqli_num_rows($result) > 0){
+    while($rows = mysqli_fetch_array($pm_result)){
+      $stockQty = $rows['quantity'];
+    }
 
   } else {
-    //Step 3:
+    $i = 1;
+    echo "<script>alert('Product is not available on warehouse origin')</script>";
   }
-  
+
+  if($stockQty < $qty){
+    $i = 1;
+    echo "<script>alert('Not enough stocks on warehouse origin')</script>";
+  } else {
+    $i = 0;
+  }
+  return;
+}
+
+  if($i == 0){
+      echo "<script>alert('ORAYT')</script>";
+  }
+
+} //POST
    
-
-
 function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
@@ -89,7 +130,7 @@ function test_input($data) {
                         <div class="form-group">
                           <label>Warehouse Origin</label>
                           <select class="form-control select2" oninput="upperCase(this)"  name="warehouse_orig" required>
-                            <option value="">SELECT WAREHOUSE ORIGIN</option>
+                            <option value="">Select Warehouse Origin</option>
                             <?php
                             $queryWarehouse = "";
                             $queryWarehouse = "SELECT name FROM warehouse";
@@ -117,7 +158,7 @@ function test_input($data) {
                          <div class="form-group">
                           <label>Warehouse Destination</label>
                           <select class="form-control select2" oninput="upperCase(this)"  name="warehouse_dest" required>
-                            <option value="">SELECT WAREHOUSE DESTINATION</option>
+                            <option value="">Select Warehouse Destination</option>
                             <?php
                             $queryWarehouse = "";
                             $queryWarehouse = "SELECT name FROM warehouse";
