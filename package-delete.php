@@ -1,6 +1,8 @@
 <?php
-
+session_start();
 require_once 'config.php';
+
+$username = $_SESSION['username'];
 $get_model_id = $_GET['model_id'];
 $get_model = $_GET['model'];
 $query = "DELETE FROM `product_model` WHERE model_id='$get_model_id'";

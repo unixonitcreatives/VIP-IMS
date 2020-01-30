@@ -5,78 +5,114 @@ include('session.php');
 
 
 <?php
+$alertMessage = "";
+$i = 0;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //Assigning posted values to variables.
-    $warehouse_orig = test_input($_POST['warehouse_orig']);
-    $warehouse_dest = test_input($_POST['warehouse_dest']);
-    $product = test_input($_POST['product']);
-    $qty = test_input($_POST['qty']);
-    $date = test_input($_POST['date']);
-    $refno = test_input($_POST['refno']);
-    $remarks = test_input($_POST['remarks']);
+  $warehouse_orig = test_input($_POST['warehouse_orig']);
+  $warehouse_dest = test_input($_POST['warehouse_dest']);
+  $product = test_input($_POST['product']);
+  $qty = test_input($_POST['qty']);
+  $date = test_input($_POST['date']);
+  $refno = test_input($_POST['refno']);
+  $remarks = test_input($_POST['remarks']);
 
-    $i = 0;
-    if(empty($warehouse_orig) && empty($warehouse_dest)){
-    $i = 1;
-    }
+    //validation if empty
 
-    if(empty($product) && empty($qty)){
+  if(empty($warehouse_orig) || empty($warehouse_dest) || empty($product) && empty($qty) ||  empty($date) || empty($refno)){
     $i = 1;
-    }
+    echo "<script>alert('All fields are required')</script>";
+  }
 
-    if(empty($date) && empty($refno)){
-    $i = 1;
-    }
 
     //Check kung pareho ba ung Origin and Destination, dapat magkaiba kasi
-    if(!empty($warehouse_orig) && !empty($warehouse_dest)){ 
-      if($warehouse_orig == $warehouse_dest){
+  if(!empty($warehouse_orig) || !empty($warehouse_dest)){ 
+    if($warehouse_orig == $warehouse_dest){
       $i = 1;
-      echo "<script>alert('Warehouse Origin & Destination cant be the same')</script>";
-      }
+      echo "<script>alert('Warehouse Origin & Destination cannot be the same')</script>";
     }
+  }
 
     //Check kung may stock paba ung origin, baka wala na
-    if(!empty($warehouse_orig) && !empty($warehouse_dest) && !empty($product) && !empty($qty)){
-      checkStock();
+  if(!empty($warehouse_orig) && !empty($warehouse_dest) && !empty($product) && !empty($qty) &&  !empty($date) && !empty($refno)){
+
+    $qry = "SELECT quantity FROM stocks WHERE product = '$product' AND warehouse = '$warehouse_orig'";
+    $result = mysqli_query($link, $qry);
+    if(mysqli_num_rows($result) > 0){
+      while($rows = mysqli_fetch_array($result)){
+        $stockQty = $rows['quantity'];
+      }
+
+    } else {
+      $i = 1;
+      echo "<script>alert('Product is not available on warehouse origin')</script>";
     }
 
-  
+  }
 
-function checkStock(){
-$qry = "SELECT * FROM stocks WHERE product = '$product' AND warehouse = '$warehouse_orig'";
-$result = mysqli_query($link, $qry);
-  if(mysqli_num_rows($result) > 0){
-    while($rows = mysqli_fetch_array($pm_result)){
-      $stockQty = $rows['quantity'];
+     $totalQty = $stockQty - $qty;
+     echo "<script>alert('less')</script>";
+     $i = 0;
+
+    if($stockQty < $totalQty){
+      $i = 1;
+      echo "<script>alert('Not enough stocks on warehouse origin')</script>";
+    } else {
+      $i = 0;
+    }
+    
+    
+
+    if($i == 0){
+
+    include ('tranx-id.php');
+
+    /*$qry = "INSERT INTO transfertb(transferId, trans_Id, warehouse_origin, warehouse_dest, product, quantity, trans_date, refNum, remarks, created_by, created_at) VALUES ()";*/
+
+
+
+    $qry = "SELECT * FROM stocks WHERE product = '$product' AND warehouse = '$warehouse_orig'";
+    $result = mysqli_query($link, $qry);//CHECK KUNG EXISTING UNG PRODUCT SA WAREHOUSE
+    if(mysqli_num_rows($result) > 0){//KAPAG EXISTING UNG PRODUCT SA WAREHOUSE, ADD LANG NG QUANTITY
+      $query = "
+                    UPDATE stocks SET quantity = quantity + '$totalQty' WHERE product = '$product' AND warehouse ='$$warehouse_orig'"; //Prepare insert query
+                    $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute update query
+
+                     if($result){
+                      $info = $_SESSION['username']."  new stock replenished";
+                                    $info2 = "Details: ".$product.", ".$qty."pcs on: " .$warehouse_dest;
+                                    $alertlogsuccess = $product.", ".$qty."pcs: has been replenished succesfully!";
+                                    include "logs.php";
+                                    echo "<script>window.location.href='stock-manage.php'</script>";
+      } else {
+      $i = 1;
+      echo "<script>alert('Product is not available on warehouse origin')</script>";
     }
 
-  } else {
-    $i = 1;
-    echo "<script>alert('Product is not available on warehouse origin')</script>";
+
   }
 
-  if($stockQty < $qty){
-    $i = 1;
-    echo "<script>alert('Not enough stocks on warehouse origin')</script>";
-  } else {
-    $i = 0;
-  }
-  return;
-}
 
-  if($i == 0){
-      echo "<script>alert('ORAYT')</script>";
-  }
+
+    }
+
+
+
+                                    mysqli_close($link);
+
 
 } //POST
-   
+
 function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,7 +152,7 @@ function test_input($data) {
                 <div class="card-header">
                   <div class="d-flex justify-content-between">
                     <h3 class="card-title"><strong><b>Notice:</b></strong> This page is under development and its not yet working properly. "Stock Transfer" </h3>
-                  
+
                   </div>
                 </div>
 
@@ -125,7 +161,7 @@ function test_input($data) {
                   <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <div class="row">
                       <div class="col-md-6">
-                        
+
 
                         <div class="form-group">
                           <label>Warehouse Origin</label>
@@ -155,7 +191,7 @@ function test_input($data) {
                           </select>
                         </div>
 
-                         <div class="form-group">
+                        <div class="form-group">
                           <label>Warehouse Destination</label>
                           <select class="form-control select2" oninput="upperCase(this)"  name="warehouse_dest" required>
                             <option value="">Select Warehouse Destination</option>
@@ -213,7 +249,7 @@ function test_input($data) {
 
                         <div class="form-group">
                           <label>Quantity</label>
-                          <input type="text" class="form-control" placeholder="pcs" name="qty" id="" required>
+                          <input type="number" class="form-control" placeholder="pcs" name="qty" id="" required>
 
                         </div>
                         
@@ -238,47 +274,47 @@ function test_input($data) {
 
                         </div>
 
-                       
 
-                      
+
+
                       </div>
                     </div>
 
 
 
 
-            <div class="form-group">
-              <label>Remarks</label><br>
-              <textarea class="form-control" width="100%" rows="5" style="resize: none;" placeholder="" name="remarks"></textarea>
+                    <div class="form-group">
+                      <label>Remarks</label><br>
+                      <textarea class="form-control" width="100%" rows="5" style="resize: none;" placeholder="" name="remarks"></textarea>
 
-              <br>
+                      <br>
+                    </div>
+
+                  </div>
+
+                  <div class="card-footer">
+                    <button type="submit" name="transfer" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" class="btn btn-primary" >Transfer</button>
+                    <strong><b>Notice:</b></strong> This page is under development and its not yet working properly. "Stock Transfer"
+                  </form>
+                </div>
+              </div>
             </div>
 
           </div>
-
-          <div class="card-footer">
-            <button type="submit" name="transfer" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" class="btn btn-primary" disabled>Transfer</button>
-            <strong><b>Notice:</b></strong> This page is under development and its not yet working properly. "Stock Transfer"
-          </form>
+          <!-- /.row -->
         </div>
+        <!-- /.container-fluid -->
       </div>
+      <!-- /.content -->
     </div>
+    <!-- /.content-wrapper -->
 
+
+    <?php include "includes/footer.php"; ?>
   </div>
-  <!-- /.row -->
-</div>
-<!-- /.container-fluid -->
-</div>
-<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-
-
-<?php include "includes/footer.php"; ?>
-</div>
-<!-- ./wrapper -->
-<!-- REQUIRED SCRIPTS -->
-<?php include "includes/js.php"; ?>
+  <!-- ./wrapper -->
+  <!-- REQUIRED SCRIPTS -->
+  <?php include "includes/js.php"; ?>
 
 
 </body>
