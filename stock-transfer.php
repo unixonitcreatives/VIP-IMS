@@ -1,12 +1,15 @@
 <?php
 require_once 'config.php';
 include('session.php');
+
+
+$account = $_SESSION["username"];//session name
 ?>
 
 
 <?php
 $alertMessage = "";
-$i = 0;
+//$i = 0;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //Assigning posted values to variables.
@@ -18,23 +21,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
   $refno = test_input($_POST['refno']);
   $remarks = test_input($_POST['remarks']);
 
-    //validation if empty
-
+  //validation if empty fields
   if(empty($warehouse_orig) || empty($warehouse_dest) || empty($product) && empty($qty) ||  empty($date) || empty($refno)){
-    $i = 1;
+    //$i = 1;
     echo "<script>alert('All fields are required')</script>";
-  }
+  }else{ //Check kung pareho ba ung Origin and Destination, dapat magkaiba kasi
+        if($warehouse_orig == $warehouse_dest){
+        //$i = 1;
+        echo "<script>alert('Warehouse Origin & Destination cannot be the same')</script>";
+          }
+      }// ==============================end of validation ===================== //
 
-
-    //Check kung pareho ba ung Origin and Destination, dapat magkaiba kasi
-  if(!empty($warehouse_orig) || !empty($warehouse_dest)){ 
-    if($warehouse_orig == $warehouse_dest){
-      $i = 1;
-      echo "<script>alert('Warehouse Origin & Destination cannot be the same')</script>";
-    }
-  }
-
-    //Check kung may stock paba ung origin, baka wala na
+  //Check kung may stock paba ung origin, baka wala na
   if(!empty($warehouse_orig) && !empty($warehouse_dest) && !empty($product) && !empty($qty) &&  !empty($date) && !empty($refno)){
 
     $qry = "SELECT quantity FROM stocks WHERE product = '$product' AND warehouse = '$warehouse_orig'";
@@ -45,61 +43,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
       }
 
     } else {
-      $i = 1;
+      //$i = 1;
       echo "<script>alert('Product is not available on warehouse origin')</script>";
     }
 
-  }
+  }// ======================= end of checking origin warehouse stock quantity ======================== //
 
-     $totalQty = $stockQty - $qty;
-     echo "<script>alert('less')</script>";
-     $i = 0;
+  
+  $totalQty = $stockQty - $qty;
+  echo "<script>alert('less')</script>";
 
-    if($stockQty < $totalQty){
-      $i = 1;
-      echo "<script>alert('Not enough stocks on warehouse origin')</script>";
-    } else {
-      $i = 0;
-    }
+  //if warehouse origin quantity is less than the quantity requested by warehouse destination
+  if($stockQty < $totalQty){
+    //$i = 1;
+    echo "<script>alert('Not enough stocks on warehouse origin')</script>";
+  } else {
+    //$i = 0;
+
+    //create series transaction id
+    include ('transx-id.php');
+
+
+    //insert transaction history to transfertb data
+    $insertQry = "INSERT INTO transfertb(trans_Id, warehouse_origin, warehouse_dest, product, quantity, trans_date, refNum, remarks, created_by) VALUES ('$tranxid', '$warehouse_orig', '$warehouse_dest', '$product', '$qty', '$date', '$refno', '$remarks', '$account' )";
     
-    
-
-    if($i == 0){
-
-    include ('tranx-id.php');
-
-    /*$qry = "INSERT INTO transfertb(transferId, trans_Id, warehouse_origin, warehouse_dest, product, quantity, trans_date, refNum, remarks, created_by, created_at) VALUES ()";*/
+    //execute insert query
+    $insertResult = mysqli_query($link, $insertQry);
 
 
+    //if inserted
+    if($insertResult === TRUE){ 
 
-    $qry = "SELECT * FROM stocks WHERE product = '$product' AND warehouse = '$warehouse_orig'";
-    $result = mysqli_query($link, $qry);//CHECK KUNG EXISTING UNG PRODUCT SA WAREHOUSE
+    //CHECK KUNG EXISTING UNG PRODUCT SA WAREHOUSE
+    $qry = "SELECT * FROM stocks WHERE product = '$product' AND warehouse = '$warehouse_dest'";
+    $result = mysqli_query($link, $qry);
     if(mysqli_num_rows($result) > 0){//KAPAG EXISTING UNG PRODUCT SA WAREHOUSE, ADD LANG NG QUANTITY
       $query = "
-                    UPDATE stocks SET quantity = quantity + '$totalQty' WHERE product = '$product' AND warehouse ='$$warehouse_orig'"; //Prepare insert query
+                    UPDATE stocks SET quantity = quantity + '$totalQty' WHERE product = '$product' AND warehouse ='$warehouse_dest'"; //Prepare insert query
                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute update query
 
-                     if($result){
+                    if($result){
                       $info = $_SESSION['username']."  new stock replenished";
-                                    $info2 = "Details: ".$product.", ".$qty."pcs on: " .$warehouse_dest;
-                                    $alertlogsuccess = $product.", ".$qty."pcs: has been replenished succesfully!";
-                                    include "logs.php";
-                                    echo "<script>window.location.href='stock-manage.php'</script>";
-      } else {
-      $i = 1;
-      echo "<script>alert('Product is not available on warehouse origin')</script>";
-    }
+                      $info2 = "Details: ".$product.", ".$qty."pcs on: " .$warehouse_dest;
+                      $alertlogsuccess = $product.", ".$qty."pcs: has been replenished succesfully!";
+                      include "logs.php";
+                      echo "<script>window.location.href='stock-manage.php'</script>";
+                    } else {
+                      //$i = 1;
+                      echo "<script>alert('Product is not available on warehouse origin')</script>";
+                    }
 
 
-  }
+                  }
+
+                }//==================== end of insertResult ==================>
+    
+  
+
+                }
 
 
 
-    }
 
-
-
-                                    mysqli_close($link);
+                mysqli_close($link);
 
 
 } //POST
