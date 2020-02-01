@@ -231,6 +231,13 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+               <li class="nav-item">
+                <a href="profile.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Company Profile</p>
+                </a>
+              </li>
+
               <li class="nav-item">
                 <a href="staff-add.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
