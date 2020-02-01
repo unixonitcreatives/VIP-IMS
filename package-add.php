@@ -120,7 +120,7 @@
       <div class="wrapper">
 
         <?php include "includes/navbar.php"; ?>
-        <?php include "includes/sidebar.php"; ?>
+        <?php include "includes/sidebar-manage.php"; ?>
 
         <div class="content-wrapper">
           <!-- Content Header (Page header) -->

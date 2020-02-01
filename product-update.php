@@ -61,8 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="wrapper">
 
           <?php include "includes/navbar.php"; ?>
-          <?php include "includes/sidebar.php"; ?>
-
+          <?php include "includes/sidebar-manage.php"; ?>
+          
           <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
