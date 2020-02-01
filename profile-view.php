@@ -1,10 +1,37 @@
 <?php
 require_once 'config.php';
 
-
 include('session.php');
 
+$get_id = $_GET['compId'];
+
+                        // Attempt select query execution
+                        $query = "SELECT * FROM `company` WHERE compId = '$get_id' ";
+                        if($result = mysqli_query($link, $query)){
+                          if(mysqli_num_rows($result) > 0){
+                            while($row = mysqli_fetch_array($result)){
+                              $name = $row['name'];
+                              $address = $row['address'];
+                              $tel = $row['tel'];
+                              $email = $row['email'];
+                              $site = $row['website'];
+                              $createdBy = $row['created_by'];
+                              $createdAt = $row['created_at'];
+                            }
+                            // Free result set
+                            mysqli_free_result($result);
+                          }
+                        } else{
+                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                        }
+
+
+
+
+
+
 $compName=$compAddress=$compTel=$compEmail=$compWebsite="";
+
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -23,14 +50,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
   } else {
 
-    $query = "INSERT INTO company (name, address, tel, email, website, created_by) VALUES ('$compName', '$compAddress', '$compTel', '$compEmail', '$compWebsite', '$account')";
+    $query = "UPDATE company SET name = '$compName', address = '$compAddress', tel = '$compTel', email = '$compEmail', website = '$compWebsite' WHERE compId = '$get_id' ";
     $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
     if($result === TRUE){
 
-      $info = $_SESSION['username']." created new company";
+      $info = $_SESSION['username']." update company profile";
       $info2 = "Details: ".$account;
-      $alertlogsuccess = $account.", ".$compName.": has been created succesfully!";
+      $alertlogsuccess = $account.", ".$compName.": has been updated succesfully!";
       include "logs.php";
       echo "<script>window.location.href='profile-manage.php'</script>";
     }else{
@@ -105,36 +132,47 @@ function valData($data) {
 
                 <div class="card-body">
                  
-                  <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                  <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>?compId=<?php echo $get_id; ?>">
                     <div class="form-group">
                       <label>Company Name</label>
-                      <input type="text" name="comp_name" class="form-control" required>
+                      <input type="text" name="comp_name" class="form-control" value = "<?php echo $name; ?>" required>
                     </div>
 
                     <div class="form-group">
                       <label>Address</label>
-                      <input type="text" name="comp_address" class="form-control" required>
+                      <input type="text" name="comp_address" class="form-control" value = "<?php echo $address; ?>" required>
                     </div>
 
                     <div class="form-group">
                       <label>Telephone</label>
-                      <input type="number" name="comp_tel" class="form-control" required>
+                      <input type="number" name="comp_tel" class="form-control" value = "<?php echo $tel; ?>" required>
                     </div>
 
                     <div class="form-group">
                       <label>Email</label>
-                      <input type="email" name="comp_email" class="form-control" required>
+                      <input type="email" name="comp_email" class="form-control" value = "<?php echo $email; ?>" required>
                     </div>
 
                     <div class="form-group">
                       <label>Website</label>
-                      <input type="text" name="comp_site" class="form-control" required>
+                      <input type="text" name="comp_site" class="form-control" value = "<?php echo $site; ?>" required>
                     </div>
+
+                    <div class="form-group">
+                      <label>Created By:</label>
+                      <input type="text" name="comp_site" class="form-control" value = "<?php echo $createdBy; ?>" readonly>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Created At:</label>
+                      <input type="text" name="comp_site" class="form-control" value = "<?php echo $createdAt; ?>" readonly>
+                    </div>
+                  
                   </div>
 
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <button type="reset" class="btn btn-secondary">Clear</button>
+                    <button type="submit" class="btn btn-success">Update</button>
+                    <button href="profile-manage.php" class="btn btn-caution">Cancel</button>
                   </form>
                 </div>
               </div>
