@@ -59,11 +59,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
                                     if($result){
                                     //echo "<script>alert('new staff added succesfully');</script>";
-                                    $info = $_SESSION['username']." update staff info";
+                                    $info = $_SESSION['username']." added new staff";
                                     $info2 = "Details: ".$username.", ".$usertype;
                                     $alertlogsuccess = $username.", ".$usertype.": has been updated succesfully!";
                                     include('logs.php');
-                                    echo "<script>window.location.href='staff-manage.php'</script>";
+                                    echo "<script>window.location.href='staff-account-manage.php'</script>";
 
                                     }else{
                                       //If execution failed
@@ -153,15 +153,11 @@ function test_input($data) {
                         <input type="Password" class="form-control" placeholder="Password" name="password"  maxlength="20" value='<?php $row['password'];?>'>
                       </div>
 
-                     <!--  <div class="form-group">
-                        <label>Password</label>
-                        <input type="Password" class="form-control" placeholder="Password" name="NewPassword" maxlength="20">
-                      </div> -->
+                      
 
                       <div class="form-group">
                         <label>User Type</label>
-                        <select class="form-control select2" style="width: 100%;" name="usertype">
-                          <option value="Admin">Admin</option>
+                        <select class="form-control select2" style="width: 100%;" name="usertype" readonly>
                           <option value="Stock Officer">Stock Officer</option>
                         </select>
                       </div>
