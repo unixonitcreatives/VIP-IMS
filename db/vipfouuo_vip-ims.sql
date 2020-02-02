@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2020 at 11:12 PM
+-- Generation Time: Feb 03, 2020 at 12:49 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -21,6 +21,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `vipfouuo_vip-ims`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company`
+--
+
+CREATE TABLE `company` (
+  `compId` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `tel` int(11) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `website` varchar(200) NOT NULL,
+  `created_by` varchar(200) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `company`
+--
+
+INSERT INTO `company` (`compId`, `name`, `address`, `tel`, `email`, `website`, `created_by`, `created_at`) VALUES
+(2, 'VIP', 'REGUS Level 5- Gateway Tower, Gen. Roxas Ave. cor. Gen. Aguinaldo Ave. Araneta Center Cubao Quezon City, Philippines', 85229730, 'support@vip4u.ph', '2020-02-02 01:56:33', 'ADMIN00', '2020-02-02 01:56:33');
 
 -- --------------------------------------------------------
 
@@ -202,7 +226,66 @@ INSERT INTO `logs` (`id`, `info`, `info2`, `created_at`) VALUES
 (134, 'ADMIN00 Logged In', 'Details: ADMIN00, Admin IP:::1', '2020-02-01 05:27:23'),
 (135, 'ADMIN00  new stock replenished', 'Details: ORIGIN PRODUCTS, 20pcs on: DESTINATION', '2020-02-01 05:59:37'),
 (136, 'ADMIN00  new stock replenished', 'Details: ORIGIN PRODUCTS, 20pcs on: DESTINATION', '2020-02-01 06:02:45'),
-(137, 'ADMIN00  new stock replenished', 'Details: ORIGIN PRODUCTS, 79pcs on: DESTINATION', '2020-02-01 06:05:07');
+(137, 'ADMIN00  new stock replenished', 'Details: ORIGIN PRODUCTS, 79pcs on: DESTINATION', '2020-02-01 06:05:07'),
+(138, 'ADMIN00 Logged In', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 00:49:50'),
+(139, 'ADMIN00 Logged In', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 00:51:26'),
+(140, 'ADMIN00 created new company', 'Details: ADMIN00', '2020-02-02 01:53:47'),
+(141, 'ADMIN00 created new company', 'Details: ADMIN00', '2020-02-02 01:56:33'),
+(142, 'ADMIN00 update company profile', 'Details: ADMIN00', '2020-02-02 02:24:58'),
+(143, 'ADMIN00 update company profile', 'Details: ADMIN00', '2020-02-02 02:26:17'),
+(144, 'ADMIN00 update company profile', 'Details: ADMIN00', '2020-02-02 02:28:51'),
+(145, 'ADMIN00 update company profile', 'Details: ADMIN00', '2020-02-02 02:34:45'),
+(146, 'ADMIN00 created new company', 'Details: ADMIN00', '2020-02-02 02:35:52'),
+(147, 'ADMIN00 update company profile', 'Details: ADMIN00', '2020-02-02 02:36:32'),
+(148, 'ADMIN00 deleted Company', 'Details: 3', '2020-02-02 02:37:29'),
+(149, ' Logged Out', 'Details: , Admin IP:::1', '2020-02-02 03:16:45'),
+(150, ' Logged Out', 'Details: ,  IP:::1', '2020-02-02 03:17:11'),
+(151, 'ADMIN00 Logged In', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 04:05:40'),
+(152, 'ADMIN00 Logged Out', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 04:09:16'),
+(153, 'ADMIN00 Logged In', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 04:14:50'),
+(154, 'ADMIN00 added new staff', 'Details: STAFF, Stock Officer', '2020-02-02 04:22:54'),
+(155, 'ADMIN00 Logged Out', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 04:24:46'),
+(156, 'STAFF Logged In', 'Details: STAFF, Stock Officer IP:::1', '2020-02-02 04:30:56'),
+(157, 'STAFF Logged Out', 'Details: STAFF, Stock Officer IP:::1', '2020-02-02 04:33:00'),
+(158, 'ADMIN00 Logged In', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 04:33:05'),
+(159, 'ADMIN00 Logged Out', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 04:40:02'),
+(160, 'STAFF Logged In', 'Details: STAFF, Stock Officer IP:::1', '2020-02-02 04:40:07'),
+(161, ' Logged Out', 'Details: , Stock Officer IP:::1', '2020-02-02 04:55:51'),
+(162, 'STAFF Logged In', 'Details: STAFF, Stock Officer IP:::1', '2020-02-02 04:55:56'),
+(163, 'STAFF added new staff', 'Details: STAFF, Stock Officer', '2020-02-02 04:58:38'),
+(164, 'STAFF Logged Out', 'Details: STAFF, Stock Officer IP:::1', '2020-02-02 04:58:50'),
+(165, 'ADMIN00 Logged In', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 04:59:23'),
+(166, 'ADMIN00 added new staff', 'Details: STAFF, Stock Officer', '2020-02-02 05:00:05'),
+(167, 'ADMIN00 update staff info', 'Details: STAFF, Stock Officer', '2020-02-02 05:01:13'),
+(168, 'ADMIN00 Logged Out', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 05:01:21'),
+(169, 'ADMIN00 Logged In', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 05:01:43'),
+(170, 'ADMIN00 update staff info', 'Details: STAFF, Stock Officer', '2020-02-02 05:03:32'),
+(171, 'ADMIN00 update staff info', 'Details: STAFF, Stock Officer', '2020-02-02 05:04:54'),
+(172, 'ADMIN00 Logged Out', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 05:05:00'),
+(173, 'STAFF Logged In', 'Details: STAFF, Stock Officer IP:::1', '2020-02-02 05:05:06'),
+(174, 'STAFF added new staff', 'Details: STAFF, Stock Officer', '2020-02-02 05:05:18'),
+(175, 'STAFF Logged Out', 'Details: STAFF, Stock Officer IP:::1', '2020-02-02 05:06:01'),
+(176, 'ADMIN00 Logged In', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 05:06:27'),
+(177, 'ADMIN00 update staff info', 'Details: STAFF, Admin', '2020-02-02 05:06:41'),
+(178, 'ADMIN00 Logged Out', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 05:06:44'),
+(179, 'STAFF Logged In', 'Details: STAFF, Admin IP:::1', '2020-02-02 05:06:48'),
+(180, 'STAFF Logged Out', 'Details: STAFF, Admin IP:::1', '2020-02-02 05:07:06'),
+(181, 'STAFF Logged In', 'Details: STAFF, Admin IP:::1', '2020-02-02 05:07:14'),
+(182, 'STAFF Logged Out', 'Details: STAFF, Admin IP:::1', '2020-02-02 05:07:36'),
+(183, 'STAFF Logged In', 'Details: STAFF, Admin IP:::1', '2020-02-02 05:08:14'),
+(184, 'STAFF update staff info', 'Details: STAFF, Stock Officer', '2020-02-02 05:09:59'),
+(185, 'STAFF Logged Out', 'Details: STAFF, Admin IP:::1', '2020-02-02 05:10:08'),
+(186, 'ADMIN00 Logged In', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 05:10:35'),
+(187, 'ADMIN00 update staff info', 'Details: STAFF, Stock Officer', '2020-02-02 05:10:55'),
+(188, 'ADMIN00 Logged Out', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 05:11:12'),
+(189, 'STAFF Logged In', 'Details: STAFF, Stock Officer IP:::1', '2020-02-02 05:11:17'),
+(190, 'STAFF added new staff', 'Details: STAFF, Stock Officer', '2020-02-02 05:11:54'),
+(191, 'STAFF added new staff', 'Details: STAFF, Stock Officer', '2020-02-02 05:12:46'),
+(192, 'STAFF Logged Out', 'Details: STAFF, Stock Officer IP:::1', '2020-02-02 05:16:02'),
+(193, 'STAFF Logged In', 'Details: STAFF, Stock Officer IP:::1', '2020-02-02 05:16:06'),
+(194, 'STAFF Logged Out', 'Details: STAFF, Stock Officer IP:::1', '2020-02-02 05:16:18'),
+(195, 'ADMIN00 Logged In', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 05:16:23'),
+(196, 'ADMIN00 Logged Out', 'Details: ADMIN00, Admin IP:::1', '2020-02-02 05:16:37');
 
 -- --------------------------------------------------------
 
@@ -412,7 +495,11 @@ INSERT INTO `transfertb` (`transferId`, `trans_Id`, `warehouse_origin`, `warehou
 (3, 'TRANX00000001', 'ORIGIN', 'DESTINATION', 'ORIGIN PRODUCTS', 79, '2020-02-01', 'fggh4634', 'fgdhfg654', 'ADMIN00', '2020-02-01 06:05:07'),
 (4, 'TRANX00000001', 'ORIGIN', 'DESTINATION', 'ORIGIN PRODUCTS', 80, '2020-02-01', 'gn57645', 'fdfg3543', 'ADMIN00', '2020-02-01 06:07:04'),
 (5, 'TRANX00000001', 'ORIGIN', 'DESTINATION', 'ORIGIN PRODUCTS', 80, '2020-02-01', 'fgnfhg43', 'fgdhf453r', 'ADMIN00', '2020-02-01 06:09:21'),
-(6, '', 'ORIGIN', 'DESTINATION', 'ORIGIN PRODUCTS', 80, '2020-02-01', 'dfsd6453', 'vdbgfnh23', 'ADMIN00', '2020-02-01 06:10:32');
+(6, '', 'ORIGIN', 'DESTINATION', 'ORIGIN PRODUCTS', 80, '2020-02-01', 'dfsd6453', 'vdbgfnh23', 'ADMIN00', '2020-02-01 06:10:32'),
+(7, 'TRANX00000001', 'ORIGIN', 'DESTINATION', 'ORIGIN PRODUCTS', 80, '2020-02-02', 'dafsgxf544w3', 'dsfgfnhg4534', '', '2020-02-02 02:46:06'),
+(8, 'TRANX00000001', 'ORIGIN', 'DESTINATION', 'ORIGIN PRODUCTS', 80, '2020-02-02', 'fgdf453', 'dfsgdhfj45', '', '2020-02-02 02:48:34'),
+(9, 'TRANX00000001', 'ORIGIN', 'DESTINATION', 'ORIGIN PRODUCTS', 80, '2020-02-02', 'gdhfg543', 'fsfgdhf43', '', '2020-02-02 02:50:44'),
+(10, 'TRANX00000001', 'ORIGIN', 'DESTINATION', 'ORIGIN PRODUCTS', 80, '2020-02-02', 'fgdfn43', 'dsaft4rw3', '', '2020-02-02 03:05:07');
 
 -- --------------------------------------------------------
 
@@ -444,7 +531,8 @@ INSERT INTO `users` (`id`, `custID`, `username`, `password`, `usertype`, `create
 (15, 'STAFF0015', 'ADMIN00', '$2y$10$ztwyuBLZ9D1EceVz/1.7zen.ljn/Z4tOid8VZEPZUwx6qv0nvNz76', 'Admin', 'Admin', '2019-12-30 16:40:12'),
 (17, 'STAFF0016', 'ADMIN01', '$2y$10$ixXHcejpim9KgC8IUQvtkOTcjBd.w40poOEGEcD7VOVJWNuj5hSJa', 'Admin', 'ADMIN00', '2020-01-01 22:48:51'),
 (18, 'STAFF0018', 'L', '$2y$10$fE5CiSBspI6vVmQbxgt4Y.gG46PXDTQOQov.zOBsI8q7.nudkrza6', 'Admin', 'ADMIN000', '2020-01-11 12:03:53'),
-(19, 'STAFF0019', 'SSASA', '$2y$10$IwPqe87H4Q6kmPc.vtHcmuwCUQDhUqrrl3qkEfQ6TFmYL5XHS/wEK', 'Stock Officer', 'ADMIN00', '2020-01-28 05:53:50');
+(19, 'STAFF0019', 'SSASA', '$2y$10$IwPqe87H4Q6kmPc.vtHcmuwCUQDhUqrrl3qkEfQ6TFmYL5XHS/wEK', 'Stock Officer', 'ADMIN00', '2020-01-28 05:53:50'),
+(20, 'STAFF0020', 'STAFF', '$2y$10$ialx6LQNhHgrnGPetvi3.eSA5WnquLWTvImPNIi0mS00E2zO73lOW', 'Stock Officer', 'ADMIN00', '2020-02-02 04:22:53');
 
 -- --------------------------------------------------------
 
@@ -474,6 +562,12 @@ INSERT INTO `warehouse` (`warehouse_id`, `name`, `address`, `created_by`, `creat
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `company`
+--
+ALTER TABLE `company`
+  ADD PRIMARY KEY (`compId`);
 
 --
 -- Indexes for table `customers`
@@ -540,6 +634,12 @@ ALTER TABLE `warehouse`
 --
 
 --
+-- AUTO_INCREMENT for table `company`
+--
+ALTER TABLE `company`
+  MODIFY `compId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
@@ -549,7 +649,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
 
 --
 -- AUTO_INCREMENT for table `obdatatb`
@@ -585,13 +685,13 @@ ALTER TABLE `stocks`
 -- AUTO_INCREMENT for table `transfertb`
 --
 ALTER TABLE `transfertb`
-  MODIFY `transferId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `transferId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `warehouse`
