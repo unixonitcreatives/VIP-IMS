@@ -1,4 +1,8 @@
-<?php include "session.php"; ?>
+<?php include "session.php"; 
+
+$account = $_SESSION['username'];
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +25,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Manage Stocks</li>
+              <li class="breadcrumb-item active">Manage Staff</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,9 +41,8 @@
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Manage Stocks</h3>
-                  <a href="stock-add.php">+ Add new stocks</a>
-                  
+                  <h3 class="card-title">Manage Staff</h3>
+                  <a href="staff-add.php">add new staff</a>
                 </div>
               </div>
 
@@ -48,11 +51,12 @@
                       <thead>
                         <tr>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Product Description</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Quantity</th>
-                          <!-- <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th> -->
-                          
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">ACC No.</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Username</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">User Type</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Created by</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Time Created</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -61,20 +65,28 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM stocks ORDER BY warehouse, product";
+                        $query = "SELECT * FROM users WHERE username = '$account' ";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
                             while($row = mysqli_fetch_array($result)){
                               $ctr++;
-                              $id = $row['warehouse'];
                               echo "<tr>";
                               echo "<td>" . $ctr . "</td>";
-                              echo "<td>" . $row['product'] . "</td>";
-                              echo "<td> <a href='warehouse-view.php?id=$id'>" . $row['warehouse'] . "</a></td>";
-                              echo "<td>" . $row['quantity'] . "</td>";
-                              //echo "<td>" . $row['status'] . "</td>";
+                              echo "<td>" . $row['custID'] . "</td>";
+                              echo "<td>" . $row['username'] . "</td>";
+                              echo "<td>" . $row['usertype'] . "</td>";
+                              echo "<td>" . $row['created_by'] . "</td>";
+                              echo "<td>" . $row['created_at'] . "</td>";
+                              echo "<td>";
 
+                              if($_SESSION['usertype'] === 'Admin'){
+                              echo "<a href='staff-account-update.php?id=". $row['custID'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
+                              echo " &nbsp; <a href='staff-delete.php?id=". $row['custID'] ."' title='Delete Record' data-toggle='tooltip'><span class='fas fa-trash'></span></a>";
+                              }else if ($_SESSION['usertype'] === 'Stock Officer'){
+                                echo "<a href='staff-account-update.php?id=". $row['custID'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
+                              }
+                              echo "</td>";
                               echo "</tr>";
                             }
                             // Free result set

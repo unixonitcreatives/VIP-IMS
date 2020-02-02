@@ -71,6 +71,37 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                           }
 
 
+                          }else if ($usertype == "Stock Officer") {
+                          session_start();
+                          // Store data in session variables
+                          $_SESSION["loggedin"] = true;
+                          $_SESSION["username"] = $username;
+                          $_SESSION["usertype"] = "Stock Officer";
+
+
+                          //logs
+                          $info = $_SESSION['username']." Logged In";
+                          $info2 = "Details: ".$username.", ".$usertype." IP:".getRealIpAddr();
+
+                          $query="
+                          INSERT INTO logs (info, info2)
+                          VALUES ('$info', '$info2')"; //Prepare insert query
+                          $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
+                          if($result){
+                            echo "<script>
+                            alert('succesfull login');
+                            window.location.href='index.php';
+                            </script>";
+                            exit;
+                          } else{
+                            echo "<script>
+                            alert('error login');
+                            window.location.href='login.php';
+                            </script>";
+                            exit;
+                          }
+
+
                           }
 
                 }// ./password validation

@@ -222,7 +222,7 @@
             </ul> -->
           </li>
 
-          <li class="nav-item has-treeview">
+            <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
@@ -231,36 +231,18 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="staff-add.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add Staff</p>
-                </a>
-              </li>
+               
 
               <li class="nav-item">
-                <a href="staff-manage.php" class="nav-link">
+                <a href="staff-account-manage.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Staff</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="logs-live.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Logs <i>(Realtime)</i></p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="logs-manage.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Logs</p>
+                  <p>Manage Account</p>
                 </a>
               </li>
 
             </ul>
           </li>
+
 
           <li class="nav-item">
             <a href="logout.php" class="nav-link">

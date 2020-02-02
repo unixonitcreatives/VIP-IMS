@@ -8,6 +8,7 @@ $type = $_SESSION['usertype'];
 // Define variables and initialize with empty values
 $username=$password=$usertype=$alertMessage="";
 require_once "config.php";
+$id = $_GET['id'];
 
 //If the form is submitted or not.
 //If the form is submitted
@@ -15,8 +16,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //Assigning posted values to variables.
     $username = test_input($_POST['username']);
     $password = test_input($_POST['password']);
+    //$NewPassword = test_input($_POST['NewPassword']);
     $hash = password_hash($password, PASSWORD_DEFAULT);
+    //$newHash = password_hash($NewPassword, PASSWORD_DEFAULT);
     $usertype = test_input($_POST['usertype']);
+
+    //password validation
+                                    if(empty($hash)){
+                                      $alertMessage = "<div class='alert alert-danger' role='alert'>
+                                      Please enter password.
+                                      </div>";
+                                    }else{
 
 
     // Check input errors before inserting in database
@@ -24,14 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         //Check if the username is already in the database
         $sql_check = "SELECT username FROM users WHERE username ='$username'";
         if($result = mysqli_query($link, $sql_check)){ //Execute query
-                                 if(mysqli_num_rows($result) > 0){
-                                    //If the username already exists
-                                    //Try another username pop up
-                                    echo "<script>alert('staff username already exist');</script>";
-                                    mysqli_free_result($result);
-                                 } else{
-                                    //If the username doesnt exist in the database
-                                    //Proceed adding to database
 
                                     //Prepare Date for custom ID
                                     $IDtype = "STAFF";
@@ -47,7 +49,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
                                     $query = "
                                     INSERT INTO users (custID, username, password, usertype, created_by)
-                                    VALUES ('$custnewID', '$username', '$hash', '$usertype', '$account')"; //Prepare insert query
+                                    VALUES ('$custnewID', '$username', '$hash', '$usertype', '$account')"; 
+
+
+                                    $query = "UPDATE users SET username = '$username',password = '$hash',usertype = '$usertype' WHERE custID='$id'";
 
                                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
@@ -56,12 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     //echo "<script>alert('new staff added succesfully');</script>";
                                     $info = $_SESSION['username']." added new staff";
                                     $info2 = "Details: ".$username.", ".$usertype;
-                                    $alertlogsuccess = $username.", ".$usertype.": has been added succesfully!";
+                                    $alertlogsuccess = $username.", ".$usertype.": has been updated succesfully!";
                                     include('logs.php');
-                                    echo "<script>window.location.href='staff-manage.php'</script>";
-                                    $username = "";
-                                    $hash = "";
-                                    $usertype = "";
+                                    echo "<script>window.location.href='staff-account-manage.php'</script>";
 
                                     }else{
                                       //If execution failed
@@ -71,14 +73,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                     }
                                       //mysqli_close($link);
                                  }
+
                              } else{
                                  echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                              }
 
-                             mysqli_close($link);
 
-        }
-      }
+}
+                             //mysqli_close($link);
+
+    }
+
 
 function test_input($data) {
     $data = trim($data);
@@ -132,26 +137,32 @@ function test_input($data) {
               </div>
 
               <div class="card-body">
-                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <form  method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>?id=<?php echo $id; ?>">
+                  <?php
+                  $q = "SELECT * FROM users WHERE custID='$id'";
+                  $r = mysqli_query($link,$q);
+                  while($row = mysqli_fetch_assoc($r)){
+                  ?>
                       <div class="form-group">
                         <label>Username</label>
-                        <input type="text" class="form-control" placeholder="Username" name="username" oninput="upperCase(this)" maxlength="20" required>
+                        <input type="text" class="form-control" placeholder="Username" name="username" oninput="upperCase(this)" maxlength="20" value='<?php echo $row['username'];?>'>
                       </div>
 
                       <div class="form-group">
                         <label>Password</label>
-                        <input type="Password" class="form-control" placeholder="Password" name="password" oninput="upperCase(this)" maxlength="20" required>
+                        <input type="Password" class="form-control" placeholder="Password" name="password"  maxlength="20" value='<?php $row['password'];?>'>
                       </div>
+
+                      
 
                       <div class="form-group">
                         <label>User Type</label>
-                        <select class="form-control select2" style="width: 100%;" name="usertype" required>
-                          <option value="Admin">Admin</option>
+                        <select class="form-control select2" style="width: 100%;" name="usertype" readonly>
                           <option value="Stock Officer">Stock Officer</option>
                         </select>
                       </div>
 
-
+                    <?php }?>
               </div>
 
               <div class="card-footer">

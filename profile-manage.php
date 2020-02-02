@@ -21,7 +21,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Member History</li>
+              <li class="breadcrumb-item active">Manage Company Profile</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,49 +37,21 @@
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Member History</h3>
-                  <a href="members-add.php">add new member</a>
+                  <h3 class="card-title">Manage Company Profile</h3>
                 </div>
               </div>
 
               <div class="card-body">
-              	<?php
-                        // Include config file
-                        require_once 'config.php';
-
-                        $get_member_name = $_GET['name'];
-
-                        // Attempt select query execution
-                        $query = "SELECT * FROM customers WHERE name = '$get_member_name' ";
-                        if($result = mysqli_query($link, $query)){
-                          if(mysqli_num_rows($result) > 0){
-                            $ctr = 0;
-                            while($row = mysqli_fetch_array($result)){
-                              $refID = $row['refID'];
-                              $name = $row['name'];
-                              $address = $row['address'];
-                              $created_at = $row['created_at'];
-                            }
-                        } else{
-                          echo "cannot get data";
-                        }
-                        } else{
-                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                        }
-
-                        ?>
-
-
-                  <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                       <thead>
                         <tr>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Transaction No</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Customer Name</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Transaction Date</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Name</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Telephone</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Email</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Website</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Created By</th>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Remarks</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Date Created</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -89,7 +61,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM outboundtb WHERE ob_custName = '$get_member_name' GROUP BY ob_tx_id  ORDER BY ob_tx_id DESC";
+                        $query = "SELECT * FROM `company`";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
@@ -97,15 +69,17 @@
                               $ctr++;
                               echo "<tr>";
                               echo "<td>" . $ctr . "</td>";
-                              echo "<td>" . $row['ob_tx_id'] . "</td>";
-                              echo "<td>" . $row['ob_custName'] . "</td>";
-                              echo "<td>" . $row['ob_date'] . "</td>";
-                              echo "<td>" . $row['ob_status'] . "</td>";
-                              echo "<td>" . $row['ob_created_by'] . "</td>";
-                              echo "<td>" . $row['ob_remarks'] . "</td>";
+                              echo "<td>" . $row['name'] . "</td>";
+                              echo "<td>" . $row['tel'] . "</td>";
+                              echo "<td>" . $row['email'] . "</td>";
+                              echo "<td>" . $row['website'] . "</td>";
+                              echo "<td>" . $row['created_by'] . "</td>";
+                              echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";
-                              echo " &nbsp; <a href='invoice-view.php?ob_tx_id=". $row['ob_tx_id'] ."' title='View Invoice' data-toggle='tooltip'><span class='fas  fa fa-eye'></span></a>";
-                              echo " &nbsp; <a href='invoice-delete.php?ob_tx_id=". $row['ob_tx_id'] ."' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa-trash'></span></a>";
+                              echo " &nbsp; <a href='profile-view.php?compId=". $row['compId'] ."' title='View/Update Record' data-toggle='tooltip'><span class='fas fa fa-eye'></span></a>";
+
+                              echo " &nbsp; <a href='profile-delete.php?compId=". $row['compId']. "' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-trash'></span></a>";
+                              
                               echo "</td>";
                               echo "</tr>";
                             }
@@ -119,7 +93,7 @@
                         }
 
                         // Close connection
-                        //mysqli_close($link);
+                        mysqli_close($link);
                         ?>
                       </tbody>
                     </table>
@@ -148,6 +122,8 @@
 <!-- ./wrapper -->
 
  <?php include "includes/js.php"; ?>
+
+
 
 </body>
 </html>

@@ -298,7 +298,7 @@ function valData($data) {
   <div class="wrapper">
 
     <?php include "includes/navbar.php"; ?>
-    <?php include "includes/sidebar-manage.php"; ?>
+    <?php include "includes/sidebar.php"; ?>
 
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -311,7 +311,7 @@ function valData($data) {
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                <li class="breadcrumb-item active">Add Invoice</li>
+                <li class="breadcrumb-item active">Company Profile</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -328,7 +328,6 @@ function valData($data) {
                 <div class="card-header">
                   <div class="d-flex justify-content-between">
                     <h3 class="card-title">Add Invoice</h3>
-                    <a href="invoice-manage.php">View all invoice</a>
                   </div>
                 </div>
 

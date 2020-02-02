@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
                                     if($result){
                                     //echo "<script>alert('new staff added succesfully');</script>";
-                                    $info = $_SESSION['username']." added new staff";
+                                    $info = $_SESSION['username']." update staff info";
                                     $info2 = "Details: ".$username.", ".$usertype;
                                     $alertlogsuccess = $username.", ".$usertype.": has been updated succesfully!";
                                     include('logs.php');
@@ -102,7 +102,7 @@ function test_input($data) {
 <div class="wrapper">
 
   <?php include "includes/navbar.php"; ?>
-  <?php include "includes/sidebar.php"; ?>
+  <?php include "includes/sidebar-manage.php"; ?>
 
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -148,15 +148,15 @@ function test_input($data) {
                         <input type="text" class="form-control" placeholder="Username" name="username" oninput="upperCase(this)" maxlength="20" value='<?php echo $row['username'];?>'>
                       </div>
 
-                      <!-- <div class="form-group">
-                        <label>Old Password</label>
-                        <input type="Password" class="form-control" placeholder="Password" name="password"  maxlength="20" value='<?php $row['password'];?>'>
-                      </div> -->
-
                       <div class="form-group">
                         <label>Password</label>
-                        <input type="Password" class="form-control" placeholder="Password" name="NewPassword" maxlength="20">
+                        <input type="Password" class="form-control" placeholder="Password" name="password"  maxlength="20" value='<?php $row['password'];?>'>
                       </div>
+
+                     <!--  <div class="form-group">
+                        <label>Password</label>
+                        <input type="Password" class="form-control" placeholder="Password" name="NewPassword" maxlength="20">
+                      </div> -->
 
                       <div class="form-group">
                         <label>User Type</label>
