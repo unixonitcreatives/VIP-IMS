@@ -467,7 +467,7 @@ function valData($data) {
                           <input type="number" class="form-control" placeholder="Quantity" name="invQty[]" id="moddQty<?php echo $x; ?>" onkeypress="return isNumberKey(event)" required>
                         </td>
                   <td>
-                    <button class="btn btn-sm btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
+                    <button class="btn btn-sm btn-danger removeModelRowBtn" type="button" id="<?php echo $x; ?>" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>
                   </td>
                 </tr>
                 <?php $arrayNumber++; } ?> <!-- == loop end == -->

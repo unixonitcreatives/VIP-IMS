@@ -21,7 +21,7 @@ function modelAddRow() {
 	}
 
 	$.ajax({
-		url: "../VIP-IMS/fetches/fetchProductModel.php",
+		url: "../vip-ims/fetches/fetchProductModel.php",
 		type: 'post',
 		dataType: 'json',
 		success:function(response) {

@@ -21,7 +21,7 @@ function invAddRow() {
 	}
 
 	$.ajax({
-		url: "../VIP-IMS/fetches/fetchInvProduct.php",
+		url: "../vip-ims/fetches/fetchInvProduct.php",
 		type: 'post',
 		dataType: 'json',
 		success:function(response) {
