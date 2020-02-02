@@ -4,8 +4,6 @@ $alertMessage=$invRemarks="";
 
 include "session.php";
 
-$account="";
-$_SESSION["username"] = $account;
 
 $get_update_id = $_GET['ob_tx_id'];
 
@@ -38,10 +36,14 @@ if(isset($_POST['fullypaid'])){
 
   if($obResult === TRUE){
 
-    header('Location: invoice-unpaid.php');
-    //$alertMessage = "<div class='alert alert-success' role='alert'>
-    //Payment status successfully updated.
-    //</div>";
+    echo "<script>alert('Invoice status changed to fullypaid successfully');</script>";
+    
+    $info = $_SESSION['username']." changed invoice status to fullypaid";
+                                    $info2 = "Details: ".$get_update_id;
+                                    $alertlogsuccess = "Invoice status has been changed to fullypaid succesfully!";
+                                    include('logs.php');
+                                    echo "<script>window.location.href='invoice-unpaid.php';</script>";
+
 
   }else{
     $alertMessage = "<div class='alert alert-danger' role='alert'>
@@ -104,8 +106,8 @@ if(isset($_POST['fullypaid'])){
                     <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                          <label>Customer</label><a href="customer-add.php"> + new customer</a>
-                          <select class="form-control select2" oninput="upperCase(this)"  name="invCustName" required>
+                          <label>Customer</label><a href="customer-add.php"> + New Customer</a>
+                          <select class="form-control select2" oninput="upperCase(this)"  name="invCustName" required readonly>
                             <option value="<?php echo $obcustName; ?>"><?php echo $obcustName; ?></option>
                             <?php
                             // Include config file
@@ -143,7 +145,7 @@ if(isset($_POST['fullypaid'])){
                             <div class="input-group-prepend">
                               <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input type="date" name="invDate" value="<?php echo $obDate; ?>" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-mask im-insert="false">
+                            <input type="date" name="invDate" value="<?php echo $obDate; ?>" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-mask im-insert="false" readonly>
                           </div>
                           <!-- /.input group -->
                         </div>

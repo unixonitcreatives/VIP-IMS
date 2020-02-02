@@ -14,9 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $refID = test_input($_POST['id']);
     $address = test_input($_POST['address']);
 
+     if(empty($name) || empty($refID) || empty($address)){
+        echo "<script>alert('Please enter required fields');</script>";
+    }
+
 
     // Check input errors before inserting in database
-    if(empty($alertMessage)){
+    if(!empty($name) && !empty($refID) && !empty($address)){
         //Check if the username is already in the database
         $sql_check = "SELECT * FROM customers WHERE member_id ='$get_member_id'";
         if($result = mysqli_query($link, $sql_check)){ //Execute query
@@ -51,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
                                  //}
                              } else{
-                                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                                 //echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                              }
 
 

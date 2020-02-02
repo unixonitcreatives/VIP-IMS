@@ -324,10 +324,10 @@ if (mysqli_num_rows($result) > 0) {
           <div class="card-header border-0">
             <h3 class="card-title">Unpaid Invoices</h3>
             <div class="card-tools">
-              <a href="customer-add.php" class="btn btn-tool btn-sm">
+              <a href="invoice-add.php" class="btn btn-tool btn-sm">
                 <i class="fas fa-plus"></i>
               </a>
-              <a href="customer-manage.php" class="btn btn-tool btn-sm">
+              <a href="invoice-unpaid.php" class="btn btn-tool btn-sm">
                 <i class="fas fa-bars"></i>
               </a>
             </div>

@@ -12,8 +12,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $product = test_input($_POST['product']);
     $warehouse = test_input($_POST['warehouse']);
     $qty = test_input($_POST['qty']);
+
+
+    if(empty($product) || empty($warehouse) || empty($qty)){
+        echo "<script>alert('Please enter required fields');</script>";
+    }
+
+
     // Check input errors before inserting in database
-    if(empty($alertMessage)){
+    if(!empty($product) && !empty($warehouse) && !empty($qty)){
     $sql_check = "SELECT * FROM stocks WHERE product ='$product' AND warehouse ='$warehouse'";
     if($result = mysqli_query($link, $sql_check)){ //CHECK KUNG EXISTING UNG PRODUCT SA WAREHOUSE
 
@@ -177,7 +184,6 @@ function test_input($data) {
                               // Attempt select query executions
                               $query = "";
                               $query = "SELECT * FROM warehouse ORDER BY warehouse_id DESC";
-                              // $query = "SELECT * FROM orders WHERE name LIKE '%$name%' AND item LIKE '%$item%' AND status LIKE '%$status%'";
                               if($result = mysqli_query($link, $query)){
                               if(mysqli_num_rows($result) > 0){
 

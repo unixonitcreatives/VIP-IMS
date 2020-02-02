@@ -14,9 +14,13 @@
     $sku = test_input($_POST['sku']);
     $dateCreated = test_input($_POST['dateCreated']);
 
+    if(empty($description) || empty($sku) || empty($dateCreated)){
+        echo "<script>alert('Please enter required fields');</script>";
+    }
+
 
       // Check input errors before inserting in database
-    if(empty($alertMessage)){
+    if(!empty($description) && !empty($sku) && !empty($dateCreated)){
       //Check if the username is already in the database
       $sql_check = "SELECT model, sku FROM `product_model` WHERE model ='$description' OR sku = '$sku' ";
           if($result = mysqli_query($link, $sql_check)){ //Execute query
@@ -128,7 +132,7 @@
                                                       <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                                       </div>
-                                                      <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false" name="dateCreated">
+                                                      <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false" name="dateCreated" required>
                                                     </div>
                                                   </div>
                                                 </div>

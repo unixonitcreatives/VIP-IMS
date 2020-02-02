@@ -77,8 +77,8 @@
                               echo "<td>" . $row['ob_created_by'] . "</td>";
                               echo "<td>" . $row['ob_remarks'] . "</td>";
                               echo "<td>";
-                              echo "<a class='btn btn-primary' href='invoice-update.php?ob_tx_id=". $row['ob_tx_id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
-                              echo " &nbsp; <a class='btn btn-danger' href='invoice-unpaid-delete.php?ob_tx_id=". $row['ob_tx_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='far fa-trash-alt'></span></a>";
+                              echo "<a  href='invoice-update.php?ob_tx_id=". $row['ob_tx_id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
+                              echo " &nbsp; <a  href='invoice-unpaid-delete.php?ob_tx_id=". $row['ob_tx_id'] ."' title='Delete Record' data-toggle='tooltip'><span class='fas  fa-trash'></span></a>";
                               echo "</td>";
                               echo "</tr>";
                             }

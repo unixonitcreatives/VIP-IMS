@@ -1,8 +1,11 @@
+<?php include "session.php";?>
 <?php
-require_once 'config.php';
-$alertMessage=$invRemarks=$account="";
 
-include('session.php');
+
+require_once 'config.php';
+$alertMessage=$invRemarks="";
+
+
 
 
 if(isset($_POST['fullypaid'])){
@@ -14,7 +17,7 @@ if(isset($_POST['fullypaid'])){
   $invRemarks   = valData($_POST['invRemarks']);
   $invMot   = valData($_POST['invMot']);
   $invReceivedBy   = valData($_POST['invReceivedBy']);
-  $account = $_SESSION['username'];
+  
 
   //Step 2: Check for empty fields
   if(empty($invCustName) || empty($invDate)){
@@ -24,6 +27,9 @@ if(isset($_POST['fullypaid'])){
   //If all fields are !empty, Step 3: Prepare Custom ID then add to
 
     include ('invoice-obtx-id.php');
+
+    $account = $_SESSION["username"];//session name
+
 
     //Step: 4 Insert query to outboundTB table
     $obQuery = "INSERT INTO outboundtb (ob_tx_id, ob_custName, ob_warehouse, ob_date, ob_remarks, ob_mot, ob_status, ob_received_by, ob_created_by)
@@ -151,7 +157,6 @@ if(isset($_POST['unpaid'])){
   $invRemarks   = valData($_POST['invRemarks']);
   $invMot   = valData($_POST['invMot']);
   $invReceivedBy   = valData($_POST['invReceivedBy']);
-  $account = $_SESSION['username'];
 
   //Step 2: Check for empty fields
   if(empty($invCustName) || empty($invDate)){
@@ -161,6 +166,9 @@ if(isset($_POST['unpaid'])){
   //If all fields are !empty, Step 3: Prepare Custom ID then add to
 
     include ('invoice-obtx-id.php');
+
+    $account = $_SESSION["username"];//session name
+
 
     //Step: 4 Insert query to outboundTB table
     $obQuery = "INSERT INTO outboundtb (ob_tx_id, ob_custName, ob_warehouse, ob_date, ob_remarks, ob_mot, ob_status, ob_received_by, ob_created_by)

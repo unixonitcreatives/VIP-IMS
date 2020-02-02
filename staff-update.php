@@ -21,6 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //$newHash = password_hash($NewPassword, PASSWORD_DEFAULT);
     $usertype = test_input($_POST['usertype']);
 
+
+    if(empty($username) || empty($password) || empty($usertype)){
+        echo "<script>alert('Please enter required fields');</script>";
+    }
+
     //password validation
                                     if(empty($hash)){
                                       $alertMessage = "<div class='alert alert-danger' role='alert'>
@@ -30,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
     // Check input errors before inserting in database
-    if(empty($alertMessage)){
+    if(!empty($username) && !empty($password) && !empty($usertype)){
         //Check if the username is already in the database
         $sql_check = "SELECT username FROM users WHERE username ='$username'";
         if($result = mysqli_query($link, $sql_check)){ //Execute query
@@ -75,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                  }
 
                              } else{
-                                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                                 //echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                              }
 
 
@@ -145,12 +150,12 @@ function test_input($data) {
                   ?>
                       <div class="form-group">
                         <label>Username</label>
-                        <input type="text" class="form-control" placeholder="Username" name="username" oninput="upperCase(this)" maxlength="20" value='<?php echo $row['username'];?>'>
+                        <input type="text" class="form-control" placeholder="Username" name="username" oninput="upperCase(this)" maxlength="20" value='<?php echo $row['username'];?>' required>
                       </div>
 
                       <div class="form-group">
                         <label>Password</label>
-                        <input type="Password" class="form-control" placeholder="Password" name="password"  maxlength="20" value='<?php $row['password'];?>'>
+                        <input type="password" class="form-control" placeholder="Password" name="password"  maxlength="20" value='<?php echo $row['password']; ?>' required>
                       </div>
 
                      <!--  <div class="form-group">
@@ -160,7 +165,8 @@ function test_input($data) {
 
                       <div class="form-group">
                         <label>User Type</label>
-                        <select class="form-control select2" style="width: 100%;" name="usertype">
+                        <select class="form-control select2" style="width: 100%;" name="usertype" required>
+                           <option value='<?php echo $row['usertype']; ?>'><?php echo $row['usertype']; ?></option>
                           <option value="Admin">Admin</option>
                           <option value="Stock Officer">Stock Officer</option>
                         </select>
