@@ -25,29 +25,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
   // Check input errors before inserting in database
   if(!empty($product) && !empty($warehouse_orig) && !empty($qty) && !empty($warehouse_dest) && !empty($refno)){
                 
-                $sql_check = "SELECT * FROM stocks WHERE product ='$product' AND warehouse ='$warehouse_orig'";
+                $sql_check = "SELECT * FROM stocks WHERE product ='$product' AND warehouse = '$warehouse_orig'";
                 if($result = mysqli_query($link, $sql_check)){
                   if(mysqli_num_rows($result) > 0){
                         while($row = mysqli_fetch_array($result)){
                         $stocks_qty = $row['quantity'];
                         $stocks_product = $row['product'];
-                        // echo "<script>alert('$stocks_product')</script>";
-                        // echo "<script>alert('$stocks_qty')</script>";
-                        // echo "<script>alert('$qty')</script>";
                               if($stocks_qty <= $qty){
                                 echo "<script>alert('Insufficient Stock in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>";
                                   //die();
                               } else {
                                 //Proceed
                               }
-                        }
+                        } 
                   } else {
-                  echo "<script>alert('Stock doesn't exist in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>";
+                    echo "<script>alert('Stock doesnt exist in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>";
                   }
-                  
-                } else {
-                echo "<script>alert('Stock doesn't exist in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>";
+
                 }
+
+
 
                 $account = $_SESSION["username"];//session name
                   $IDtype = "TRTX";
