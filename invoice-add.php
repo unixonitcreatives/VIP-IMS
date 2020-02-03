@@ -24,41 +24,107 @@ if(isset($_POST['fullypaid'])){
 
   } else {
 
-      
     $q = 0; $count = count($_POST['invProduct']);
     for ($q = 0; $q < $count; $q++) {
+    //echo "<script>alert('Pumasok sa Loop')</script>";
+    $product = $_POST['invProduct'][$q];
+    $qty = $_POST['invQty'][$q];
 
-      $product = $_POST['invProduct'][$q];
-      $qty = $_POST['invQty'][$q];
-      $sql_check = "SELECT * FROM stocks WHERE product = '$product' AND warehouse = '$invWarehouse'";
-          if($result = mysqli_query($link, $sql_check)){
-            if(mysqli_num_rows($result) > 0){
-                  while($row = mysqli_fetch_array($result)){
+    $query = "SELECT * FROM product_model WHERE model = '$product' ORDER BY type desc";
+    $result = mysqli_query($link, $query);
+    if(mysqli_num_rows($result) > 0){ //If A
+        while($rows = mysqli_fetch_array($result)){ //While A
+          $type = $rows['type'];
+          $model = $rows['model'];
+
+          if($type == 'retail'){ //If B
+            //echo "<script>alert('Retail');</script>";
+            $query = "SELECT * FROM stocks WHERE product = '$model' AND warehouse = '$invWarehouse'";
+            if($result = mysqli_query($link, $query)){
+              if(mysqli_num_rows($result) > 0){
+                while($row = mysqli_fetch_array($result)){
                   $stocks_qty = $row['quantity'];
                   $stocks_product = $row['product'];
                         if($stocks_qty <= $qty){
                           echo "<script>alert('Insufficient stock in warehouse');
                           alert('$product');
                           window.location.href = 'invoice-add.php';</script>";
-                            die();
+                          die();
                         } else {
                           //Proceed
                         }
-                  } 
-            } else {
+                }
+              } else {
               echo "<script>alert('Stock, doesnt exist in Warehouse');
               alert('$product');
               window.location.href = 'invoice-add.php';</script>"; die();
             }
+          }
 
-        }
+          } elseif ($type =='package') {
+            //echo "<script>alert('Package');</script>";
+            $query = ""; $resulta = "";
+            $query = "SELECT * FROM product_model WHERE model = '$product'";
+            $resulta = mysqli_query($link, $query);
+            if(mysqli_num_rows($resulta) > 0){
+              while($rowsa = mysqli_fetch_array($resulta)){
+                $model_id = $rowsa['model_id'];
+              }
+            }
+
+            $query = ""; $resulta = "";
+            $query = "SELECT * FROM package_list WHERE model_id = '$model_id'";
+            $resulta = mysqli_query($link, $query);
+            if(mysqli_num_rows($resulta) > 0){
+              while($rowsa = mysqli_fetch_array($resulta)){
+                $pkg_pm = $rowsa['pack_list_model'];
+                $pkg_qty = $rowsa['pack_list_qty'] * $qty;
+
+                $sql_check = "SELECT * FROM stocks WHERE product = '$pkg_pm' AND warehouse = '$invWarehouse'";
+                      if($result = mysqli_query($link, $sql_check)){
+                        if(mysqli_num_rows($result) > 0){
+                              while($row = mysqli_fetch_array($result)){
+                                $stocksa_qty = $row['quantity'];
+                                $stocksa_product = $row['product'];
+                                //echo "<script>alert('$stocksa_qty');</script>";
+                                //echo "<script>alert('$pkg_qty');</script>";
+                                if($stocksa_qty <= $pkg_qty){
+                                  echo "<script>alert('Insufficient stock in warehouse');
+                                  alert('$product');
+                                  window.location.href = 'invoice-add.php';</script>";
+                                  die();
+                                } else {
+                                  //Proceed
+                                  //echo "<script>alert('OK naman');</script>";
+                                }
+
+                              }
+
+                        } else {
+                          echo "<script>alert('Stock, doesnt exist in Warehouse');
+                          alert('$product');
+                          window.location.href = 'invoice-add.php';</script>"; die();
+                        }
+
+                      }
+              } //While
+            } //If
+
+          } else {
+
+          } //If B
+
+        } //While A
+    }//If A 
+    else {
+      echo "<script>alert('Didnt Worked');
+      window.location.href = 'invoice-add.php';</script>"; die();
+    }
 
 
-    } //For Loop
 
-
-
-
+    } // For Loop
+    //echo "<script>alert('End Loop');</script>";
     //If all fields are !empty, Step 3: Prepare Custom ID then add to
     include ('invoice-obtx-id.php');
 
