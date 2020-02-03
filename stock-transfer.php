@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                         $stocks_product = $row['product'];
                               if($stocks_qty <= $qty){
                                 echo "<script>alert('Insufficient Stock in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>";
-                                  //die();
+                                  die();
                               } else {
                                 //Proceed
                               }

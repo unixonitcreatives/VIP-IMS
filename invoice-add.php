@@ -24,8 +24,29 @@ if(isset($_POST['fullypaid'])){
 
   } else {
 
-  //If all fields are !empty, Step 3: Prepare Custom ID then add to
+      // $sql_check = "SELECT * FROM stocks WHERE product ='$product' AND warehouse = '$warehouse_orig'";
+      //           if($result = mysqli_query($link, $sql_check)){
+      //             if(mysqli_num_rows($result) > 0){
+      //                   while($row = mysqli_fetch_array($result)){
+      //                   $stocks_qty = $row['quantity'];
+      //                   $stocks_product = $row['product'];
+      //                         if($stocks_qty <= $qty){
+      //                           echo "<script>alert('Insufficient Stock in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>";
+      //                             die();
+      //                         } else {
+      //                           //Proceed
+      //                         }
+      //                   } 
+      //             } else {
+      //               echo "<script>alert('Stock doesnt exist in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>"; die();
+      //             }
 
+      //           }
+
+
+    
+
+    //If all fields are !empty, Step 3: Prepare Custom ID then add to
     include ('invoice-obtx-id.php');
 
     $account = $_SESSION["username"];//session name
