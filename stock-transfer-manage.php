@@ -37,7 +37,7 @@
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title"><strong><b>Notice:</b></strong> This page is under development and its not yet working properly. "Stock Transfer"</h3>
+                  <h3 class="card-title">Transfer List</h3>
                   <a href="stock-transfer.php">add new stock transfer</a>
                   
                 </div>
@@ -48,21 +48,57 @@
                       <thead>
                         <tr>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Transaction No.</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Reference No.</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse Origin</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse Destination</th>
-                          <th>Action</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Product</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Quantity</th>
+                          <!-- <th>Action</th> -->
                           
                         </tr>
                       </thead>
                       <tbody>
-                        <!-- QUERY HERE -->
+                        <?php
+                        // Include config file
+                        require_once 'config.php';
+
+                        // Attempt select query execution
+                        $query = "SELECT * FROM transfertb ORDER BY transferID desc";
+                        if($result = mysqli_query($link, $query)){
+                          if(mysqli_num_rows($result) > 0){
+                            $ctr = 0;
+                            while($row = mysqli_fetch_array($result)){
+                              $ctr++;
+                              $a = $row['warehouse_origin'];
+                              $b = $row['warehouse_dest'];
+                              echo "<tr>";
+                              echo "<td>" . $ctr . "</td>";
+                              echo "<td>" . $row['trans_Id'] . "</td>";
+                              echo "<td>" . $row['refNum'] . "</td>";
+                              echo "<td> <a href='warehouse-view.php?id=$a'>" . $row['warehouse_origin'] . "</a></td>";
+                              echo "<td> <a href='warehouse-view.php?id=$b'>" . $row['warehouse_dest'] . "</a></td>";
+                              echo "<td>" . $row['product'] . "</td>";
+                              echo "<td>" . $row['quantity'] . "</td>"; 
+                              //echo "<td></td>";
+                          
+
+                              echo "</tr>";
+                            }
+                            // Free result set
+                            mysqli_free_result($result);
+                          } else{
+                            echo "<p class='lead'><em>No records were found.</em></p>";
+                          }
+                        } else{
+                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                        }
+
+                        // Close connection
+                        mysqli_close($link);
+                        ?>
                       </tbody>
-                      <tfoot>
-                        <tr>
-                          <td colspan="5" align="center"><strong><b>Notice:</b></strong> This page is under development and its not yet working properly. "Stock Transfer"</td>
-                        </tr>
-                      </tfoot>
+
                     </table>
 
 

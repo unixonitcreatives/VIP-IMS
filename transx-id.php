@@ -1,5 +1,5 @@
 <?php
-	$IDtype = "TRANX";
+	$IDtype = "TRTX";
     $m = date('m');
     $y = date('y');
     $d = date('d');

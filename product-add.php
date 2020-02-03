@@ -135,11 +135,13 @@
                                                       <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false" name="dateCreated" required>
                                                     </div>
                                                   </div>
+
                                                 </div>
-                                              </div>
+                                              
 
                                               <div class="card-footer">
                                                 <button type="submit" class="btn btn-primary" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" >Save</button>
+
                                               </form>
                                             </div>
                                           </div>
