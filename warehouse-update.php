@@ -130,11 +130,13 @@ function test_input($data) {
                       <div class="form-group">
                         <label>Warehouse Name</label>
                         <input type="text" class="form-control" placeholder="Warehouse Name" name="name" oninput="upperCase(this)" maxlength="20" value='<?php echo $row['name'];?>' readonly>
+                         <?php echo $alertMessage ?>
                       </div>
 
                       <div class="form-group">
                         <label>Warehouse Address</label>
                         <input type="text" class="form-control" placeholder="Address" name="address" oninput="upperCase(this)" value='<?php echo $row['address'];?>'>
+                         <?php echo $alertMessage ?>
                       </div>
                     <?php } ?>
               </div>
@@ -142,7 +144,7 @@ function test_input($data) {
               <div class="card-footer">
 
                 <button type="submit" class="btn btn-primary" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" >Save</button>
-                <?php echo $alertMessage ?>
+               
                 </form>
               </div>
             </div>

@@ -97,7 +97,7 @@ function valData($data) {
   <div class="wrapper">
 
     <?php include "includes/navbar.php"; ?>
-    <?php include "includes/sidebar.php"; ?>
+    <?php include "includes/sidebar-manage.php"; ?>
 
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -160,12 +160,12 @@ function valData($data) {
 
                     <div class="form-group">
                       <label>Created By:</label>
-                      <input type="text" name="comp_site" class="form-control" value = "<?php echo $createdBy; ?>" readonly>
+                      <input type="text" class="form-control" value = "<?php echo $createdBy; ?>" readonly>
                     </div>
 
                     <div class="form-group">
                       <label>Created At:</label>
-                      <input type="text" name="comp_site" class="form-control" value = "<?php echo $createdAt; ?>" readonly>
+                      <input type="text" class="form-control" value = "<?php echo $createdAt; ?>" readonly>
                     </div>
                   
                   </div>

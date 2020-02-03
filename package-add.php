@@ -25,10 +25,8 @@
     //if empty required fields
     if(empty($packname) || empty($dateCreated)){
 
-      $alertMessage = "<div class='alert alert-danger' role='alert'>
-      Please input required fields.
-      </div>";
-
+      echo "<script>alert('Please input required fields.')</script>";
+      
     }else {
 
 
@@ -63,16 +61,20 @@
 
           for ($j = 0; $j < $count; $j++) {
 
-            $listquery = "INSERT INTO package_list (model_id, pack_list_model, pack_list_qty) VALUES (
+            if(empty($_POST['product-model'][$j]) || empty($_POST['modelQty'][$j])){
+
+           echo "<script>alert('Please input required fields.')</script>";
+          }
+            else {
+
+               $listquery = "INSERT INTO package_list (model_id, pack_list_model, pack_list_qty) VALUES (
             '".$model_id."',
             '".$_POST['product-model'][$j]."',
             '".$_POST['modelQty'][$j]."')";
 
             $listresult = mysqli_multi_query($link, $listquery) or die(mysqli_error($link));
 
-          }
-
-          if($listresult === TRUE){
+             if($listresult === TRUE){
           //logs
             $info = $_SESSION['username']." added new package";
             $info2 = "Details: ".$packname.", ".$model_id;
@@ -82,20 +84,25 @@
 
             }// ./listResult 
             else{
-              echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+              //echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
             }
+
+            }
+
+            
+          }
+
+         
 
 
         }// ./packageResult
         else{
-          $alertMessage = "<div class='alert alert-danger' role='alert'>
-          Error Creating Package.
-          </div>";
+          $alertMessage = "<script>alert('Error Creating Package.')</script>";
         }
 
           }// end of result
         } else{
-          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+          //echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
           }//end of checking duplicate package name
 
       } // ./validation
