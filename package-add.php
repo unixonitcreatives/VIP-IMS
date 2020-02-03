@@ -228,7 +228,7 @@
                               </td>
                               
                               <td>
-                                <input type="number" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?php echo $x; ?>" onkeypress="return isNumberKey(event)" required>
+                                <input type="text" class="form-control" placeholder="Quantity" name="modelQty[]" id="moddQty<?php echo $x; ?>" onkeypress="return isNumberKey(event)" required>
                               </td>
                               <td>
                                 <button class="btn btn-sm btn-danger removeModelRowBtn" type="button" id="removeModelRowBtn" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>

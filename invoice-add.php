@@ -24,27 +24,40 @@ if(isset($_POST['fullypaid'])){
 
   } else {
 
-      // $sql_check = "SELECT * FROM stocks WHERE product ='$product' AND warehouse = '$warehouse_orig'";
-      //           if($result = mysqli_query($link, $sql_check)){
-      //             if(mysqli_num_rows($result) > 0){
-      //                   while($row = mysqli_fetch_array($result)){
-      //                   $stocks_qty = $row['quantity'];
-      //                   $stocks_product = $row['product'];
-      //                         if($stocks_qty <= $qty){
-      //                           echo "<script>alert('Insufficient Stock in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>";
-      //                             die();
-      //                         } else {
-      //                           //Proceed
-      //                         }
-      //                   } 
-      //             } else {
-      //               echo "<script>alert('Stock doesnt exist in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>"; die();
-      //             }
+      
+    $q = 0; $count = count($_POST['invProduct']);
+    for ($q = 0; $q < $count; $q++) {
 
-      //           }
+      $product = $_POST['invProduct'][$q];
+      $qty = $_POST['invQty'][$q];
+      $sql_check = "SELECT * FROM stocks WHERE product = '$product' AND warehouse = '$invWarehouse'";
+          if($result = mysqli_query($link, $sql_check)){
+            if(mysqli_num_rows($result) > 0){
+                  while($row = mysqli_fetch_array($result)){
+                  $stocks_qty = $row['quantity'];
+                  $stocks_product = $row['product'];
+                        if($stocks_qty <= $qty){
+                          echo "<script>alert('Insufficient stock in warehouse');
+                          alert('$product');
+                          window.location.href = 'invoice-add.php';</script>";
+                            die();
+                        } else {
+                          //Proceed
+                        }
+                  } 
+            } else {
+              echo "<script>alert('Stock, doesnt exist in Warehouse');
+              alert('$product');
+              window.location.href = 'invoice-add.php';</script>"; die();
+            }
+
+        }
 
 
-    
+    } //For Loop
+
+
+
 
     //If all fields are !empty, Step 3: Prepare Custom ID then add to
     include ('invoice-obtx-id.php');
@@ -493,7 +506,7 @@ function valData($data) {
                         </td>
 
                         <td>
-                          <input type="number" class="form-control" placeholder="Quantity" name="invQty[]" id="moddQty<?php echo $x; ?>" onkeypress="return isNumberKey(event)" required>
+                          <input type="text" class="form-control" placeholder="Quantity" name="invQty[]" id="moddQty<?php echo $x; ?>" onkeypress="return isNumberKey(event)" required>
                         </td>
                   <td>
                     <button class="btn btn-sm btn-danger removeModelRowBtn" type="button" id="<?php echo $x; ?>" onclick="removeModelRow(<?php echo $x; ?>)"><i class="nav-icon fas fa-minus"></i></button>

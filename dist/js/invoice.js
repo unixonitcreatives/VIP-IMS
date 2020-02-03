@@ -43,7 +43,7 @@ function invAddRow() {
 				'</td>'+
 
 				'<td>'+
-					'<input type="number" name="invQty[]" id="modQty'+count+'" autocomplete="off" class="form-control" placeholder="Quantity" keypress="return isNumberKey(event)" required/>'+
+					'<input type="text" name="invQty[]" id="modQty'+count+'" autocomplete="off" class="form-control" placeholder="Quantity" keypress="return isNumberKey(event)" required/>'+
 				'</td>'+
 
 				'<td>'+
