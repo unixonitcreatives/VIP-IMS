@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                               }
                         } 
                   } else {
-                    echo "<script>alert('Stock doesnt exist in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>";
+                    echo "<script>alert('Stock doesnt exist in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>"; die();
                   }
 
                 }
@@ -322,7 +322,7 @@ function test_input($data) {
 
                   <div class="card-footer">
                     <button type="submit" name="transfer" onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();" class="btn btn-primary" >Transfer</button>
-                    <strong><b>Notice:</b></strong> This page is under development and its not yet working properly. "Stock Transfer"
+                    
                   </form>
                 </div>
               </div>
