@@ -47,7 +47,7 @@ $get_id = $_GET['id'];
 
 	}
 
-	$sql_check = "SELECT * FROM stocks WHERE product ='$sr_product' AND warehouse = '$sr_warehouse'";
+	$sql_check = "SELECT * FROM stocks WHERE product ='$sr_product' AND warehouse = 'MAIN'";
     if($result = mysqli_query($link, $sql_check)){
       if(mysqli_num_rows($result) > 0){
             while($row = mysqli_fetch_array($result)){
@@ -108,7 +108,7 @@ $get_id = $_GET['id'];
 					$query = "UPDATE `stock_request` SET status = 'Approved'  WHERE id ='$get_id'"; //Prepare insert query
 					$result = mysqli_query($link, $query) or die(mysqli_error($link));
 
-					echo "<script>window.location.href='stock-transfer-manage.php'</script>"; 
+					echo "<script>window.location.href='stock-request-manage.php'</script>"; 
 
 					} else {
 					echo "<script>alert('Failed deducting stocks from warehouse orig')</script>";
@@ -138,7 +138,7 @@ $get_id = $_GET['id'];
 					$query = "UPDATE `stock_request` SET status = 'Approved'  WHERE id ='$get_id'"; //Prepare insert query
 					$result = mysqli_query($link, $query) or die(mysqli_error($link));
 
-					echo "<script>window.location.href='stock-transfer-manage.php'</script>";
+					echo "<script>window.location.href='stock-request-manage.php'</script>";
 					} else {
 					echo "<script>alert('Failed deducting stocks from warehouse orig')</script>";
 					}
