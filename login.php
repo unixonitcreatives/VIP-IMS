@@ -109,8 +109,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                   echo "<script>alert('Invalid username & password combination')</script>";
                 }
     }// ./num_rows
-  }// ./query result
-
+  } else {// ./query result
+    echo "<script>
+    alert('error login');
+    window.location.href='login.php';
+    </script>";
+  }
 
   // Close connection
   mysqli_close($link);
@@ -200,7 +204,7 @@ function test_input($data) {
             <!-- /.col -->
           </div>
         </form>
-
+        Area Center: <a href="../VIP-IMS-AC/" class="text-center">Login here</a><br>
         Powered by: <a href="http://www.unixondev.com" class="text-center">Unixon IT Creatives</a>
 
 
