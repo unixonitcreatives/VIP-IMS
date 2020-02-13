@@ -35,49 +35,51 @@
           //Check if the username is already in the database
       $sql_check = "SELECT * FROM area_center WHERE name ='$name'";
           if($result = mysqli_query($link, $sql_check)){ //Execute query
-           if(mysqli_num_rows($result) > 0){
-                                      //If the username already exists
-                                      //Try another username pop up
-            echo "<script>alert('Area Center already exist');</script>";
-            mysqli_free_result($result);
-          } else {
-                                      //If the username doesnt exist in the database
-                                      //Proceed adding to database
+              if(mysqli_num_rows($result) > 0){
+              //If the username already exists
+              //Try another username pop up
+                echo "<script>alert('Area Center already exist');</script>";
+                mysqli_free_result($result);
+              } else {
+              //If the username doesnt exist in the database
+              //Proceed adding to database
 
-                                      $account = $_SESSION["username"];//session name
+              $account = $_SESSION["username"];//session name
 
-                                      $query = "
-                                      INSERT INTO area_center (name, username, password, usertype, warehouse, created_by, created_at)
-                                      VALUES ('$name', '$username', '$hash', 'Area Center', '$warehouse', '$account', '$startDate')"; //Prepare insert query
+              $query = "
+              INSERT INTO area_center (name, username, password, usertype, warehouse, created_by, created_at)
+              VALUES ('$name', '$username', '$hash', 'Area Center', '$warehouse', '$account', '$startDate')"; //Prepare insert query
 
-                                      $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
-
-
-                                      if($result){
-                                        $info = $_SESSION['username']." added new area center";
-                                        $info2 = "Details: ".$name. ", " .$username.", ".$warehouse;
-                                        $alertlogsuccess = $name.": has been added succesfully!";
-                                        include "logs.php";
-                                        echo "<script>window.location.href='warehouse-manage.php'</script>"; 
+              $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
 
-                                      }else{
-                                        //If execution failed
-                                        $alertMessage = "<div class='alert alert-danger' role='alert'>
-                                        Error adding data.
-                                        </div>";}
-                                        mysqli_close($link);
-                                      }
-                                    } else{
-                                     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                                   }
+                    if($result){
+                      $info = $_SESSION['username']." added new area center";
+                      $info2 = "Details: ".$name. ", " .$username.", ".$warehouse;
+                      $alertlogsuccess = $name.": has been added succesfully!";
+                      include "logs.php";
+                      echo "<script>window.location.href='warehouse-manage.php'</script>"; 
+
+
+                    }else{
+                      //If execution failed
+                      $alertMessage = "<div class='alert alert-danger' role='alert'>
+                      Error adding data.
+                      </div>";}
+                      mysqli_close($link);
+                    }
+
+
+      } else{
+       echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+     }
 
 
 
-                                 }
+   }
 
-          //mysqli_close($link);
-                               }
+  //mysqli_close($link);
+  }
 
                                function test_input($data) {
                                 $data = trim($data);

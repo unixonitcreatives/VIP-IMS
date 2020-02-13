@@ -23,30 +23,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
   } else {
 
   // Check input errors before inserting in database
-  if(!empty($product) && !empty($warehouse_orig) && !empty($qty) && !empty($warehouse_dest) && !empty($refno)){
-                
-                $sql_check = "SELECT * FROM stocks WHERE product ='$product' AND warehouse = '$warehouse_orig'";
-                if($result = mysqli_query($link, $sql_check)){
-                  if(mysqli_num_rows($result) > 0){
-                        while($row = mysqli_fetch_array($result)){
-                        $stocks_qty = $row['quantity'];
-                        $stocks_product = $row['product'];
-                              if($stocks_qty <= $qty){
-                                echo "<script>alert('Insufficient Stock in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>";
-                                  die();
-                              } else {
+    if(!empty($product) && !empty($warehouse_orig) && !empty($qty) && !empty($warehouse_dest) && !empty($refno)){
+      
+      $sql_check = "SELECT * FROM stocks WHERE product ='$product' AND warehouse = '$warehouse_orig'";
+      if($result = mysqli_query($link, $sql_check)){
+        if(mysqli_num_rows($result) > 0){
+          while($row = mysqli_fetch_array($result)){
+            
+            $stocks_product = $row['product'];
+            if($stocks_qty <= $qty){
+              echo "<script>alert('Insufficient Stock in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>";
+              die();
+            } else {
                                 //Proceed
-                              }
-                        } 
-                  } else {
-                    echo "<script>alert('Stock doesnt exist in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>"; die();
-                  }
+            }
+          } 
+        } else {
+          echo "<script>alert('Stock doesnt exist in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>"; die();
+        }
 
-                }
+      }
 
 
 
-                $account = $_SESSION["username"];//session name
+                  $account = $_SESSION["username"];//session name
                   $IDtype = "TRTX";
                   $m = date('m');
                   $y = date('y');
@@ -57,38 +57,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                   $newID = $resulta['MAX(transferId)'] + 1; //Get the latest ID then Add 1
                   $custID = str_pad($newID, 8, '0', STR_PAD_LEFT); //Prepare custom ID with Paddings
                   $tranxid = $IDtype.$custID; //Prepare custom ID
-                
-                $query = "
-                INSERT INTO `transfertb` (trans_Id, warehouse_origin, warehouse_dest, product, quantity, trans_date, refNum, remarks, created_by, created_at)
+                  
+                  $query = "
+                  INSERT INTO `transfertb` (trans_Id, warehouse_origin, warehouse_dest, product, quantity, trans_date, refNum, remarks, created_by, created_at)
                 VALUES ('$tranxid', '$warehouse_orig', '$warehouse_dest', '$product', '$qty', '$date', '$refno', '$remarks','$account', '$date')"; //Prepare insert query
                 $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
                 if($result){  
 
-                $sql_check = "SELECT * FROM stocks WHERE product ='$product' AND warehouse ='$warehouse_dest'";
+                  $sql_check = "SELECT * FROM stocks WHERE product ='$product' AND warehouse ='$warehouse_dest'";
                 if($result = mysqli_query($link, $sql_check)){ //CHECK KUNG EXISTING UNG PRODUCT SA WAREHOUSE
 
                 if(mysqli_num_rows($result) > 0){ //KAPAG EXISTING UNG PRODUCT SA WAREHOUSE, ADD LANG NG QUANTITY
                     //echo "<script>alert('Existing')</script>";
-                    $query = "
+                  $query = "
                     UPDATE `stocks` SET quantity = quantity + '$qty' WHERE product ='$product' AND warehouse ='$warehouse_dest'"; //Prepare insert query
                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
 
                     if($result){
                     $query = "UPDATE `stocks` SET quantity = quantity - '$qty' WHERE product ='$product' AND warehouse ='$warehouse_orig'"; //Prepare insert query
                     $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
-                        if($result){   
-                            $info = $_SESSION['username']."  new stock transfered";
-                            $info2 = "Details: ".$product.", ".$qty." pcs on: " .$warehouse_dest. " from: ".$warehouse_orig;
-                            $alertlogsuccess = $product.", ".$qty." pcs: has been transfered succesfully!";
-                            include "logs.php";
-                            echo "<script>window.location.href='stock-transfer-manage.php'</script>"; 
+                    if($result){   
+                      $info = $_SESSION['username']."  new stock transfered";
+                      $info2 = "Details: ".$product.", ".$qty." pcs on: " .$warehouse_dest. " from: ".$warehouse_orig;
+                      $alertlogsuccess = $product.", ".$qty." pcs: has been transfered succesfully!";
+                      include "logs.php";
+                      echo "<script>window.location.href='stock-transfer-manage.php'</script>"; 
 
-                        } else {
-                          echo "<script>alert('Failed deducting stocks from warehouse orig')</script>";
-                        }      
-                      }else{
-                      echo "<script>alert('Failed transfering stocks')</script>";
-                      }
+                    } else {
+                      echo "<script>alert('Failed deducting stocks from warehouse orig')</script>";
+                    }      
+                  }else{
+                    echo "<script>alert('Failed transfering stocks')</script>";
+                  }
                 } else { 
                 //echo "<script>alert('Not Existing')</script>";
                 $account = $_SESSION["username"];//session name
@@ -111,26 +111,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     } else {
                       echo "<script>alert('Failed deducting stocks from warehouse orig')</script>";
                     }
-                }else{
-                echo "<script>alert('Failed adding new stocks')</script>";
-                }
-                mysqli_close($link);
-                }
-
-                } else {
-                  echo "<script>alert('Failed adding new stock transfer')</script>";
+                  }else{
+                    echo "<script>alert('Failed adding new stocks')</script>";
+                  }
+                  mysqli_close($link);
                 }
 
+              } else {
+                echo "<script>alert('Failed adding new stock transfer')</script>";
+              }
 
-    } else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-    }
+
+            } else{
+              echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+            }
 
 
-  } else {
-  echo "<script>alert('Enter all required fields')</script>";
-  }
-}
+          } else {
+            echo "<script>alert('Enter all required fields')</script>";
+          }
+        }
 
 } //POST
 

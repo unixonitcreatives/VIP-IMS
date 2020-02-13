@@ -264,12 +264,10 @@ if (mysqli_num_rows($result) > 0) {
 
           <div class="card">
             <div class="card-header border-0">
-              <h3 class="card-title">Recent Added Members</h3>
+              <h3 class="card-title">Pending Stock Requests</h3>
               <div class="card-tools">
-                <a href="members-add.php" class="btn btn-tool btn-sm">
-                  <i class="fas fa-plus"></i>
-                </a>
-                <a href="members-manage.php" class="btn btn-tool btn-sm">
+   
+                <a href="stock-request-manage.php" class="btn btn-tool btn-sm">
                   <i class="fas fa-bars"></i>
                 </a>
               </div>
@@ -279,8 +277,10 @@ if (mysqli_num_rows($result) > 0) {
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Ref ID</th>
-                    <th>Name</th>
+                    <th>Warehouse</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <?php
@@ -288,16 +288,21 @@ if (mysqli_num_rows($result) > 0) {
                         //require_once 'config.php';
 
                         // Attempt select query execution
-                $cust_qry = "SELECT * FROM customers ORDER BY member_id DESC LIMIT 5";
+                $cust_qry = "SELECT * FROM stock_request WHERE status = 'Pending' ORDER BY id DESC ";
                 if($cust_result = mysqli_query($link, $cust_qry)){
                   if(mysqli_num_rows($cust_result) > 0){
                     $cust_ctr = 0;
                     while($cust_row = mysqli_fetch_array($cust_result)){
                       $cust_ctr++;
+                      $id = $cust_row['warehouse'];
                       echo "<tr>";
                       echo "<td>" . $cust_ctr . "</td>";
-                      echo "<td>" . $cust_row['refID'] . "</td>";
-                      echo "<td>" . $cust_row['name'] . "</td>";
+                      echo "<td><a href='warehouse-view.php?id=$id'>" . $cust_row['warehouse'] . "</a></td>";
+                      echo "<td>" . $cust_row['product'] . "</td>";
+                      echo "<td>" . $cust_row['qty'] . "</td>";
+                      echo "<td>";
+                      echo " &nbsp; <a href='request-approve.php?id=".$cust_row['id']."' title='Approve Request' data-toggle='tooltip'><span class='fas fa fa-check'></span></a>";
+                      echo "</td>";
                       echo "</tr>";
                     }
                             // Free result set
