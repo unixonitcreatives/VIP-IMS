@@ -26,14 +26,20 @@ if($result = mysqli_query($link, $qry)){
 	}
 }
 
-	if($sr_status=='Approved'){
-		echo "<script>alert('This request is already approved.');window.location.href='stock-request-manage.php;</script>"; die();
+if($sr_status=='Approved'){
+		echo "<script>alert('This request is already approved.'); 
+		window.location.href='stock-request-manage.php';</script>"; 
+		die();
 	} elseif ($sr_status=='Declined'){
-		echo "<script>alert('This request has been declined previously.');window.location.href='stock-request-manage.php;</script>"; die();
+		echo "<script>alert('This request has been declined previously.'); 
+		window.location.href='stock-request-manage.php';</script>"; 
+		die();
 	} elseif ($sr_status=='Cancelled') {
-		echo "<script>alert('This request has been cancelled by requestor.');window.location.href='stock-request-manage.php;</script>"; die();
-	} else {
-
+		echo "<script>alert('This request has been cancelled by requestor.'); 
+		window.location.href='stock-request-manage.php';</script>"; 
+		die();
+	} else {	
+		//Proceed
 	}
 
 $query = "UPDATE `stock_request` SET status = 'Declined'  WHERE id ='$get_id'"; //Prepare insert query
