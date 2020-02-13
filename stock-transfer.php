@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
           while($row = mysqli_fetch_array($result)){
             
             $stocks_product = $row['product'];
+            $stocks_qty = $row['quantity'];
             if($stocks_qty < $qty){
               echo "<script>alert('Insufficient Stock in Warehouse Origin');window.location.href = 'stock-transfer.php';</script>";
               die();
