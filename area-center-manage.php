@@ -52,7 +52,7 @@
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse Designation</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Created_by</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Created_at</th>
-                          <th>Action</th>
+                         <!--  <th>Action</th> -->
                         </tr>
                       </thead>
                       <tbody>
@@ -75,12 +75,12 @@
                               echo "<td>" . $row['warehouse'] . "</td>";
                               echo "<td>" . $row['created_by'] . "</td>";
                               echo "<td>" . $row['created_at'] . "</td>";
-                              echo "<td>";
-                              echo "<a href='stock-transfer.php' title='Transfer Stocks' data-toggle='tooltip'><span class='fas fa fa-boxes'></span></a>";
-                              echo " &nbsp; <a href='warehouse-update.php?warehouse_id=". $row['warehouse_id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
-                              echo " &nbsp; <a href='warehouse-delete.php?warehouse_id=".$row['warehouse_id']."&&name=".$row['name']. " ' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-trash'></span></a>";
-                              //echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='View Record' data-toggle='tooltip'><span class='fas fa fa-eye'></span></a>";
-                              echo "</td>";
+                              // echo "<td>";
+                              // echo "<a href='stock-transfer.php' title='Transfer Stocks' data-toggle='tooltip'><span class='fas fa fa-boxes'></span></a>";
+                              // echo " &nbsp; <a href='warehouse-update.php?warehouse_id=". $row['warehouse_id'] ."' title='Update Record' data-toggle='tooltip'><span class='fas fa-pen'></span></a>";
+                              // echo " &nbsp; <a href='warehouse-delete.php?warehouse_id=".$row['warehouse_id']."&&name=".$row['name']. " ' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-trash'></span></a>";
+                              // //echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='View Record' data-toggle='tooltip'><span class='fas fa fa-eye'></span></a>";
+                              // echo "</td>";
                               echo "</tr>";
                             }
                             // Free result set

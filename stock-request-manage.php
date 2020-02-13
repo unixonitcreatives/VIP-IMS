@@ -64,7 +64,7 @@
                         require_once 'config.php';
 
                         // Attempt select query execution
-                        $query = "SELECT * FROM stock_request ORDER BY id DESC";
+                        $query = "SELECT * FROM stock_request ORDER BY status DESC";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
@@ -78,15 +78,30 @@
                               echo "<td>" . $row['product'] . "</td>";
                               echo "<td>" . $row['qty'] . "</td>";
                               echo "<td>" . $row['remarks'] . "</td>";  
-                              echo "<td>" . $row['status'] . "</td>";  
+
+                              if($row['status']=='Pending'){
+                              echo "<td class='text-warning'>" . $row['status'] . "</td>";  
+                              } elseif($row['status']=='Approved') {
+                              echo "<td class='text-success'>" . $row['status'] . "</td>";  
+                              } else {
+                               echo "<td class='text-muted'>" . $row['status'] . "</td>";  
+                              }
+
                               echo "<td>" . $row['created_at'] . "</td>";
                               echo "<td>";
 
                               if($row['status']=='Pending'){
                               echo " &nbsp; <a href='request-approve.php?id=".$row['id']."' title='Delete Record' data-toggle='tooltip'><span class='fas fa fa-check'></span></a>";
+
+                              echo " &nbsp; <a href='warehouse-delete.php?warehouse_id=".$row['warehouse_id']."&&name=".$row['name']. " ' title='Decline' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-times'></span></a>";
+
+                              } else {
+
+                              
+
                               }
 
-                              echo " &nbsp; <a href='warehouse-delete.php?warehouse_id=".$row['warehouse_id']."&&name=".$row['name']. " ' title='Delete Record' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-trash'></span></a>";
+                              
                               //echo " &nbsp; <a href='user-delete.php?id=". $row['id'] ."' title='View Record' data-toggle='tooltip'><span class='fas fa fa-eye'></span></a>";
                               echo "</td>";
                               echo "</tr>";

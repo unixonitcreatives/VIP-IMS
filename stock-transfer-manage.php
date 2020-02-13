@@ -54,6 +54,7 @@
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse Destination</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Product</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Quantity</th>
+                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Date</th>
                           <!-- <th>Action</th> -->
                           
                         </tr>
@@ -80,6 +81,7 @@
                               echo "<td> <a href='warehouse-view.php?id=$b'>" . $row['warehouse_dest'] . "</a></td>";
                               echo "<td>" . $row['product'] . "</td>";
                               echo "<td>" . $row['quantity'] . "</td>"; 
+                               echo "<td>" . $row['trans_date'] . "</td>"; 
                               //echo "<td></td>";
                           
 
