@@ -29,6 +29,16 @@ $get_id = $_GET['id'];
 
 	}
 
+	if($sr_status=='Approved'){
+		echo "<script>alert('This request is already approved.');window.location.href='stock-request-manage.php;</script>"; die();
+	} elseif ($sr_status=='Declined'){
+		echo "<script>alert('This request has been declined previously.');window.location.href='stock-request-manage.php;</script>"; die();
+	} elseif ($sr_status=='Cancelled') {
+		echo "<script>alert('This request has been cancelled by requestor.');window.location.href='stock-request-manage.php;</script>"; die();
+	} else {
+
+	}
+
 	$qry = "SELECT * FROM area_center WHERE username ='$sr_created_by'";
 	if($result = mysqli_query($link, $qry)){
 		if(mysqli_num_rows($result) > 0){

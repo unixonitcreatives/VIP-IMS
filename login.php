@@ -204,7 +204,7 @@ function test_input($data) {
             <!-- /.col -->
           </div>
         </form>
-        Area Center: <a href="../VIP-IMS-AC/" class="text-center">Login here</a><br>
+        Area Center: <a href="../vip-ims-ac/" class="text-center">Login here</a><br>
         Powered by: <a href="http://www.unixondev.com" class="text-center">Unixon IT Creatives</a>
 
 
