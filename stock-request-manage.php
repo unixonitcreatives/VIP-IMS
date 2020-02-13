@@ -70,11 +70,12 @@
                             $ctr = 0;
                             while($row = mysqli_fetch_array($result)){
                               $ctr++;
-                              $id = $row['name'];
+                              $id = $row['warehouse'];
                               echo "<tr>";
                               echo "<td>" . $ctr . "</td>";
                               echo "<td>" . $row['created_by'] . "</td>";
-                              echo "<td>" . $row['warehouse'] . "</td>";
+                              echo "<td><a href='warehouse-view.php?id=$id'>" . $row['warehouse'] . "</a></td>";
+                              
                               echo "<td>" . $row['product'] . "</td>";
                               echo "<td>" . $row['qty'] . "</td>";
                               echo "<td>" . $row['remarks'] . "</td>";  

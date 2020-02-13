@@ -33,5 +33,6 @@ $info = $_SESSION['username']."  declined stock request";
 $info2 = "Details: ".$sr_product.", ".$sr_qty." pcs on: " .$sr_warehouse;
 $alertlogsuccess = "Request has been declined";
 include "logs.php";
+echo "<script>window.location.href='stock-request-manage.php'</script>"; 
 
 ?>
