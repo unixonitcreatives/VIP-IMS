@@ -29,7 +29,7 @@ $get_id = $_GET['id'];
 
 	}
 	
-	
+
 	if($sr_status=='Approved'){
 		echo "<script>alert('This request is already approved.'); 
 		window.location.href='stock-request-manage.php';</script>"; 
@@ -70,7 +70,7 @@ $get_id = $_GET['id'];
             while($row = mysqli_fetch_array($result)){
             $stocks_qty = $row['quantity'];
             $stocks_product = $row['product'];
-                  if($stocks_qty <= $sr_qty){
+                  if($stocks_qty < $sr_qty){
                     echo "<script>alert('Insufficient Stock in MAIN Warehouse');
                     window.location.href = 'stock-request-manage.php';</script>";
                     die();
