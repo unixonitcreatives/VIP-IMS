@@ -91,9 +91,9 @@
                               echo "<td>";
 
                               if($row['status']=='Pending'){
-                              echo " &nbsp; <a href='request-approve.php?id=".$row['id']."' title='Delete Record' data-toggle='tooltip'><span class='fas fa fa-check'></span></a>";
+                              echo " &nbsp; <a href='request-approve.php?id=".$row['id']."' title='Approve Request' data-toggle='tooltip'><span class='fas fa fa-check'></span></a>";
 
-                              echo " &nbsp; <a href='warehouse-delete.php?warehouse_id=".$row['warehouse_id']."&&name=".$row['name']. " ' title='Decline' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-times'></span></a>";
+                              echo " &nbsp; <a href='warehouse-delete.php?warehouse_id=".$row['warehouse_id']."&&name=".$row['name']. " ' title='Decline Request' data-toggle='tooltip' onclick='return checkDelete()'><span class='fas fa fa-times'></span></a>";
 
                               } else {
 
