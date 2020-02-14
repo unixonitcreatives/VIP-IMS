@@ -55,7 +55,7 @@ $get_id = $_GET['id'];
 				$ac_username = $row['username'];
 				$ac_usertype = $row['usertype'];
 				$ac_warehouse = $row['warehouse'];
-				$ac_created_by = $row['crated_by'];
+				$ac_created_by = $row['created_by'];
 				$ac_date = $row['created_at'];
 				// echo "<script>alert('$ac_username');</script>";
 			}
