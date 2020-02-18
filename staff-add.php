@@ -5,6 +5,15 @@ $type = $_SESSION['usertype'];
 ?>
 
 <?php
+  $Admin_auth = 1;
+  $Stock_auth = 0;
+  $Area_Center_auth = 0;
+ include('includes/user_auth.php');
+?>
+
+
+
+<?php
 // Define variables and initialize with empty values
 $username=$password=$usertype=$alertMessage="";
 require_once "config.php";

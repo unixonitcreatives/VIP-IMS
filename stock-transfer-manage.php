@@ -1,5 +1,12 @@
 <?php include "session.php"; ?>
 
+<?php
+  $Admin_auth = 1;
+  $Stock_auth = 1;
+  $Area_Center_auth = 0;
+ include('includes/user_auth.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <?php include "includes/header.php"; ?>

@@ -1,3 +1,10 @@
+<?php
+$Admin_auth = 1;
+$Stock_auth = 0;
+$Area_Center_auth = 0;
+include('includes/user_auth.php');
+?>
+
 <?php include "session.php"; ?>
 
 <!DOCTYPE html>

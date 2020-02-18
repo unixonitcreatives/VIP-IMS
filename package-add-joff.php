@@ -1,3 +1,14 @@
+  <?php include "session.php";
+      //loggedin username
+      $account = $_SESSION["username"];
+  ?>
+
+<?php
+  $Admin_auth = 1;
+  $Stock_auth = 0;
+  $Area_Center_auth = 0;
+ include('includes/user_auth.php');
+?>
   <?php
   //Connection
   require_once "config.php";
@@ -5,10 +16,7 @@
   $pname=$account=$alertMessage="";
   ?>
 
-  <?php include "session.php";
-      //loggedin username
-      $account = $_SESSION["username"];
-  ?>
+
 
   <?php
 

@@ -74,7 +74,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="product-add.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Product Model</p>
@@ -85,7 +85,7 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Product Model</p>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a href="stock-add.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -101,7 +101,7 @@
                
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <!-- <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cube"></i>
               <p>
@@ -124,7 +124,7 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-warehouse"></i>
@@ -141,12 +141,12 @@
                   <p>Add Warehouse</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="warehouse-manage.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Warehouse</p>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a href="stock-transfer.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -157,6 +157,38 @@
                 <a href="stock-transfer-manage.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Stocks Transfer</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-address-card"></i>
+              <p>
+                Area Center
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+              <li class="nav-item">
+                <a href="area-center-add.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Area Center</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="area-center-manage.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Area Center</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="stock-request-manage.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Stock Requests</p>
                 </a>
               </li>
             </ul>
@@ -234,9 +266,9 @@
                
 
               <li class="nav-item">
-                <a href="staff-account-manage.php" class="nav-link">
+                <a href="logs-manage.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Account</p>
+                  <p>Logs</p>
                 </a>
               </li>
 
