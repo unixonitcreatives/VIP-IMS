@@ -206,14 +206,14 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <a href="area-center-add.php" class="nav-link">
+                <a href="stockist-add.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Stockist</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="area-center-manage.php" class="nav-link">
+                <a href="stockist-manage.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Stockist</p>
                 </a>
