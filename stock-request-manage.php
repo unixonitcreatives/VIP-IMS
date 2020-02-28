@@ -53,7 +53,7 @@
                 <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                       <thead>
                         <tr>
-                          <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">No.</th>
+                          
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Area Center</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Warehouse</th>
                           <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Product</th>
@@ -70,8 +70,13 @@
                         // Include config file
                         require_once 'config.php';
 
-                        // Attempt select query execution
-                        $query = "SELECT * FROM stock_request ORDER BY status DESC";
+                        $query1 = "SELECT * FROM area_center";
+                        if($result1 = mysqli_query($link, $query1)){
+                          if(mysqli_num_rows($result1) > 0){
+                            while($row1 = mysqli_fetch_array($result1)){
+                              $ac_warehouse = $row1['warehouse'];
+                              // Attempt select query execution
+                        $query = "SELECT * FROM stock_request WHERE warehouse = '$ac_warehouse' ORDER BY id DESC";
                         if($result = mysqli_query($link, $query)){
                           if(mysqli_num_rows($result) > 0){
                             $ctr = 0;
@@ -79,7 +84,7 @@
                               $ctr++;
                               $id = $row['warehouse'];
                               echo "<tr>";
-                              echo "<td>" . $ctr . "</td>";
+                              
                               echo "<td>" . $row['created_by'] . "</td>";
                               echo "<td><a href='warehouse-view.php?id=$id'>" . $row['warehouse'] . "</a></td>";
                               
@@ -122,6 +127,12 @@
                         } else{
                           echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                         }
+                            }
+
+                          }
+                        }
+
+                        
 
                         // Close connection
                         mysqli_close($link);

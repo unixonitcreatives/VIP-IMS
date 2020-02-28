@@ -284,7 +284,7 @@ if (mysqli_num_rows($result) > 0) {
               <table class="table table-striped table-valign-middle">
                 <thead>
                   <tr>
-                    <th>No</th>
+                   
                     <th>Warehouse</th>
                     <th>Product</th>
                     <th>Quantity</th>
@@ -295,8 +295,14 @@ if (mysqli_num_rows($result) > 0) {
                         // Include config file
                         //require_once 'config.php';
 
+                $query1 = "SELECT * FROM area_center";
+                        if($result1 = mysqli_query($link, $query1)){
+                          if(mysqli_num_rows($result1) > 0){
+                            while($row1 = mysqli_fetch_array($result1)){
+                              $ac_warehouse = $row1['warehouse'];
+
                         // Attempt select query execution
-                $cust_qry = "SELECT * FROM stock_request WHERE status = 'Pending' ORDER BY id DESC ";
+                $cust_qry = "SELECT * FROM stock_request WHERE warehouse = '$ac_warehouse' AND status = 'Pending' ORDER BY id DESC ";
                 if($cust_result = mysqli_query($link, $cust_qry)){
                   if(mysqli_num_rows($cust_result) > 0){
                     $cust_ctr = 0;
@@ -304,7 +310,7 @@ if (mysqli_num_rows($result) > 0) {
                       $cust_ctr++;
                       $id = $cust_row['warehouse'];
                       echo "<tr>";
-                      echo "<td>" . $cust_ctr . "</td>";
+                      
                       echo "<td><a href='warehouse-view.php?id=$id'>" . $cust_row['warehouse'] . "</a></td>";
                       echo "<td>" . $cust_row['product'] . "</td>";
                       echo "<td>" . $cust_row['qty'] . "</td>";
@@ -321,6 +327,7 @@ if (mysqli_num_rows($result) > 0) {
                 } else{
                   echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
                 }
+              }}}
 
                         // Close connection
                         //mysqli_close($link);

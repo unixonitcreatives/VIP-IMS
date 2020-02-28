@@ -33,6 +33,7 @@ if($result = mysqli_query($link, $qry)){
 	}
 }
 
+
 if($sr_status=='Approved'){
 		echo "<script>alert('This request is already approved.'); 
 		window.location.href='stock-request-manage.php';</script>"; 
@@ -48,6 +49,7 @@ if($sr_status=='Approved'){
 	} else {	
 		//Proceed
 	}
+
 
 $query = "UPDATE `stock_request` SET status = 'Declined'  WHERE id ='$get_id'"; //Prepare insert query
 $result = mysqli_query($link, $query) or die(mysqli_error($link));
