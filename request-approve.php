@@ -1,4 +1,6 @@
 <?php
+	session_start();
+require_once 'config.php';
   $Admin_auth = 1;
   $Stock_auth = 1;
   $Area_Center_auth = 0;
@@ -6,8 +8,7 @@
 ?>
 
 <?php
-session_start();
-require_once 'config.php';
+
 
 $username = $usertype ='';
 $username = $_SESSION['username'];
