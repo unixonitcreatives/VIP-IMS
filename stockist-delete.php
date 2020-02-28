@@ -1,13 +1,14 @@
-<!-- <?php
-  /*$Admin_auth = 1;
-  $Stock_auth = 0;
-  $Area_Center_auth = 0;
- include('includes/user_auth.php');*/
-?> -->
-
 <?php
 session_start();
 require_once 'config.php';
+  $Admin_auth = 1;
+  $Stock_auth = 0;
+  $Area_Center_auth = 0;
+ include('includes/user_auth.php');
+?>
+
+<?php
+
 $get_stockist_id = $_GET['id'];
 $query = "DELETE FROM `stockist` WHERE id ='$get_stockist_id'";
 $result = mysqli_query($link, $query) or die(mysqli_error($link));

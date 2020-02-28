@@ -58,7 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                           $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
                           if($result){
                             echo "<script>
-                            alert('succesfull login');
+                            alert('succesful login');
                             window.location.href='index.php';
                             </script>";
                             exit;
@@ -89,7 +89,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                           $result = mysqli_query($link, $query) or die(mysqli_error($link)); //Execute  insert query
                           if($result){
                             echo "<script>
-                            alert('succesfull login');
+                            alert('succesful login');
                             window.location.href='index.php';
                             </script>";
                             exit;
