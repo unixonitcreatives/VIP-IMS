@@ -37,8 +37,8 @@
             <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Manage Warehouse</h3>
-                  <a href="warehouse-add.php">add new warehouse</a>
+                  <h3 class="card-title">Manage Area Centers</h3>
+                  <a href="area-center-add.php">add new area center</a>
                 </div>
               </div>
 
