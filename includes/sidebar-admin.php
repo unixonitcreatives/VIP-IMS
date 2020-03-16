@@ -254,6 +254,30 @@
 
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-warehouse"></i>
+              <p>
+                Returns
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+              <li class="nav-item">
+                <a href="return-add.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Returns</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="return-manage.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Returns</p>
+                </a>
+              </li>
+            </ul>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Reports
